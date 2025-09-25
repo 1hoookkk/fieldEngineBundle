@@ -1,0 +1,252 @@
+Alright, gloves off. Here’s the no-nonsense plan and the exact code you need to land this.
+
+# What we’re doing right now
+
+1. **Decode 0x22 “Preset Layer Filter” (14 bytes)** from your packs.
+2. **Map → EMU engine** (`AuthenticEMUZPlane`) fields (model/morph/Q/etc.).
+3. **Fix mix knob** (equal-power + wet default 1.0).
+4. **(Optional)** Rename Track/Print → **Live/Studio** for clarity in a filter context.
+
+The EMU 2.2 spec confirms:
+
+* `Preset Layer Filter Parameters Dump`: `55 10 22` with **14 data bytes**.
+* Relevant parameter IDs: **Filter Type**, **Filter Frequency**, **Filter Q**.
+
+We’ll treat the 14-byte payload like:
+
+```
+[0]  filterType   (0..255)
+[1]  cutoff       (0..255)  // EMU “freq”
+[2]  q            (0..127)
+[3]  morphIndex   (0..255)  // device family often packs morph/variant here
+[4]  morphDepth   (0..255)  // optional (if used by that model)
+[5]  tilt         (signed?)  // optional post-tilt byte, device-dep
+[6..13] reserved / model-specific
+```
+
+That layout is a **working hypothesis** consistent with the spec’s named fields; we’ll log raw bytes and adjust if we see consistent patterns across ROMs/presets. (The spec lists the IDs; the exact 14-byte ordering is per the dump message. We’ll instrument to learn.)
+
+---
+
+## 1) Parse 0x22 payload → strongly typed struct
+
+### `plugins/_shared/sysex/vendors/ProteusLayerFilter.h`
+
+```cpp
+#pragma once
+#include <cstdint>
+#include <array>
+#include <string>
+
+namespace emu_sysex {
+
+struct LayerFilter14 {
+    uint8_t filterType   = 0;   // 0..255 (maps to Z-plane model id family)
+    uint8_t cutoff       = 0;   // 0..255 (device domain)
+    uint8_t q            = 0;   // 0..127
+    uint8_t morphIndex   = 0;   // heuristic: variant / table step
+    uint8_t morphDepth   = 0;   // optional depth
+    int8_t  tilt         = 0;   // signed dB/oct steps if present (heuristic)
+    std::array<uint8_t, 8> reserved{}; // raw carry-through
+
+    std::string debug() const;
+};
+
+inline LayerFilter14 parseLayerFilter14(const uint8_t* data14) {
+    LayerFilter14 f{};
+    f.filterType = data14[0];
+    f.cutoff     = data14[1];
+    f.q          = data14[2];
+    f.morphIndex = data14[3];
+    f.morphDepth = data14[4];
+    f.tilt       = static_cast<int8_t>(data14[5]); // treat as signed by default
+    for (int i=0;i<8;++i) f.reserved[i] = data14[6+i];
+    return f;
+}
+
+} // namespace
+```
+
+### `plugins/_shared/sysex/vendors/ProteusLayerFilter.cpp`
+
+```cpp
+#include "ProteusLayerFilter.h"
+#include <sstream>
+namespace emu_sysex {
+std::string LayerFilter14::debug() const {
+    std::ostringstream o;
+    o << "type=" << +filterType
+      << " cut=" << +cutoff
+      << " q="   << +q
+      << " morphIdx=" << +morphIndex
+      << " morphDepth=" << +morphDepth
+      << " tilt=" << (int)tilt
+      << " rsv=[";
+    for (int i=0;i<8;++i){ o << +reserved[i] << (i<7? ",":""); }
+    o << "]";
+    return o.str();
+}
+} // namespace
+```
+
+Wire this into your **pack loader / handler** where you detect `55 10 22` frames (we already know the framing and 14-byte count from the spec).&#x20;
+
+---
+
+## 2) DspBridge: map LayerFilter14 → AuthenticEMUZPlane
+
+**Policy:** keep mapping simple and log everything until we confirm on a batch.
+
+### `plugins/morphengine/src/dsp/DspBridge.h`
+
+```cpp
+#pragma once
+#include <pitchengine_dsp/AuthenticEMUZPlane.h>
+#include <string>
+#include "../../_shared/sysex/vendors/ProteusLayerFilter.h"
+
+namespace morph_dsp {
+
+struct EmuMapConfig {
+    float cutoffMinHz = 40.f;
+    float cutoffMaxHz = 18000.f;
+    float qMax        = 1.0f; // map 0..127 → 0..1
+    float tiltPerStep = 0.5f; // dB/oct per tilt LSB (heuristic)
+};
+
+class DspBridge {
+public:
+    void attach(emu_dsp::AuthenticEMUZPlane* e) { emu = e; }
+    void apply(const emu_sysex::LayerFilter14& lf, const EmuMapConfig& cfg);
+
+private:
+    emu_dsp::AuthenticEMUZPlane* emu = nullptr;
+    static inline float map01(int v, int vmax) { return std::clamp(v / float(vmax), 0.f, 1.f); }
+};
+
+} // namespace
+```
+
+### `plugins/morphengine/src/dsp/DspBridge.cpp`
+
+```cpp
+#include "DspBridge.h"
+#include <cmath>
+#include <juce_core/juce_core.h>
+
+namespace morph_dsp {
+
+void DspBridge::apply(const emu_sysex::LayerFilter14& lf, const EmuMapConfig& cfg) {
+    if (!emu) return;
+
+    // 1) Select shape/model from filterType (bank-dependent)
+    // For now, pass filterType to your engine via an adapter if exposed.
+    // If not, keep your current default shape bank and just morph by index.
+    // TODO: emu->setFilterModel(lf.filterType);
+
+    // 2) Morph position: map morphIndex (0..255) to 0..1, modulated by morphDepth
+    float morphPos = map01(lf.morphIndex, 255);
+    float morphAmt = map01(lf.morphDepth, 255);
+    float morph = std::clamp(morphPos * (0.5f + 0.5f * morphAmt), 0.f, 1.f);
+    emu->setMorphPosition(morph);
+
+    // 3) Resonance/Q: 0..127 → 0..1
+    float reso = map01(lf.q, 127);
+    emu->setIntensity(reso);
+
+    // 4) Brightness / tilt (heuristic signed steps)
+    float tiltDbPerOct = lf.tilt * cfg.tiltPerStep;
+    // If your class has tilt:
+    // emu->setPostTiltDbPerOct(tiltDbPerOct);
+
+    // 5) Cutoff mapping (if your engine supports it; many EMU models bake cutoff into shape).
+    // If not supported, skip; Z-plane morph often subsumes "cutoff" perception.
+    // float cut01 = map01(lf.cutoff, 255);
+    // emu->setCutoffHz(cfg.cutoffMinHz * std::pow(cfg.cutoffMaxHz/cfg.cutoffMinHz, cut01));
+
+    // 6) Drive/section saturation: keep neutral for authenticity until validated.
+    emu->setDrive(0.0f);
+    emu->setSectionSaturation(0.0f);
+
+    // Log for validation
+    juce::Logger::writeToLog("LayerFilter14: " + juce::String(lf.debug()));
+}
+
+} // namespace
+```
+
+> As we harvest more 0x22 dumps, we’ll confirm which byte truly encodes morph vs special per-model params and tighten these mappings.
+
+---
+
+## 3) Hook it into MorphEngine (one call)
+
+In your **processor** where you load a pack entry (type `0x10`, sub `0x22`), parse and apply:
+
+```cpp
+// somewhere in MorphEngineAudioProcessor after pack load:
+#include "../../_shared/sysex/vendors/ProteusLayerFilter.h"
+#include "dsp/DspBridge.h"
+
+morph_dsp::DspBridge bridge;
+bridge.attach(&emu);
+
+// when you obtain a 14-byte payload:
+emu_sysex::LayerFilter14 lf = emu_sysex::parseLayerFilter14(data14ptr);
+morph_dsp::EmuMapConfig cfg{};
+bridge.apply(lf, cfg);
+```
+
+---
+
+## 4) Fix the mix knob (equal-power + default 1.0)
+
+In `MorphEngineAudioProcessor::createParameterLayout()` set:
+
+```cpp
+p.emplace_back (std::make_unique<APF>("mix","Mix",NormalisableRange<float>(0,1), 1.0f));
+```
+
+In `processBlock`, replace the linear mix with equal-power:
+
+```cpp
+const float mix = pv(apvts, "mix");
+const float wet = std::sin(mix * juce::MathConstants<float>::halfPi);
+const float dry = std::cos(mix * juce::MathConstants<float>::halfPi);
+// ... after emu.process(buffer) and dryScratch copy
+for (int c = 0; c < ch; ++c) {
+    auto* y = buffer.getWritePointer(c);
+    auto* x = dryScratch.getReadPointer(c);
+    for (int i = 0; i < n; ++i)
+        y[i] = wet * y[i] + dry * x[i];
+}
+```
+
+This prevents the “turn mix down → sounds louder” trap and makes 50% sound natural.
+
+---
+
+## 5) (Optional) Rename modes in UI
+
+If you kept the quality switch, relabel in the editor/param to **Live (Track)** / **Studio (Print)** so it reads right for a filter.
+
+---
+
+## 6) Batch harvest now (so we can calibrate mappings)
+
+Run your packer over the SYX folders and grep for 0x22 entries; dump the first 20 payloads and listen:
+
+* **Expectation:** same `filterType` across presets maps to same EMU model family; `morphIndex` shifts tone across the pair.
+* Use the log lines from `DspBridge::apply()` to compare **bytes ↔ audible effect**.
+
+---
+
+## Why this will converge fast
+
+* The **message length** and **field identities** are pinned by the EMU spec (14 bytes; filter type, freq, Q).
+* Your **authentic tables** already sound right; we’re just **binding knobs** from preset data to that engine.
+* Any mismatches will show up immediately when auditioning a batch; adjust byte → param mapping (we left logs and isolated mapping constants for that reason).
+
+---
+
+If you hit a snag on the first 0x22 payload, paste me the 14 bytes you see and the audible result; I’ll refine the mapping constants 1:1.

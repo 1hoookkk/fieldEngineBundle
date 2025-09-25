@@ -1,0 +1,28 @@
+{
+  "agent": "dsp-verifier",
+  "parallel_execution": {
+    "IsPresent": false
+  },
+  "version": "1.0.0",
+  "results": {
+    "denormal_hotspots": {
+      "reason": "The property 'Count' cannot be found on this object. Verify that the property exists.",
+      "passed": false
+    },
+    "coefficient_continuity": {
+      "reason": "The property 'Count' cannot be found on this object. Verify that the property exists.",
+      "passed": false
+    },
+    "sos_stability": {
+      "reason": "The property 'Count' cannot be found on this object. Verify that the property exists.",
+      "passed": false
+    },
+    "safety_checks": {
+      "reason": "The property 'Count' cannot be found on this object. Verify that the property exists.",
+      "passed": false
+    }
+  },
+  "overall_passed": false,
+  "timestamp": "2025-09-24 16:45:50",
+  "files_analyzed": 10
+}

@@ -1,0 +1,88 @@
+MSBuild version 17.14.19+164abd434 for .NET Framework
+
+  Checking File Globs
+  1>Checking Build System
+  Generating juce_binarydata_Assets/JuceLibraryCode/BinaryData1.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData2.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData3.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData4.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData5.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData6.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData7.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData8.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData9.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData10.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData11.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData12.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData13.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData14.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData15.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData16.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData17.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData18.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData19.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData20.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData21.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData22.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData23.cpp, juce_binarydata_Assets/JuceLibraryCode/BinaryData.h
+  Building Custom Rule C:/fieldEngineBundle/CMakeLists.txt
+  zplane_core.vcxproj -> C:\fieldEngineBundle\build\libs\zplane_core\Debug\zplane_core.lib
+  zplane_models.vcxproj -> C:\fieldEngineBundle\build\libs\zplane_models\Debug\zplane_models.lib
+  Assets.vcxproj -> C:\fieldEngineBundle\build\Debug\Assets.lib
+  zplane_engine.vcxproj -> C:\fieldEngineBundle\build\libs\zplane_engine\Debug\zplane_engine.lib
+  pitchengine_dsp.vcxproj -> C:\fieldEngineBundle\build\libs\pitchengine_dsp\Debug\pitchengine_dsp.lib
+  Building Custom Rule C:/fieldEngineBundle/CMakeLists.txt
+  MorphEngineEditor.cpp
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,55): warning C4244: 'argument': conversion from 'int' to 'ValueType', possible loss of data [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,55): warning C4244:         with [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,55): warning C4244:         [ [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,55): warning C4244:             ValueType=float [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,55): warning C4244:         ] [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,48): warning C4244: 'argument': conversion from 'int' to 'ValueType', possible loss of data [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,48): warning C4244:         with [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,48): warning C4244:         [ [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,48): warning C4244:             ValueType=float [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,48): warning C4244:         ] [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,45): warning C4244: 'argument': conversion from 'int' to 'ValueType', possible loss of data [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,45): warning C4244:         with [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,45): warning C4244:         [ [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,45): warning C4244:             ValueType=float [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,45): warning C4244:         ] [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,42): warning C4244: 'argument': conversion from 'int' to 'ValueType', possible loss of data [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,42): warning C4244:         with [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,42): warning C4244:         [ [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,42): warning C4244:             ValueType=float [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(21,42): warning C4244:         ] [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(19,61): warning C4100: 'slider': unreferenced parameter [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(128,90): warning C4100: 'e': unreferenced parameter [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43): error C2440: '<function-style-cast>': cannot convert from 'const char [6]' to 'juce::FontOptions' [C:\fieldEngineBundle\build\morphEngine.vcxproj]
+      C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+      'juce::FontOptions::FontOptions': no overloaded function could convert all the argument types
+          C:\fieldEngineBundle\JUCE\modules\juce_graphics\fonts\juce_FontOptions.h(256,1):
+          could be 'juce::FontOptions::FontOptions(juce::FontOptions &&)'
+              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+              'juce::FontOptions::FontOptions(juce::FontOptions &&)': cannot convert argument 1 from 'const char [6]' to 'juce::FontOptions &&'
+                  C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                  Reason: cannot convert from 'const char [6]' to 'juce::FontOptions'
+          C:\fieldEngineBundle\JUCE\modules\juce_graphics\fonts\juce_FontOptions.h(256,1):
+          or       'juce::FontOptions::FontOptions(const juce::FontOptions &)'
+              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+              'juce::FontOptions::FontOptions(const juce::FontOptions &)': cannot convert argument 1 from 'const char [6]' to 'const juce::FontOptions &'
+                  C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                  Reason: cannot convert from 'const char [6]' to 'const juce::FontOptions'
+          C:\fieldEngineBundle\JUCE\modules\juce_graphics\fonts\juce_FontOptions.h(87,5):
+          or       'juce::FontOptions::FontOptions(const juce::Typeface::Ptr &)'
+              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+              'juce::FontOptions::FontOptions(const juce::Typeface::Ptr &)': cannot convert argument 1 from 'const char [6]' to 'const juce::Typeface::Ptr &'
+                  C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                  Reason: cannot convert from 'const char [6]' to 'const juce::Typeface::Ptr'
+                  C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                  'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr': no overloaded function could convert all the argument types
+                      C:\fieldEngineBundle\JUCE\modules\juce_core\memory\juce_ReferenceCountedObject.h(283,5):
+                      could be 'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(juce::Typeface &) noexcept'
+                          C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                          'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(juce::Typeface &) noexcept': cannot convert argument 1 from 'const char [6]' to 'juce::Typeface &'
+                      C:\fieldEngineBundle\JUCE\modules\juce_core\memory\juce_ReferenceCountedObject.h(274,5):
+                      or       'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(juce::Typeface *) noexcept'
+                          C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                          'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(juce::Typeface *) noexcept': cannot convert argument 1 from 'const char [6]' to 'juce::Typeface *'
+                              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                              Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast
+                      C:\fieldEngineBundle\JUCE\modules\juce_core\memory\juce_ReferenceCountedObject.h(269,5):
+                      or       'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(nullptr) noexcept'
+                          C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                          'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(nullptr) noexcept': cannot convert argument 1 from 'const char [6]' to 'nullptr'
+                              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                              nullptr can only be converted to pointer or handle types
+                      C:\fieldEngineBundle\JUCE\modules\juce_core\memory\juce_ReferenceCountedObject.h(309,5):
+                      or       'juce::ReferenceCountedObjectPtr<juce::Typeface>::ReferenceCountedObjectPtr(const juce::ReferenceCountedObjectPtr<Convertible> &) noexcept'
+                      C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                      while trying to match the argument list '(const char [6])'
+          C:\fieldEngineBundle\JUCE\modules\juce_graphics\fonts\juce_FontOptions.h(54,5):
+          or       'juce::FontOptions::FontOptions(float)'
+              C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+              'juce::FontOptions::FontOptions(float)': cannot convert argument 1 from 'const char [6]' to 'float'
+                  C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,44):
+                  There is no context in which this conversion is possible
+          C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,43):
+          while trying to match the argument list '(const char [6])'
+  
+C:\fieldEngineBundle\plugins\morphengine\src\MorphEngineEditor.cpp(312,25): warning C4996: 'juce::Font::Font': Use the constructor that takes a FontOptions argument [C:\fieldEngineBundle\build\morphEngine.vcxproj]

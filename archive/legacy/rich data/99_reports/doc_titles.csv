@@ -1,0 +1,26 @@
+zip,path,title
+SpectralResearchVault.zip,SpectralResearchVault/PluginConcepts/VintageCanvas/README.md,VintageCanvas - Paint-Controlled Analog Processor
+SpectralResearchVault.zip,SpectralResearchVault/README.md,SpectralResearchVault - Curated DSP Components
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/extraction/EXTRACTION_GUIDE.md,Extraction Guide
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/extraction/HANDOFF_EMU_INTEGRATION.md,🎯 EMU Bank Browser Integration - Session Handoff
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/hardware_specs/EMU_AUDITY_2000_TECHNICAL_SPECS.md,EMU Audity 2000 Technical Specifications
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/implementation/ARCHITECTURE_OVERVIEW.md,Architecture Overview
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/implementation/MODULE_MAP.md,Module Map (extracted from Unified_Curation_20250913_102843)
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/implementation/PORTING_CHECKLIST.md,Porting Checklist
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/implementation/Z_PLANE_FILTER_IMPLEMENTATION_SPEC.md,Z-Plane Filter Implementation Specification
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/documentation/research/RESEARCH_SOURCES.md,EMU Audity 2000 Research Sources
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/README.md,EMU Z-Plane Filter Collection
+Source - 2.zip,Source/Core/MaskSnapshotDemo.md,MaskSnapshot Demo - RT-Safe Spectral Masking
+Source - 2.zip,Source/docs/AI_Mockup_Prompts.md,SPECTRAL CANVAS PRO - AI Mockup Generation Prompts
+Source - 2.zip,Source/docs/BEATMAKER_UI_STRATEGY.md,SoundCanvas Beatmaker UI Strategy
+Source - 2.zip,Source/docs/DEVJOURNAL.md,ARTEFACT Development Log
+Source - 2.zip,Source/docs/INTEGRATION_COMPLETE.md,SoundCanvas PaintEngine Integration - COMPLETE ✅
+Source - 2.zip,Source/docs/PaintEngine_README.md,PaintEngine - Real-Time Audio Painting System
+Source - 2.zip,Source/docs/plan.md,SpectralCanvas Development Plan & Status
+Source - 2.zip,Source/docs/ROADMAP.md,PROJECT ARTEFACT — Complete Development Roadmap
+Source - 2.zip,Source/docs/SORA_UI_PROMPT.md,SoundCanvas UI - Sora Image Generation Prompt
+Source - 2.zip,Source/docs/status.md,SpectralCanvas VST Development Status
+Source - 2.zip,Source/docs/UI_DESIGN_PROMPT.md,SoundCanvas Beatmaker UI - Image Generation Prompt
+Source - 2.zip,Source/docs/Visual_Interface_Mockup.md,SPECTRAL CANVAS PRO - Visual Interface Mockup
+Source - 2.zip,Source/docs/WORKFLOW.md,ARTEFACT — Personal Development Workflow
+emu_extracted - 1.zip,emu_extracted/CMakeLists.txt,EMU Z-Plane Library

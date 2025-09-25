@@ -1,0 +1,20 @@
+symbol,file,line_start,line_end,summary
+emu_create,emu_zplane_api.h,16,16,Create engine handle with sample rate and block size
+emu_set_shapeA,emu_zplane_api.h,20,20,Set morph source shape (12 floats r/theta pairs)
+emu_set_shapeB,emu_zplane_api.h,21,21,Set morph target shape (12 floats r/theta pairs)
+emu_set_morph,emu_zplane_api.h,24,24,Set morph position 0.0=A to 1.0=B
+emu_process_separate,emu_zplane_api.h,31,31,Process stereo buffers (no allocations)
+AuthenticEMUZPlane,AuthenticEMUZPlane.cpp,4,18,Constructor with viral defaults for immediate appeal
+prepareToPlay,AuthenticEMUZPlane.cpp,20,33,Initialize smoothers and coefficient updates
+processSample,AuthenticEMUZPlane.cpp,43,65,Process single sample through 6 cascaded biquads
+processBlock,AuthenticEMUZPlane.cpp,67,93,Block processing with LFO modulation
+updateCoefficientsBlock,AuthenticEMUZPlane.cpp,145,164,Convert interpolated poles to biquad coefficients
+interpolatePoles,AuthenticEMUZPlane.cpp,166,200,Interpolate pole pairs using complex interpolation
+poleTosBiquadCoeffs,AuthenticEMUZPlane.cpp,104,142,Convert pole pair to biquad coefficients
+Vowel_Ae,shapes/audity_shapes_A_48k.json,8,15,Formant A/æ shape with 6 pole pairs
+Bell_Metallic,shapes/audity_shapes_A_48k.json,22,29,Bright bell shape with high-Q poles
+Vowel_Oo,shapes/audity_shapes_B_48k.json,8,15,Round vowel /u/ morph target
+Metallic_Cluster,shapes/audity_shapes_B_48k.json,22,29,Dense metallic cluster morph target
+Orbit3_presets,banks/Orbit3_Authentic.json,1,end,Complete Orbit-3 bank with modulation routing
+PlanetPhatt_presets,banks/PlanetPhatt_Authentic.json,1,end,Complete Planet Phatt bank data
+XtremeLead_presets,banks/XtremeLead1_Authentic.json,1,end,Complete Xtreme Lead bank data

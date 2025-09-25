@@ -1,0 +1,14 @@
+{
+  "name": "Bell Bite",
+  "description": "Bright metallic character for plucks and leads",
+  "category": "Metallic",
+  "parameters": {
+    "zplane.model": 1,
+    "zplane.morph": 0.4,
+    "zplane.cutoff": 0.75,
+    "zplane.resonance": 0.6,
+    "style.variant": 1,
+    "style.mix": 0.7
+  },
+  "notes": "Perfect for bell-like plucks, arpeggios, and cutting leads. Air style adds sparkle."
+}

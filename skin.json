@@ -1,0 +1,67 @@
+{
+    "morphEngine_terminal_ui": {
+      "theme": "high_contrast_terminal",
+      "dimensions": {
+        "width": 480,
+        "height": 320
+      },
+      "colors": {
+        "background": "#000000",
+        "frame": "#0066CC",
+        "text_primary": "#00FF00",
+        "text_secondary": "#FFFF00",
+        "accent": "#FF0066"
+      },
+      "layout": {
+        "header": {
+          "text": "morphEngine - FILTER [ON]",
+          "background": "#0066CC"
+        },
+        "spectrum_display": {
+          "height": 80,
+          "type": "filter_curve",
+          "color": "#00FF00"
+        },
+        "morph_pad": {
+          "width": 320,
+          "height": 120,
+          "background": "#000000",
+          "cursor_color": "#FFFF00",
+          "labels": {
+            "center": "MOVE TO MORPH",
+            "color": "#00FF00"
+          }
+        },
+        "controls": {
+          "mix_knob": {
+            "label": "MIX",
+            "range": "0-100%"
+          }
+        },
+        "presets": {
+          "buttons": [
+            {"label": "[VOCAL]"},
+            {"label": "[SYNTH]"},
+            {"label": "[BASS]"},
+            {"label": "[CLEAN]"},
+            {"label": "[OFF]"}
+          ]
+        },
+        "status": {
+          "content": "FILTER: VOCAL | MIX: 75%"
+        }
+      },
+      "simple_functions": {
+        "what_it_does": "Makes sounds more interesting",
+        "controls": {
+          "pad": "Move mouse/finger to change the sound",        
+          "mix": "How much effect to add",
+          "vocal": "Good for voices and leads",
+          "synth": "Good for synths and keys",
+          "bass": "Good for bass and drums",
+          "clean": "Subtle, transparent",
+          "off": "No effect"
+        }
+      }
+    }
+  }

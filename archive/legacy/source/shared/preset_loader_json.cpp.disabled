@@ -1,0 +1,144 @@
+#include "preset_loader_json.hpp"
+
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+
+#include "thirdparty/nlohmann/json.hpp"
+
+using json = nlohmann::json;
+
+namespace fe {
+
+static float clamp01(float v){ return std::max(0.f, std::min(1.f, v)); }
+static float clamp11(float v){ return std::max(-1.f, std::min(1.f, v)); }
+static std::string cleanText(std::string s){ s.erase(std::remove_if(s.begin(), s.end(), [](unsigned char c){return std::iscntrl(c) && c!='\n' && c!='\t';}), s.end()); if (s.size()>96) s.resize(96); return s; }
+
+int modelIdFromString(const std::string& s) {
+	static const std::vector<std::pair<const char*, int>> lut = {
+		{"ZP:HyperQ-12",  1012},
+		{"ZP:HyperQ-6",   1006},
+		{"ZP:PhaserForm", 1101},
+		{"ZP:VocalMorph", 1201},
+		{"ZP:Default",       1},
+	};
+	for (auto& kv : lut) if (s == kv.first) return kv.second;
+	return 1;
+}
+
+static std::optional<std::string> get_opt_str(const json& j, const char* k){
+	auto it = j.find(k); if (it==j.end() || it->is_null()) return std::nullopt;
+	return it->get<std::string>();
+}
+static std::optional<float> get_opt_f(const json& j, const char* k){
+	auto it = j.find(k); if (it==j.end() || it->is_null()) return std::nullopt;
+	return it->get<float>();
+}
+
+bool loadBankJSON(const std::string& path, BankBundle& out, std::string& err) {
+	std::ifstream f(path, std::ios::binary);
+	if (!f) { err = std::string("cannot open file: ") + path; return false; }
+	std::stringstream ss; ss << f.rdbuf();
+	json J = json::parse(ss.str(), nullptr, /*allow_exceptions=*/false);
+	if (J.is_discarded()) { err = "invalid JSON"; return false; }
+
+	// meta
+	out.bankName   = cleanText(J.value("bank", std::string("")));
+	out.sourcePath = cleanText(J.value("source", std::string("")));
+	if (out.bankName.empty()) {
+		// try nested meta schema
+		auto meta = J.find("meta");
+		if (meta != J.end() && meta->is_object()) {
+			out.bankName   = cleanText(meta->value("bank", std::string("Unknown")));
+			out.sourcePath = cleanText(meta->value("source", std::string("")));
+		}
+	}
+	const auto version = J.value("meta", json{}).value("version", std::string("1.0"));
+	if (version.rfind("1.",0) != 0) { err = std::string("Unsupported bank schema version: ") + version; return false; }
+
+	auto P = J.find("presets");
+	if (P==J.end() || !P->is_array()) { err = "missing presets[]"; return false; }
+
+	out.presets.clear();
+	out.presets.reserve(P->size());
+
+	for (auto& jp : *P) {
+		PresetBundle pb;
+		pb.name     = cleanText(jp.value("name",     std::string("Preset")));
+		pb.category = cleanText(jp.value("category", std::string("Unknown")));
+
+		if (auto jf = jp.find("filter"); jf != jp.end() && jf->is_object()) {
+			pb.filter.present = true;
+			auto ms = get_opt_str(*jf, "model");
+			pb.filter.modelId = modelIdFromString(ms.value_or("ZP:Default"));
+			if (auto v = get_opt_f(*jf, "cutoff"))    pb.filter.cutoff01 = clamp01(*v);
+			if (auto v = get_opt_f(*jf, "resonance")) pb.filter.res01    = clamp01(*v);
+			if (auto v = get_opt_f(*jf, "t1"))        pb.filter.t1       = clamp01(*v);
+			if (auto v = get_opt_f(*jf, "t2"))        pb.filter.t2       = clamp01(*v);
+		}
+
+		if (auto jl = jp.find("lfo"); jl!=jp.end() && jl->is_array()) {
+			for (auto& jx : *jl) {
+				LFOBundle l;
+				l.id    = jx.value("id", std::string("LFO1"));
+				l.shape = jx.value("shape", std::string("sine"));
+
+				// Handle tempo-sync vs Hz-based LFOs
+				if (auto div = get_opt_str(jx, "division")) {
+					l.division = *div;
+					l.tempo_sync = true;
+				} else if (auto v = get_opt_f(jx, "rate_hz")) {
+					l.rate_hz = *v;
+					l.tempo_sync = false;
+				}
+
+				pb.lfos.push_back(std::move(l));
+			}
+		}
+
+		if (auto je = jp.find("env"); je!=jp.end() && je->is_array()) {
+			for (auto& jx : *je) {
+				ENVBundle e; e.id = jx.value("id", std::string("ENV1"));
+				if (auto v=get_opt_f(jx,"a")) e.a=*v;
+				if (auto v=get_opt_f(jx,"d")) e.d=*v;
+				if (auto v=get_opt_f(jx,"s")) e.s=*v;
+				if (auto v=get_opt_f(jx,"r")) e.r=*v;
+				pb.envs.push_back(std::move(e));
+			}
+		}
+
+		if (auto jm = jp.find("mods"); jm!=jp.end() && jm->is_array()) {
+			for (auto& jx : *jm) {
+				ModBundle m;
+				m.src = jx.value("src", std::string{});
+				m.dst = jx.value("dst", std::string{});
+				if (auto v=get_opt_f(jx,"depth")) {
+					float d = clamp11(*v);
+					if (std::fabs(d) >= 1e-4f) m.depth = d;
+				}
+				if (m.dst != "filter.cutoff" && m.dst != "filter.resonance" && m.dst != "filter.t1" && m.dst != "filter.t2") continue;
+				m.pol = jx.value("pol", std::string("unipolar"));
+				pb.mods.push_back(std::move(m));
+			}
+		}
+
+		out.presets.push_back(std::move(pb));
+	}
+
+	return true;
+}
+
+void applyPresetToEngine(const PresetBundle& p, const EngineApply& api) {
+	if (p.filter.present) {
+		api.setFilter(p.filter.modelId, p.filter.cutoff01, p.filter.res01);
+		api.setMorphTargets(p.filter.t1, p.filter.t2);
+		api.setCrossfadeMs(15.0f);
+	}
+	for (const auto& l : p.lfos) api.ensureLFO(l);
+	for (const auto& e : p.envs) api.ensureENV(e);
+	for (const auto& m : p.mods) api.connectMod(m);
+}
+
+} // namespace fe
+
+

@@ -1,0 +1,1754 @@
+[
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/Analog/CEM3389Filter/CEM3389Filter.cpp",
+    "to_path": "02_SpectralResearch/src/SpectralResearchVault/Analog/CEM3389Filter/CEM3389Filter.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/Analog/CEM3389Filter/CEM3389Filter.h",
+    "to_path": "02_SpectralResearch/src/SpectralResearchVault/Analog/CEM3389Filter/CEM3389Filter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/Analog/MorphFilter/MorphFilter.h",
+    "to_path": "02_SpectralResearch/src/SpectralResearchVault/Analog/MorphFilter/MorphFilter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/PluginConcepts/VintageCanvas/README.md",
+    "to_path": "02_SpectralResearch/docs/SpectralResearchVault/PluginConcepts/VintageCanvas/README.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/PluginConcepts/VintageCanvas/VintageCanvasProcessor.h",
+    "to_path": "02_SpectralResearch/src/SpectralResearchVault/PluginConcepts/VintageCanvas/VintageCanvasProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "SpectralResearchVault.zip",
+    "from_path": "SpectralResearchVault/README.md",
+    "to_path": "02_SpectralResearch/docs/SpectralResearchVault/README.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/AuthenticEMUZPlane.cpp",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/AuthenticEMUZPlane.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.cpp",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneFilter.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneFilter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneHelpers.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneHelpers.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneUtils.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneUtils.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/shapes/audity_shapes_A_48k.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/shapes/audity_shapes_A_48k.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/shapes/audity_shapes_B_48k.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/shapes/audity_shapes_B_48k.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.cpp",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneLogFreqLUT.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneLogFreqLUT.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T1.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T1.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T2.h",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T2.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/banks/orbit3/Orbit-3_comprehensive.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/banks/orbit3/Orbit-3_comprehensive.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/banks/planet_phatt/Planet_Phatt_comprehensive.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/banks/planet_phatt/Planet_Phatt_comprehensive.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/banks/proteus/Proteus1_fixed.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/banks/proteus/Proteus1_fixed.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/banks/proteus/ProteusX_Composer.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/banks/proteus/ProteusX_Composer.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/extraction/EXTRACTION_GUIDE.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/extraction/EXTRACTION_GUIDE.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/extraction/HANDOFF_EMU_INTEGRATION.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/extraction/HANDOFF_EMU_INTEGRATION.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/hardware_specs/EMU_AUDITY_2000_TECHNICAL_SPECS.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/hardware_specs/EMU_AUDITY_2000_TECHNICAL_SPECS.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/implementation/ARCHITECTURE_OVERVIEW.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/implementation/ARCHITECTURE_OVERVIEW.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/implementation/MODULE_MAP.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/implementation/MODULE_MAP.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/implementation/PORTING_CHECKLIST.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/implementation/PORTING_CHECKLIST.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/implementation/Z_PLANE_FILTER_IMPLEMENTATION_SPEC.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/implementation/Z_PLANE_FILTER_IMPLEMENTATION_SPEC.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/documentation/research/RESEARCH_SOURCES.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/documentation/research/RESEARCH_SOURCES.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/INDEX.csv",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/INDEX.csv",
+    "category": "docs"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/manifest.json",
+    "to_path": "01_EMU_ZPlane/src/EMU_ZPlane_Vault/manifest.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "EMU_ZPlane_Vault - 1.zip",
+    "from_path": "EMU_ZPlane_Vault/README.md",
+    "to_path": "01_EMU_ZPlane/docs/EMU_ZPlane_Vault/README.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/button/button_24px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/button/button_24px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/button/button_32px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/button/button_32px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/button/button_40px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/button/button_40px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/knob/knob_32px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/knob/knob_32px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/knob/knob_48px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/knob/knob_48px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/knob/knob_64px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/knob/knob_64px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/lcd_segment_16px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/lcd_segment_16px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/lcd_segment_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/lcd_segment_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/lcd_segment_24px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/lcd_segment_24px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/led_green_16px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/led_green_16px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/led_green_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/led_green_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/lcd/led_green_24px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/lcd/led_green_24px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_green_12px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_green_12px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_green_16px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_green_16px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_green_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_green_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_red_12px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_red_12px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_red_16px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_red_16px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/led/led_red_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/led/led_red_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/manifest.json",
+    "to_path": "03_Source_ProductLayer/src/Source/assets/manifest.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/meter/meter_segment_16px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/meter/meter_segment_16px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/meter/meter_segment_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/meter/meter_segment_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/meter/meter_segment_24px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/meter/meter_segment_24px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/nameplate_aluminum_128px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/nameplate_aluminum_128px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/nameplate_aluminum_32px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/nameplate_aluminum_32px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/nameplate_aluminum_64px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/nameplate_aluminum_64px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_graphite_128px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_graphite_128px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_graphite_256px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_graphite_256px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_graphite_64px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_graphite_64px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_teal_128px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_teal_128px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_teal_256px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_teal_256px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/panels/panel_teal_64px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/panels/panel_teal_64px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/sprite_index.txt",
+    "to_path": "03_Source_ProductLayer/docs/Source/assets/sprite_index.txt",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/toggle/toggle_20px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/toggle/toggle_20px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/toggle/toggle_24px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/toggle/toggle_24px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/assets/toggle/toggle_28px.png",
+    "to_path": "03_Source_ProductLayer/assets/Source/assets/toggle/toggle_28px.png",
+    "category": "assets"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/CanvasPanel.h",
+    "to_path": "03_Source_ProductLayer/src/Source/CanvasPanel.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ColorToSpectralMapper.h",
+    "to_path": "03_Source_ProductLayer/src/Source/ColorToSpectralMapper.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/CommandLinePanel.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/CommandLinePanel.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/CommandLinePanel.h",
+    "to_path": "03_Source_ProductLayer/src/Source/CommandLinePanel.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/CommandQueue.h",
+    "to_path": "03_Source_ProductLayer/src/Source/CommandQueue.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Commands.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Commands.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/AtlasIds.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/AtlasIds.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/AudioPathId.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/AudioPathId.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/AudioRecorder.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/AudioRecorder.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/AudioRecorder.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/AudioRecorder.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/BuildInfo.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/BuildInfo.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CanvasLayer.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CanvasLayer.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CanvasLayer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CanvasLayer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CanvasProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CanvasProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CanvasProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CanvasProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CDPSpectralEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CDPSpectralEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CDPSpectralEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CDPSpectralEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CEM3389Filter.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CEM3389Filter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CollaborativeManager.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CollaborativeManager.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CollaborativeManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CollaborativeManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ColorToSpectralMapper.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ColorToSpectralMapper.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ColorToSpectralMapper.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ColorToSpectralMapper.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ColumnOps.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ColumnOps.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CommandQueueOptimized.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CommandQueueOptimized.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/Commands.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/Commands.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/Config.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/Config.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/Config.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/Config.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ContinuousVerification.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ContinuousVerification.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/CrashToggles.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/CrashToggles.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/DegradedModeManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/DegradedModeManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/DiagnosticLogger.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/DiagnosticLogger.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/DiagnosticLogger.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/DiagnosticLogger.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/DoubleBuffer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/DoubleBuffer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/EMUFilter.h.backup",
+    "to_path": "03_Source_ProductLayer/other/Source/Core/EMUFilter.h.backup",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ForgeProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ForgeProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ForgeProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ForgeProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ForgeVoice.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ForgeVoice.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ForgeVoice.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ForgeVoice.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/FrequencyLUT.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/FrequencyLUT.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/GestureSnapshot.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/GestureSnapshot.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/GPUStatus.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/GPUStatus.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/GrainPool.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/GrainPool.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/GrainPool.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/GrainPool.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/HardwareControllerManager.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/HardwareControllerManager.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/HardwareControllerManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/HardwareControllerManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/HarmonicQuantizer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/HarmonicQuantizer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/IntegrationTest.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/IntegrationTest.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/LatencyTracker.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/LatencyTracker.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/LinearTrackerEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/LinearTrackerEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/LinearTrackerEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/LinearTrackerEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MaskAtlas.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MaskAtlas.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MaskColumn.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MaskColumn.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MaskSnapshot.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MaskSnapshot.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MaskSnapshot.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MaskSnapshot.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MaskSnapshotDemo.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/Core/MaskSnapshotDemo.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MessageBus.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MessageBus.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ModMatrix.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ModMatrix.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ModMatrix.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ModMatrix.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MorphFilter.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MorphFilter.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/MorphFilter.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/MorphFilter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ObjectPool.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ObjectPool.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ObjectPool.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ObjectPool.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/OptimizedCommands.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/OptimizedCommands.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/OptimizedCommands.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/OptimizedCommands.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/OptimizedOscillatorPool.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/OptimizedOscillatorPool.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintEngineMinimal.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintEngineMinimal.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintEngineTest.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintEngineTest.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintMapping.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintMapping.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PaintQueue.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PaintQueue.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ParameterBridge.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ParameterBridge.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ParameterSnapshot.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ParameterSnapshot.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ParameterUpdate.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ParameterUpdate.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ParamIDs.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ParamIDs.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/Params.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/Params.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PerformanceProfiler.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PerformanceProfiler.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PerformanceProfiler.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PerformanceProfiler.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/Phase4DebugTap.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/Phase4DebugTap.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PlatformTimeUtils.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PlatformTimeUtils.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PluginProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PluginProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PluginProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PluginProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PremiumFeatures.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PremiumFeatures.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PremiumFeatures.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PremiumFeatures.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PresetManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PresetManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ProfessionalMeteringSuite.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ProfessionalMeteringSuite.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PsychoacousticBandsPrecompute.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PsychoacousticBandsPrecompute.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/PsychoacousticBandsPrecompute.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/PsychoacousticBandsPrecompute.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/QualityGuardian.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/QualityGuardian.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/QualityGuardian.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/QualityGuardian.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/QualityMonitor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/QualityMonitor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/QualityMonitor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/QualityMonitor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/RealtimeMemoryManager.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/RealtimeMemoryManager.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/RealtimeMemoryManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/RealtimeMemoryManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/RealtimeSafeAssertions.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/RealtimeSafeAssertions.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/RealtimeSafeTypes.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/RealtimeSafeTypes.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ReconfigManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ReconfigManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/RTMetrics.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/RTMetrics.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SafetyChecks.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SafetyChecks.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SampleLoaderService.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SampleLoaderService.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SampleLoaderService.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SampleLoaderService.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SampleMaskingEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SampleMaskingEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SampleMaskingEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SampleMaskingEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SampleMessage.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SampleMessage.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SecretSauceEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SecretSauceEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SecretSauceEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SecretSauceEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SessionManager.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SessionManager.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SessionManager.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SessionManager.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpatialGridTest.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpatialGridTest.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpatialSampleGrid.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpatialSampleGrid.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpatialSampleGrid.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpatialSampleGrid.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralBrushPresets.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralBrushPresets.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralBrushPresets.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralBrushPresets.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralCanvasProProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralCanvasProProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralCanvasProProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralCanvasProProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralCoreEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralCoreEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralFrame.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralFrame.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralMask.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralMask.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralMask.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralMask.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralPath.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralPath.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralPath.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralPath.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralSynthEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngine.cpp.comprehensive",
+    "to_path": "03_Source_ProductLayer/other/Source/Core/SpectralSynthEngine.cpp.comprehensive",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralSynthEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngine.h.comprehensive",
+    "to_path": "03_Source_ProductLayer/other/Source/Core/SpectralSynthEngine.h.comprehensive",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngineStub.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralSynthEngineStub.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpectralSynthEngineStub.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpectralSynthEngineStub.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SpscRingBuffer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SpscRingBuffer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/StereoWidth.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/StereoWidth.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/StereoWidth.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/StereoWidth.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/SystemIntegrityTest.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/SystemIntegrityTest.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TapeSpeed.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TapeSpeed.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TapeSpeed.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TapeSpeed.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ThreadSafePaintEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ThreadSafePaintEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/ThreadSafetyTests.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/ThreadSafetyTests.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TiledAtlas.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TiledAtlas.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TiledAtlas.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TiledAtlas.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TimeUtils.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TimeUtils.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TransientDetector.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TransientDetector.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TransportMapping.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TransportMapping.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TubeStage.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TubeStage.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/TubeStage.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/TubeStage.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/UndoableActions.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/UndoableActions.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/VisualFeedbackEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/VisualFeedbackEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Core/VisualFeedbackEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Core/VisualFeedbackEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/about",
+    "to_path": "03_Source_ProductLayer/other/Source/docs/about",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/AI_Mockup_Prompts.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/AI_Mockup_Prompts.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/BEATMAKER_UI_STRATEGY.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/BEATMAKER_UI_STRATEGY.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/CLAUDE.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/CLAUDE.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/DEVJOURNAL.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/DEVJOURNAL.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/how would it work",
+    "to_path": "03_Source_ProductLayer/other/Source/docs/how would it work",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/INTEGRATION_COMPLETE.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/INTEGRATION_COMPLETE.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/Metasynth and Composer Desktop Pro features.docx",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/Metasynth and Composer Desktop Pro features.docx",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/PaintEngine_README.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/PaintEngine_README.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/plan.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/plan.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/read this",
+    "to_path": "03_Source_ProductLayer/other/Source/docs/read this",
+    "category": "other"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/README.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/README.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/ROADMAP.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/ROADMAP.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/SORA_UI_PROMPT.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/SORA_UI_PROMPT.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/status.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/status.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/Summary.txt",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/Summary.txt",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/UI_DESIGN_PROMPT.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/UI_DESIGN_PROMPT.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/Visual_Interface_Mockup.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/Visual_Interface_Mockup.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/WORKFLOW.md",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/WORKFLOW.md",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/~$tasynth and Composer Desktop Pro features.docx",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/~$tasynth and Composer Desktop Pro features.docx",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/docs/\u25cf COMPREHENSIVE CODE REVIEW ARTEFAC.txt",
+    "to_path": "03_Source_ProductLayer/docs/Source/docs/\u25cf COMPREHENSIVE CODE REVIEW ARTEFAC.txt",
+    "category": "docs"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/TubeStage.h",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/TubeStage.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneCoefficientBank.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneCoefficientBank.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneCoefficientBank.h",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneCoefficientBank.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneLogFreqLUT.h",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneLogFreqLUT.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneSpectralMask.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneSpectralMask.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneSpectralMask.h",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneSpectralMask.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/DSP/ZPlane/ZPlaneUtils.h",
+    "to_path": "03_Source_ProductLayer/src/Source/DSP/ZPlane/ZPlaneUtils.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/gpu/DeviceResilience.h",
+    "to_path": "03_Source_ProductLayer/src/Source/gpu/DeviceResilience.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/GUI/components/MeterView.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/GUI/components/MeterView.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/GUI/components/MeterView.h",
+    "to_path": "03_Source_ProductLayer/src/Source/GUI/components/MeterView.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/GUI/MinimalTopStrip.h",
+    "to_path": "03_Source_ProductLayer/src/Source/GUI/MinimalTopStrip.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Main.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Main.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/MainEMU.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/MainEMU.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Main_Minimal.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Main_Minimal.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/OfflineRender.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/OfflineRender.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/PaintControlPanel.h",
+    "to_path": "03_Source_ProductLayer/src/Source/PaintControlPanel.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/PaintEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/PaintEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/PaintQueue.h",
+    "to_path": "03_Source_ProductLayer/src/Source/PaintQueue.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ParamIDs.h",
+    "to_path": "03_Source_ProductLayer/src/Source/ParamIDs.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/PluginMinimal/PluginProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/PluginMinimal/PluginProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/PluginMinimal/PluginProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/PluginMinimal/PluginProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ProfessionalErrorDialog.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/ProfessionalErrorDialog.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ProfessionalErrorDialog.h",
+    "to_path": "03_Source_ProductLayer/src/Source/ProfessionalErrorDialog.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ProfessionalKeyboardShortcuts.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/ProfessionalKeyboardShortcuts.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/ProfessionalKeyboardShortcuts.h",
+    "to_path": "03_Source_ProductLayer/src/Source/ProfessionalKeyboardShortcuts.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SoundRenderer.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/SoundRenderer.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SoundRenderer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/SoundRenderer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Spectral/STFTEngine.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/Spectral/STFTEngine.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/Spectral/STFTEngine.h",
+    "to_path": "03_Source_ProductLayer/src/Source/Spectral/STFTEngine.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralCanvasApp.h",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralCanvasApp.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralCanvasProAudioProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralCanvasProAudioProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralCanvasProAudioProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralCanvasProAudioProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralCanvasProEditor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralCanvasProEditor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralCanvasProEditor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralCanvasProEditor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralPaintProcessor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralPaintProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/SpectralPaintProcessor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/SpectralPaintProcessor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/TrackerDrumSequencer.h",
+    "to_path": "03_Source_ProductLayer/src/Source/TrackerDrumSequencer.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/TrackerPatternComponent.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/TrackerPatternComponent.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/TrackerPatternComponent.h",
+    "to_path": "03_Source_ProductLayer/src/Source/TrackerPatternComponent.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/UI/SpectralCanvasProEditor.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/UI/SpectralCanvasProEditor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/UI/SpectralCanvasProEditor.h",
+    "to_path": "03_Source_ProductLayer/src/Source/UI/SpectralCanvasProEditor.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/VintageProLookAndFeel.cpp",
+    "to_path": "03_Source_ProductLayer/src/Source/VintageProLookAndFeel.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "Source - 2.zip",
+    "from_path": "Source/VintageProLookAndFeel.h",
+    "to_path": "03_Source_ProductLayer/src/Source/VintageProLookAndFeel.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/banks/Orbit3_Authentic.json",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/banks/Orbit3_Authentic.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/banks/PlanetPhatt_Authentic.json",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/banks/PlanetPhatt_Authentic.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/banks/XtremeLead1_Authentic.json",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/banks/XtremeLead1_Authentic.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/CMakeLists.txt",
+    "to_path": "01_EMU_ZPlane/docs/emu_extracted/CMakeLists.txt",
+    "category": "docs"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/EMUFilter.cpp",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/EMUFilter.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/EMUFilter.h",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/EMUFilter.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/emu_extracted.zip",
+    "to_path": "01_EMU_ZPlane/other/emu_extracted/emu_extracted.zip",
+    "category": "other"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/emu_zplane_api.h",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/emu_zplane_api.h",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/FieldEngineFXProcessor.cpp",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/FieldEngineFXProcessor.cpp",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/index.csv",
+    "to_path": "01_EMU_ZPlane/docs/emu_extracted/index.csv",
+    "category": "docs"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/manifest.json",
+    "to_path": "01_EMU_ZPlane/src/emu_extracted/manifest.json",
+    "category": "src"
+  },
+  {
+    "from_zip": "emu_extracted - 1.zip",
+    "from_path": "emu_extracted/README.md",
+    "to_path": "01_EMU_ZPlane/docs/emu_extracted/README.md",
+    "category": "docs"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "plugin_format": ["VST3", "AU", "AAX", "Standalone"],
+  "company": "PitchEngine",
+  "name": "MorphEngine",
+  "id": "com.pitchengine.morphengine",
+  "version": "1.0.0",
+  "description": "Authentic EMU Z-plane morphing filter with real-time parameter control",
+  "is_synth": false,
+  "midi_input": false,
+  "midi_output": false,
+  "channels": {
+    "main": {
+      "input": 2,
+      "output": 2
+    }
+  },
+  "needs_mpe": false,
+  "categories": ["Effect", "Filter"],
+  "copy": [
+    "plugins/_shared/zplane/models.json"
+  ],
+  "parameters": {
+    "zplane.model": {
+      "name": "Model",
+      "type": "choice",
+      "choices": ["Vowel Ae↔Oo", "Bell↔Cluster", "Low LP↔Formant"],
+      "default": 0
+    },
+    "zplane.morph": {
+      "name": "Morph",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.2
+    },
+    "zplane.resonance": {
+      "name": "Resonance",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.25
+    },
+    "style.variant": {
+      "name": "Style",
+      "type": "choice",
+      "choices": ["Air", "Liquid", "Punch"],
+      "default": 0
+    },
+    "style.mix": {
+      "name": "Mix",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.5
+    }
+  }
+}
+

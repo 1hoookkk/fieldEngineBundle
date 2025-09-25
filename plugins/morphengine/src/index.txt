@@ -1,0 +1,3 @@
+MorphEngine runtime entry placeholder.
+Replace with your host-facing module (e.g., C++ glue, JS/PY bridge).
+

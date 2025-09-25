@@ -1,0 +1,21 @@
+{
+  "name": "Air Shimmer",
+  "description": "Bright, airy character for ambient textures",
+  "category": "Ambient",
+  "parameters": {
+    "zplane.model": 0,
+    "zplane.morph": 0.6,
+    "zplane.cutoff": 0.85,
+    "zplane.resonance": 0.2,
+    "style.variant": 1,
+    "style.mix": 1.0
+  },
+  "automations": [
+    {
+      "parameter": "zplane.morph",
+      "description": "Gentle movement for shimmer",
+      "range": [0.5, 0.8]
+    }
+  ],
+  "notes": "Air style opens up the top end for beautiful ambient textures and ethereal pads."
+}

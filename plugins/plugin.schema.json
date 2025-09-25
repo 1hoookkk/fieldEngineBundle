@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/field-engine/plugins/plugin.schema.json",
+  "title": "Field Engine Plugin Manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-_.]{1,63}$",
+      "description": "Unique plugin package name."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?$",
+      "description": "SemVer version string."
+    },
+    "description": { "type": "string" },
+    "author": { "type": "string" },
+    "license": { "type": "string" },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "entry": {
+      "type": "string",
+      "description": "Relative path to plugin entry module (no extension is okay)."
+    },
+    "engines": {
+      "type": "object",
+      "properties": {
+        "fieldEngine": { "type": "string", "description": "SemVer range supported by this plugin." }
+      },
+      "required": ["fieldEngine"],
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "configSchema": {
+      "type": "string",
+      "description": "Relative path to a JSON schema describing plugin configuration."
+    }
+  },
+  "required": ["name", "version", "entry"]
+}
+

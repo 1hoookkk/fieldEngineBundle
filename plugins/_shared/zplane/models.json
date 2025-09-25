@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "sampleRateRef": 48000,
+  "description": "Authentic EMU Z-Plane morphing filter models extracted from vault",
+  "models": {
+    "vowel_pair": {
+      "id": 0,
+      "name": "Vowel Ae ↔ Oo",
+      "description": "Formant morphing from bright /æ/ to dark /u/",
+      "frameA": {
+        "name": "Vowel_Ae",
+        "poles": [
+          { "r": 0.95,  "theta": 0.01047197551529928 },
+          { "r": 0.96,  "theta": 0.01963495409118615 },
+          { "r": 0.985, "theta": 0.03926990818237230 },
+          { "r": 0.992, "theta": 0.11780972454711690 },
+          { "r": 0.993, "theta": 0.32724923485310250 },
+          { "r": 0.985, "theta": 0.45814892879434435 }
+        ]
+      },
+      "frameB": {
+        "name": "Vowel_Oo",
+        "poles": [
+          { "r": 0.96,  "theta": 0.00785398163647446 },
+          { "r": 0.98,  "theta": 0.03141592614589800 },
+          { "r": 0.985, "theta": 0.04450589600000000 },
+          { "r": 0.992, "theta": 0.13089969394124100 },
+          { "r": 0.99,  "theta": 0.28797932667073020 },
+          { "r": 0.985, "theta": 0.39269908182372300 }
+        ]
+      }
+    },
+    "bell_pair": {
+      "id": 1,
+      "name": "Bell ↔ Metallic Cluster",
+      "description": "Bright bell morphing to dense metallic cluster",
+      "frameA": {
+        "name": "Bell_Metallic",
+        "poles": [
+          { "r": 0.996, "theta": 0.14398966333536510 },
+          { "r": 0.995, "theta": 0.18325957151773740 },
+          { "r": 0.994, "theta": 0.28797932667073020 },
+          { "r": 0.993, "theta": 0.39269908182372300 },
+          { "r": 0.992, "theta": 0.54977871437816500 },
+          { "r": 0.990, "theta": 0.78539816364744630 }
+        ]
+      },
+      "frameB": {
+        "name": "Metallic_Cluster",
+        "poles": [
+          { "r": 0.997, "theta": 0.52359877559829880 },
+          { "r": 0.996, "theta": 0.62831853071795860 },
+          { "r": 0.995, "theta": 0.70685834705770340 },
+          { "r": 0.993, "theta": 0.94247779607693790 },
+          { "r": 0.991, "theta": 1.09955742875642760 },
+          { "r": 0.989, "theta": 1.25663706143591720 }
+        ]
+      }
+    },
+    "low_pair": {
+      "id": 2,
+      "name": "Low LP ↔ Formant Pad",
+      "description": "Punchy low resonant chain morphing to wide formant pad",
+      "frameA": {
+        "name": "Low_LP_Punch",
+        "poles": [
+          { "r": 0.88,  "theta": 0.00392699081823723 },
+          { "r": 0.90,  "theta": 0.00785398163647446 },
+          { "r": 0.92,  "theta": 0.01570796327294893 },
+          { "r": 0.94,  "theta": 0.03272492348531062 },
+          { "r": 0.96,  "theta": 0.06544984697062124 },
+          { "r": 0.97,  "theta": 0.13089969394124100 }
+        ]
+      },
+      "frameB": {
+        "name": "Formant_Pad",
+        "poles": [
+          { "r": 0.97,  "theta": 0.02617993878824820 },
+          { "r": 0.985, "theta": 0.06544984697062124 },
+          { "r": 0.99,  "theta": 0.15707963265358900 },
+          { "r": 0.992, "theta": 0.23561944901923485 },
+          { "r": 0.99,  "theta": 0.36651914291880921 },
+          { "r": 0.988, "theta": 0.47123889803846897 }
+        ]
+      }
+    }
+  },
+  "morphSettings": {
+    "defaultFrames": 11,
+    "interpolation": "shortest_path",
+    "qScaleRange": [0.5, 10.0],
+    "comment": "Use shortest-path pole interpolation for smooth morphing"
+  }
+}

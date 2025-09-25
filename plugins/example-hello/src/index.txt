@@ -1,0 +1,3 @@
+This is the example plugin entry placeholder.
+Replace with your runtime-specific module (e.g., JS, PY, DLL).
+

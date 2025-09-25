@@ -1,0 +1,136 @@
+cmake_minimum_required(VERSION 3.22)
+
+project(fieldEnginePlugins VERSION 1.0.0)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include JUCE
+include(FetchContent)
+
+FetchContent_Declare(
+    JUCE
+    GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+    GIT_TAG        8.0.0
+)
+
+FetchContent_MakeAvailable(JUCE)
+
+# Add reference_code as include directory for reference only
+# (not compiled as part of the project)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/reference_code)
+
+# =============================================================================
+# fieldEngineFX Plugin (Audio Effect)
+# =============================================================================
+
+juce_add_plugin(fieldEngineFX
+    COMPANY_NAME "fieldEngine"
+    IS_SYNTH FALSE
+    NEEDS_MIDI_INPUT FALSE
+    NEEDS_MIDI_OUTPUT FALSE
+    IS_MIDI_EFFECT FALSE
+    EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    COPY_PLUGIN_AFTER_BUILD TRUE
+    PLUGIN_MANUFACTURER_CODE FldE
+    PLUGIN_CODE FeFx
+    FORMATS VST3 AU Standalone
+    PRODUCT_NAME "fieldEngine FX"
+)
+
+target_sources(fieldEngineFX PRIVATE
+    Source/fieldEngineFXProcessor.h
+    Source/fieldEngineFXProcessor.cpp
+    Source/fieldEngineFXEditor.h
+    Source/fieldEngineFXEditor.cpp
+    Source/AsciiVisualizer.h
+    Source/AsciiVisualizer.cpp
+    Source/MorphFilter.cpp
+    reference_code/EMUFilter.cpp
+    reference_code/AtomicOscillator.cpp
+)
+
+target_compile_definitions(fieldEngineFX PUBLIC
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_VST3_CAN_REPLACE_VST2=0
+)
+
+target_link_libraries(fieldEngineFX PRIVATE
+    juce::juce_audio_utils
+    juce::juce_audio_processors
+    juce::juce_gui_basics
+    juce::juce_dsp
+)
+
+# =============================================================================
+# fieldEngineSynth Plugin (Instrument)
+# =============================================================================
+
+juce_add_plugin(fieldEngineSynth
+    COMPANY_NAME "fieldEngine"
+    IS_SYNTH TRUE
+    NEEDS_MIDI_INPUT TRUE
+    NEEDS_MIDI_OUTPUT FALSE
+    IS_MIDI_EFFECT FALSE
+    EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    COPY_PLUGIN_AFTER_BUILD TRUE
+    PLUGIN_MANUFACTURER_CODE FldE
+    PLUGIN_CODE FeSy
+    FORMATS VST3 AU Standalone
+    PRODUCT_NAME "fieldEngine Synth"
+)
+
+target_sources(fieldEngineSynth PRIVATE
+    Source/fieldEngineSynthProcessor.h
+    Source/fieldEngineSynthProcessor.cpp
+    Source/fieldEngineSynthEditor.h
+    Source/fieldEngineSynthEditor.cpp
+    Source/AsciiVisualizer.h
+    Source/AsciiVisualizer.cpp
+    Source/MorphFilter.cpp
+    reference_code/EMUFilter.cpp
+    reference_code/AtomicOscillator.cpp
+)
+
+target_compile_definitions(fieldEngineSynth PUBLIC
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_VST3_CAN_REPLACE_VST2=0
+)
+
+target_link_libraries(fieldEngineSynth PRIVATE
+    juce::juce_audio_utils
+    juce::juce_audio_processors
+    juce::juce_gui_basics
+    juce::juce_dsp
+)
+
+# =============================================================================
+# Build Configuration
+# =============================================================================
+
+# Debug/Release specific settings
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(fieldEngineFX PRIVATE JUCE_DEBUG=1)
+    target_compile_definitions(fieldEngineSynth PRIVATE JUCE_DEBUG=1)
+else()
+    target_compile_definitions(fieldEngineFX PRIVATE JUCE_DEBUG=0)
+    target_compile_definitions(fieldEngineSynth PRIVATE JUCE_DEBUG=0)
+endif()
+
+# Platform-specific settings
+if(WIN32)
+    # Windows-specific flags
+    target_compile_options(fieldEngineFX PRIVATE /W3)
+    target_compile_options(fieldEngineSynth PRIVATE /W3)
+elseif(APPLE)
+    # macOS-specific flags
+    target_compile_options(fieldEngineFX PRIVATE -Wall -Wextra)
+    target_compile_options(fieldEngineSynth PRIVATE -Wall -Wextra)
+else()
+    # Linux-specific flags
+    target_compile_options(fieldEngineFX PRIVATE -Wall -Wextra)
+    target_compile_options(fieldEngineSynth PRIVATE -Wall -Wextra)
+endif()

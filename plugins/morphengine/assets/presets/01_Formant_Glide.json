@@ -1,0 +1,21 @@
+{
+  "name": "Formant Glide",
+  "description": "Classic vowel morphing for vocal textures and leads",
+  "category": "Vocal",
+  "parameters": {
+    "zplane.model": 0,
+    "zplane.morph": 0.15,
+    "zplane.cutoff": 0.58,
+    "zplane.resonance": 0.35,
+    "style.variant": 2,
+    "style.mix": 1.0
+  },
+  "automations": [
+    {
+      "parameter": "zplane.morph",
+      "description": "Automate from 0.15 to 0.85 for Ae→Oo sweep",
+      "range": [0.15, 0.85]
+    }
+  ],
+  "notes": "Start here for vocal character. Automate Morph for formant sweeps. Works great on pads and leads."
+}

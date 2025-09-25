@@ -1,0 +1,1 @@
+// SpectralPath.cpp - Stub implementation

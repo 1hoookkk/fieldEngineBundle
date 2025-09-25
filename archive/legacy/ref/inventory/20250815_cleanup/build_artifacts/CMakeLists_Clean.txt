@@ -1,0 +1,59 @@
+cmake_minimum_required(VERSION 3.22)
+project(SpectralCanvas VERSION 1.0.0)
+
+# C++ Standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Fetch JUCE (clean download)
+include(FetchContent)
+FetchContent_Declare(juce
+    GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+    GIT_TAG 7.0.12)
+FetchContent_MakeAvailable(juce)
+
+# Single clean target
+juce_add_gui_app(SpectralCanvas
+    PRODUCT_NAME "SpectralCanvas"
+    COMPANY_NAME "SpectralAudio"
+    VERSION ${PROJECT_VERSION})
+
+# Minimal source files - foundation only
+target_sources(SpectralCanvas PRIVATE
+    Source/Main_Minimal.cpp
+    Source/MainComponent_Minimal.cpp
+    Source/Core/PaintEngine.cpp)
+
+# Essential compile definitions
+target_compile_definitions(SpectralCanvas PRIVATE
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_DISPLAY_SPLASH_SCREEN=0
+    JUCE_REPORT_APP_USAGE=0)
+
+# Include directories
+target_include_directories(SpectralCanvas PRIVATE
+    Source
+    Source/Core)
+
+# Minimal JUCE modules
+target_link_libraries(SpectralCanvas PRIVATE
+    juce::juce_audio_basics
+    juce::juce_audio_devices
+    juce::juce_audio_formats
+    juce::juce_core
+    juce::juce_graphics
+    juce::juce_gui_basics
+    juce::juce_events)
+
+# Generate JUCE header
+juce_generate_juce_header(SpectralCanvas)
+
+# Status message
+message(STATUS "")
+message(STATUS "=================================")
+message(STATUS "SpectralCanvas - Clean Foundation")
+message(STATUS "=================================")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Build Type: Minimal Foundation")
+message(STATUS "")

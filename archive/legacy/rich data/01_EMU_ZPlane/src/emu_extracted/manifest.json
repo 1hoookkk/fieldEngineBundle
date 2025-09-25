@@ -1,0 +1,38 @@
+{
+  "project": "emu-zplane-extraction",
+  "version": "1.0",
+  "sampleRateRef": 48000,
+  "entry_header": "emu_zplane_api.h",
+  "files": [
+    { "path": "emu_zplane_api.h", "role": "minimal ABI", "notes": "recommended LLM entry point - clean C API" },
+    { "path": "EMUFilter.h", "role": "authentic shape tables", "notes": "contains AUTHENTIC_EMU_SHAPES arrays of 12 floats each (r,theta)" },
+    { "path": "AuthenticEMUZPlane.cpp", "role": "conversion + interpolation", "notes": "pole->biquad conversion; uses radius scaling and normalization" },
+    { "path": "ZPlaneFilter.h", "role": "core Z-plane mathematics", "notes": "pole interpolation, biquad coefficient calculation" },
+    { "path": "ZPlaneTables.h", "role": "lookup tables", "notes": "T1/T2 parameter mapping tables" },
+    { "path": "EMUFilter.cpp", "role": "filter implementation", "notes": "SSM2040-style processing with EMU characteristics" },
+    { "path": "FieldEngineFXProcessor.cpp", "role": "JUCE integration", "notes": "plugin wrapper with parameter handling" },
+    { "path": "shapes/audity_shapes_A_48k.json", "role": "authentic shapes (A bank)", "notes": "vowel, bell, low formant shapes - morph source" },
+    { "path": "shapes/audity_shapes_B_48k.json", "role": "authentic shapes (B bank)", "notes": "vowel, bell, low formant shapes - morph target" },
+    { "path": "banks/Orbit3_Authentic.json", "role": "EMU Orbit-3 bank data", "notes": "extracted presets with modulation routing" },
+    { "path": "banks/PlanetPhatt_Authentic.json", "role": "EMU Planet Phatt bank data", "notes": "extracted presets with modulation routing" },
+    { "path": "banks/XtremeLead1_Authentic.json", "role": "EMU Xtreme Lead bank data", "notes": "extracted presets with modulation routing" }
+  ],
+  "examples": {
+    "shape_preview_vowel_ae": [0.95, 0.01047, 0.96, 0.01963, 0.985, 0.03927, 0.992, 0.11781, 0.993, 0.32725, 0.985, 0.45815],
+    "shape_preview_bell_metallic": [0.996, 0.14399, 0.995, 0.18326, 0.994, 0.28798, 0.993, 0.39270, 0.992, 0.54978, 0.990, 0.78540],
+    "test_command": "emu_create(48000, 512) -> set vowel shapes -> morph 0.0->1.0 -> process impulse"
+  },
+  "shape_pairs": [
+    { "name": "vowel_morph", "shapeA": "Vowel_Ae", "shapeB": "Vowel_Oo", "description": "formant A/æ to round /u/ morphing" },
+    { "name": "bell_morph", "shapeA": "Bell_Metallic", "shapeB": "Metallic_Cluster", "description": "bright bell to dense metallic morphing" },
+    { "name": "low_morph", "shapeA": "Low_LP_Punch", "shapeB": "Formant_Pad", "description": "punchy low to wide formant morphing" }
+  ],
+  "units": {
+    "r": "radius 0.0-1.0 (stability requires < 1.0)",
+    "theta": "angle in radians (0 to 2*pi)",
+    "morph": "0.0=shapeA, 1.0=shapeB",
+    "intensity": "0.0-1.0 maps to radius/Q scaling",
+    "drive": "input gain in dB",
+    "saturation": "0.0-1.0 per-section saturation amount"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "name": "Authentic EMU Z-Plane Filter Collection",
+  "description": "Complete EMU Z-plane morphing filter system with authentic hardware-derived coefficient data",
+  "source": "EMU Audity 2000, Planet Phatt, Orbit-3, Xtreme Lead-1 hardware analysis",
+  "sampleRates": [44100, 48000],
+  "format": "polar",
+  "extractionDate": "2025-09-19",
+
+  "filterOrder": 12,
+  "biquadSections": 6,
+  "morphingCapable": true,
+
+  "filters": [
+    {
+      "name": "VowelAe_to_VowelOo",
+      "description": "Authentic EMU vowel formant morphing pair",
+      "type": "vowel_formant",
+      "order": 12,
+      "axes": {"morph": [0,1]},
+      "shapeA": "filters/vowel_ae/coefficients.json",
+      "shapeB": "filters/vowel_oo/coefficients.json",
+      "sourceFile": "AUTHENTIC/shapes/audity_shapes_A_48k.json",
+      "targetFile": "AUTHENTIC/shapes/audity_shapes_B_48k.json",
+      "safety": {"maxRadius": 0.999, "minRadius": 0.1, "stabilityCheck": true}
+    },
+
+    {
+      "name": "BellMetallic_to_MetallicCluster",
+      "description": "EMU metallic bell resonance morphing",
+      "type": "metallic_resonance",
+      "order": 12,
+      "axes": {"morph": [0,1]},
+      "shapeA": "filters/bell_metallic/coefficients.json",
+      "shapeB": "filters/metallic_cluster/coefficients.json",
+      "sourceFile": "AUTHENTIC/shapes/audity_shapes_A_48k.json",
+      "targetFile": "AUTHENTIC/shapes/audity_shapes_B_48k.json",
+      "safety": {"maxRadius": 0.999, "minRadius": 0.1, "stabilityCheck": true}
+    },
+
+    {
+      "name": "LowPunch_to_FormantPad",
+      "description": "EMU low-frequency punch to formant pad morphing",
+      "type": "low_formant",
+      "order": 12,
+      "axes": {"morph": [0,1]},
+      "shapeA": "filters/low_punch/coefficients.json",
+      "shapeB": "filters/formant_pad/coefficients.json",
+      "sourceFile": "AUTHENTIC/shapes/audity_shapes_A_48k.json",
+      "targetFile": "AUTHENTIC/shapes/audity_shapes_B_48k.json",
+      "safety": {"maxRadius": 0.999, "minRadius": 0.1, "stabilityCheck": true}
+    }
+  ],
+
+  "implementation": {
+    "core": "AUTHENTIC/core/AuthenticEMUZPlane.cpp",
+    "header": "AUTHENTIC/core/EMUFilter.h",
+    "zplaneFilter": "AUTHENTIC/core/ZPlaneFilter.h",
+    "tables": "AUTHENTIC/tables/ZPlaneTables.h",
+    "lookupTables": {
+      "T1_cutoff": "AUTHENTIC/tables/ZPlaneTables_T1.h",
+      "T2_resonance": "AUTHENTIC/tables/ZPlaneTables_T2.h",
+      "logFreq": "AUTHENTIC/tables/ZPlaneLogFreqLUT.h"
+    }
+  },
+
+  "banks": {
+    "orbit3": "banks/orbit3/Orbit-3_comprehensive.json",
+    "planetPhatt": "banks/planet_phatt/Planet_Phatt_comprehensive.json",
+    "audity2000": "banks/audity2000/Audity2000_extracted.json",
+    "xtremeLead": "banks/xtreme_lead/XtremeLead1_Authentic.json"
+  },
+
+  "documentation": {
+    "research": "DOCUMENTATION/research/RESEARCH_SOURCES.md",
+    "implementation": "DOCUMENTATION/implementation/Z_PLANE_FILTER_IMPLEMENTATION_SPEC.md",
+    "discovery": "DOCUMENTATION/research/EMU_AUDITY_2000_DISCOVERY.md"
+  },
+
+  "authenticity": {
+    "verified": true,
+    "hardwareSource": "EMU Audity 2000 hardware analysis",
+    "extractionMethod": "E5P1 chunk parsing with x3 tools",
+    "coefficientsAuthentic": true,
+    "morphingPathsVerified": true,
+    "stabilityTested": true
+  },
+
+  "usage": {
+    "realTimeCapable": true,
+    "cpuOptimized": true,
+    "zeroLatency": true,
+    "rtSafe": true,
+    "maxPolyphony": 64,
+    "maxVoicesPerFilter": 2
+  },
+
+  "metadata": {
+    "totalShapes": 6,
+    "morphingPairs": 3,
+    "extractedBanks": 4,
+    "generatedBy": "x3 EMU bank extraction tools",
+    "validatedBy": "FieldEngine DSP analysis",
+    "packagedDate": "2025-09-19",
+    "notes": "This collection represents the complete authentic EMU Z-plane filter system with real hardware-derived coefficients and production-ready implementation code."
+  }
+}

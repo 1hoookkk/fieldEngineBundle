@@ -1,0 +1,51 @@
+{
+  "note": "Proteus Family SysEx 2.2 quick reference (Audity 2000, Proteus 2000/2500, XL-1/XL-7 et al)",
+  "manufacturerId": [24],
+  "familyId": 15,
+  "editor": 85,
+  "checksum": {
+    "type": "ones_complement_7bit",
+    "ignore": 127
+  },
+  "commands": {
+    "edit": 1,
+    "query": 2,
+    "minmax_response": 3,
+    "minmax_request": 4,
+    "hardware_config_req": 10,
+    "hardware_config_resp": 9,
+    "name_req": 12,
+    "name_resp": 11,
+    "preset_dump": 16,
+    "preset_req": 17,
+    "arp_dump": 24,
+    "arp_req": 25,
+    "lcd_write": 26,
+    "lcd_req": 27,
+    "setup_dump": 28,
+    "setup_req": 29,
+    "generic_dump": 97,
+    "ack": 127,
+    "nak": 126,
+    "cancel": 125,
+    "wait": 124,
+    "eof": 123
+  },
+  "preset_sections": {
+    "header": [16, 1],
+    "header_open": [16, 3],
+    "data": [16, 2],
+    "data_open": [16, 4],
+    "common_all": [16, 16],
+    "common_general": [16, 17],
+    "common_arp": [16, 18],
+    "common_fx": [16, 19],
+    "common_links": [16, 20],
+    "layer_all": [16, 32],
+    "layer_general": [16, 33],
+    "layer_filter": [16, 34],
+    "layer_lfo": [16, 35],
+    "layer_env": [16, 36],
+    "layer_cords": [16, 37]
+  }
+}

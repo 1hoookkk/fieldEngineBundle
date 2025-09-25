@@ -1,0 +1,185 @@
+#pragma once
+
+#include <vector>
+#include <array>
+#include <cmath>
+#include <memory>
+#include <atomic>
+
+#include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_dsp/juce_dsp.h>
+#include "../../../EMUFilter.h"
+
+class MorphEngineAudioProcessor : public juce::AudioProcessor,
+                                  private juce::AsyncUpdater
+{
+public:
+    MorphEngineAudioProcessor();
+    ~MorphEngineAudioProcessor() override;
+
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void releaseResources() override;
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+    void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+
+    juce::AudioProcessorEditor* createEditor() override;
+    bool hasEditor() const override { return true; }
+
+    const juce::String getName() const override { return "MorphEngine"; }
+    bool acceptsMidi() const override { return false; }
+    bool producesMidi() const override { return false; }
+    double getTailLengthSeconds() const override { return 0.0; }
+
+    int getNumPrograms() override { return 1; }
+    int getCurrentProgram() override { return 0; }
+    void setCurrentProgram (int) override {}
+    const juce::String getProgramName (int) override { return {}; }
+    void changeProgramName (int, const juce::String&) override {}
+
+    void getStateInformation (juce::MemoryBlock& destData) override;
+    void setStateInformation (const void* data, int sizeInBytes) override;
+
+    juce::AudioProcessorValueTreeState apvts { *this, nullptr, "PARAMS", createParameterLayout() };
+
+    juce::String getCurrentPresetName() const;
+    int         getNumPresets() const;
+    juce::String getPresetName (int index) const;
+    void        loadPreset (int index);
+
+    bool fillSpectrumSnapshot(float* dest, int numSamples);
+
+private:
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void initializeFactoryPresets();
+    void applyStyleMacro (int styleIndex);
+
+    void handleAsyncUpdate() override;
+
+    enum class Quality { Track = 0, Print = 1 };
+    void configureQuality (Quality newQuality, int newBlockSize);
+    void initialiseSmoothers();
+
+    AuthenticEMUZPlane emu;
+
+    double currentSampleRate = 48000.0;
+    int currentBlockSize = 0;
+    bool lastWasPlaying = false;
+    Quality quality = Quality::Track;
+    int oversampleFactor = 1;
+
+    static constexpr int analysisBufferSize = 4096;
+
+    void pushAnalysisSamples(const float* data, int numSamples);
+
+    std::atomic<int> analysisWritePos { 0 };
+    std::atomic<int> analysisValidSamples { 0 };
+    juce::SpinLock analysisLock;
+    std::array<float, analysisBufferSize> analysisBuffer {};
+
+    juce::AudioBuffer<float> dryScratch;
+
+    juce::LinearSmoothedValue<float> smMorph;
+    juce::LinearSmoothedValue<float> smResonance;
+    juce::LinearSmoothedValue<float> smDrive;
+    juce::LinearSmoothedValue<float> smHardness;
+    juce::LinearSmoothedValue<float> smMix;
+    juce::LinearSmoothedValue<float> smTilt;
+
+    struct TiltFilter
+    {
+        void prepare (double newSampleRate) { sampleRate = newSampleRate; reset(); updateInternal(); }
+        void reset() { stateL = stateR = 0.0f; }
+        void setAmount (float dbPerOctave) { amount = juce::jlimit (-3.0f, 3.0f, dbPerOctave); updateInternal(); }
+        bool isActive() const noexcept { return std::abs (amount) > 1.0e-5f; }
+
+        void process (juce::AudioBuffer<float>& buffer)
+        {
+            if (! isActive())
+                return;
+
+            const int numCh = juce::jmin (buffer.getNumChannels(), 2);
+            const int numSamples = buffer.getNumSamples();
+            float states[2] { stateL, stateR };
+
+            for (int ch = 0; ch < numCh; ++ch)
+            {
+                auto* data = buffer.getWritePointer (ch);
+                float z = states[ch];
+                for (int n = 0; n < numSamples; ++n)
+                {
+                    const float x = data[n];
+                    const float low = a0 * x + a1 * z;
+                    z = low + b1 * z;
+                    const float high = x - low;
+                    data[n] = low * lowGain + high * highGain;
+                }
+                states[ch] = z;
+            }
+
+            stateL = states[0];
+            stateR = states[1];
+        }
+
+        double sampleRate { 48000.0 };
+        float amount { 0.0f };
+        float a0 { 0.0f }, a1 { 0.0f }, b1 { 0.0f };
+        float lowGain { 1.0f }, highGain { 1.0f };
+        float stateL { 0.0f }, stateR { 0.0f };
+
+        void updateInternal()
+        {
+            const float f0 = 1000.0f;
+            const float w = std::tan (juce::MathConstants<float>::pi * (f0 / (float) sampleRate));
+            const float norm = 1.0f / (1.0f + w);
+            a0 = w * norm;
+            a1 = a0;
+            b1 = (1.0f - w) * norm;
+
+            const float gain = juce::Decibels::decibelsToGain (amount * 0.5f);
+            lowGain  = juce::jlimit (0.25f, 4.0f, 1.0f / gain);
+            highGain = juce::jlimit (0.25f, 4.0f, gain);
+
+            const float normGain = 1.0f / juce::jmax (0.25f, 0.5f * (lowGain + highGain));
+            lowGain  *= normGain;
+            highGain *= normGain;
+        }
+    } tilt;
+
+    std::unique_ptr<juce::dsp::Oversampling<float>> oversampler;
+    std::vector<float*> oversampleChannelPointers;
+
+    std::atomic<int> pendingStyleMacro { -1 };
+
+    struct StyleParamListener : juce::AudioProcessorValueTreeState::Listener
+    {
+        explicit StyleParamListener (MorphEngineAudioProcessor& owner) : processor (owner) {}
+        void parameterChanged (const juce::String& paramID, float newValue) override;
+        MorphEngineAudioProcessor& processor;
+    };
+
+    std::unique_ptr<StyleParamListener> styleListener;
+
+    struct Preset
+    {
+        juce::String name;
+        int style = 1;
+        float morph = 0.35f;
+        float resonance = 0.55f;
+        float brightness = 0.5f;
+        float drive = 3.0f;
+        float hardness = 0.35f;
+        float mix = 1.0f;
+        int quality = 0;
+    };
+
+    std::vector<Preset> factoryPresets;
+    int currentPresetIndex = 0;
+
+    std::atomic<int> lastStyleVariant { -1 };
+    std::atomic<int> lastMorphPair    { -1 };
+
+    static int styleToMorphPair (int styleIndex) noexcept;
+    void updateStyleState (int styleIndex);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MorphEngineAudioProcessor)
+};
+

@@ -1,0 +1,137 @@
+{
+  "errors": [],
+  "files": [
+    {
+      "file": "archive\\legacy\\vault\\emu_zplane\\banks\\Orbit-3_comprehensive.json",
+      "file_size": 66880,
+      "fingerprint": "0419d18e0beda50e",
+      "preset_count": 116,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\vault\\emu_zplane\\banks\\Orbit3_Authentic.json",
+      "file_size": 66899,
+      "fingerprint": "0419d18e0beda50e",
+      "preset_count": 116,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\vault\\emu_zplane\\banks\\PlanetPhatt_Authentic.json",
+      "file_size": 102587,
+      "fingerprint": "81750ab328824b76",
+      "preset_count": 55,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\vault\\emu_zplane\\banks\\Planet_Phatt_comprehensive.json",
+      "file_size": 102568,
+      "fingerprint": "81750ab328824b76",
+      "preset_count": 55,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\vault\\emu_zplane\\banks\\XtremeLead1_Authentic.json",
+      "file_size": 17988,
+      "fingerprint": "3879af33c4006ed3",
+      "preset_count": 23,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\rich data\\01_EMU_ZPlane\\src\\emu_extracted\\banks\\Orbit3_Authentic.json",
+      "file_size": 66899,
+      "fingerprint": "0419d18e0beda50e",
+      "preset_count": 116,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\rich data\\01_EMU_ZPlane\\src\\emu_extracted\\banks\\PlanetPhatt_Authentic.json",
+      "file_size": 102587,
+      "fingerprint": "81750ab328824b76",
+      "preset_count": 55,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "archive\\legacy\\rich data\\01_EMU_ZPlane\\src\\emu_extracted\\banks\\XtremeLead1_Authentic.json",
+      "file_size": 17988,
+      "fingerprint": "3879af33c4006ed3",
+      "preset_count": 23,
+      "round_trip_ok": true,
+      "type": "bank",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "plugins\\_shared\\zplane\\models.json",
+      "file_size": 3430,
+      "fingerprint": "41cdbbcd9fdcecab",
+      "preset_count": 3,
+      "round_trip_ok": true,
+      "type": "model",
+      "valid_json": true,
+      "valid_schema": true
+    },
+    {
+      "file": "tools\\params\\zplane_params.json",
+      "file_size": 1468,
+      "fingerprint": "28a0f7f53683d7df",
+      "preset_count": 0,
+      "round_trip_ok": true,
+      "type": "unknown",
+      "valid_json": true,
+      "valid_schema": true
+    }
+  ],
+  "fingerprints": {
+    "0419d18e0beda50e": "Orbit-3_comprehensive.json",
+    "28a0f7f53683d7df": "zplane_params.json",
+    "3879af33c4006ed3": "XtremeLead1_Authentic.json",
+    "41cdbbcd9fdcecab": "models.json",
+    "81750ab328824b76": "PlanetPhatt_Authentic.json"
+  },
+  "statistics": {
+    "files_processed": 10,
+    "fingerprints_generated": 10,
+    "presets_validated": 559,
+    "round_trip_failures": 0,
+    "round_trip_tests": 10,
+    "schema_errors": 0
+  },
+  "summary": {
+    "duplicate_fingerprints": 5,
+    "round_trip_failures": 0,
+    "schema_errors": 0,
+    "total_files": 10,
+    "unique_fingerprints": 5,
+    "valid_files": 10
+  },
+  "timestamp": "2025-09-24T16:32:00.272522",
+  "warnings": [
+    "Duplicate fingerprint detected: Orbit3_Authentic.json matches Orbit-3_comprehensive.json",
+    "Duplicate fingerprint detected: Planet_Phatt_comprehensive.json matches PlanetPhatt_Authentic.json",
+    "Duplicate fingerprint detected: Orbit3_Authentic.json matches Orbit-3_comprehensive.json",
+    "Duplicate fingerprint detected: PlanetPhatt_Authentic.json matches PlanetPhatt_Authentic.json",
+    "Duplicate fingerprint detected: XtremeLead1_Authentic.json matches XtremeLead1_Authentic.json",
+    "C:\\fieldEngineBundle\\tools\\params\\zplane_params.json: Unknown file type - neither model nor bank"
+  ]
+}

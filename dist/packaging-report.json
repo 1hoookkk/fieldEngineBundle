@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-24 16:45:54",
+  "parallel_execution": {
+    "IsPresent": false
+  },
+  "overall_passed": false,
+  "agent": "packaging",
+  "version": "1.0.0",
+  "output_directory": "dist",
+  "build_target": "VST3",
+  "results": {
+    "build": {
+      "passed": false,
+      "reason": "Build failed with exit code: 1"
+    }
+  }
+}

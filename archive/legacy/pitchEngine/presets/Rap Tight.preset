@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pitchEngineProPreset>
+  <PARAM id="key" value="9.0"/>                    <!-- A -->
+  <PARAM id="scale" value="0.0"/>                  <!-- Chromatic -->
+  <PARAM id="retuneMs" value="12.5"/>              <!-- 10-15ms: tight rap timing -->
+  <PARAM id="strength" value="65.0"/>              <!-- 60-70%: controlled correction -->
+  <PARAM id="bias" value="1.0"/>                   <!-- Neutral -->
+  <PARAM id="mix" value="100.0"/>                  <!-- Full wet -->
+  <PARAM id="output" value="0.0"/>                 <!-- Unity gain -->
+  <PARAM id="style" value="20.0"/>                 <!-- Velvet 15-25%: rounds edges -->
+  <PARAM id="rangeLow" value="70.0"/>              <!-- Default vocal range -->
+  <PARAM id="rangeHigh" value="800.0"/>
+  <PARAM id="limitSemis" value="12.0"/>            <!-- Full octave correction -->
+  <PARAM id="guardHF" value="60.0"/>               <!-- Moderate sibilant protection -->
+  <PARAM id="z_morph_pair" value="4.0"/>           <!-- Pad: smooth character -->
+  <PARAM id="z_morph" value="0.15"/>               <!-- Light EMU character -->
+  <PARAM id="z_intensity" value="0.30"/>           <!-- Moderate processing -->
+  <PARAM id="z_drive_db" value="0.0"/>             <!-- Clean -->
+  <PARAM id="z_sat" value="0.0"/>                  <!-- No saturation -->
+  <PARAM id="z_radius_gamma" value="1.0"/>         <!-- Neutral -->
+  <PARAM id="z_post_tilt" value="0.0"/>            <!-- No tilt -->
+  <PARAM id="z_drive_hard" value="0.4"/>           <!-- Moderate hardness -->
+  <PARAM id="z_sections" value="1.0"/>             <!-- 12th Order -->
+  <PARAM id="z_formant_mode" value="0.0"/>         <!-- Lock -->
+  <PARAM id="formant" value="80.0"/>               <!-- Formant rescue on -->
+  <PARAM id="stabilizer" value="1.0"/>             <!-- Short: fast response for rap -->
+  <PARAM id="qualityMode" value="0.0"/>            <!-- Track: zero latency -->
+  <PARAM id="autoGain" value="1.0"/>               <!-- Auto gain on -->
+  <PARAM id="bypass" value="0.0"/>                 <!-- Active -->
+  <PARAM id="secretMode" value="0.0"/>             <!-- Standard processing -->
+</pitchEngineProPreset>

@@ -1,0 +1,19 @@
+{
+  "params": [
+    {"id":"z_morph","label":"Morph","min":0.0,"max":1.0,"default":0.0,"smoothing_ms":20},
+    {"id":"z_intensity","label":"Intensity","min":0.0,"max":1.0,"default":0.75,"smoothing_ms":20},
+    {"id":"z_pair","label":"Morph Pair","min":0,"max":"N-1","default":0,"type":"int"},
+    {"id":"z_formant_mode","label":"Formant Mode","choices":["Follow","Lock"],"default":1},
+    {"id":"z_pitch_ratio","label":"Pitch Ratio","min":0.25,"max":4.0,"default":1.0,"smoothing_ms":5},
+    {"id":"z_drive_db","label":"Drive (dB)","min":-24.0,"max":24.0,"default":0.0,"smoothing_ms":3},
+    {"id":"z_sat","label":"Saturation","min":0.0,"max":1.0,"default":0.15,"smoothing_ms":3},
+    {"id":"z_auto_makeup","label":"Auto Makeup","choices":[0,1],"default":1},
+    {"id":"z_sections","label":"Sections","choices":[3,6],"default":6},
+    {"id":"z_os_mode","label":"Oversampling","choices":["Off 1x","2x IIR","4x FIR"],"default":0},
+    {"id":"z_radius_gamma","label":"Radius Gamma","min":0.8,"max":1.2,"default":1.0,"smoothing_ms":50},
+    {"id":"z_post_tilt_dbpo","label":"Post Tilt (dB/oct)","min":-3.0,"max":3.0,"default":0.0,"smoothing_ms":50},
+    {"id":"z_drive_hardness","label":"Hardness","min":0.0,"max":1.0,"default":0.5,"smoothing_ms":10},
+    {"id":"z_lfo_rate","label":"LFO Rate (Hz)","min":0.0,"max":5.0,"default":0.0,"smoothing_ms":200},
+    {"id":"z_lfo_depth","label":"LFO Depth","min":0.0,"max":1.0,"default":0.0,"smoothing_ms":20}
+  ]
+}

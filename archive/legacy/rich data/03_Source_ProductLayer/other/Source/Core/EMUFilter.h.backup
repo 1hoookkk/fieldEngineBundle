@@ -1,0 +1,173 @@
+#pragma once
+#include <JuceHeader.h>
+
+/**
+ * EMUFilter: RBJ Biquad High-Pass Filter (Direct-Form II Transposed)
+ * 
+ * Features:
+ * - RT-safe: no locks/allocations in audio processing
+ * - Cutoff & resonance (Q) smoothed (~5ms) to avoid zipper noise
+ * - Up to 8 channels supported with independent states per channel
+ * - Denormal protection and coefficient optimization
+ * - Redundant computation avoidance
+ */
+class EMUFilter
+{
+public:
+    EMUFilter() = default;
+    ~EMUFilter() = default;
+
+    void prepare (double sampleRate, int blockSize) noexcept
+    {
+        sr = sampleRate; 
+        bs = blockSize;
+        reset();
+        cutoffSm.reset (sr, 0.005); // 5 ms smoothing
+        qSm     .reset (sr, 0.005);
+        cutoffSm.setCurrentAndTargetValue (cutoffHz);
+        qSm     .setCurrentAndTargetValue (Q);
+        
+        // Force initial coefficient calculation
+        lastCutoff = -1.0f; 
+        lastQ = -1.0f;
+    }
+
+    void reset() noexcept
+    {
+        // Clear all channel states
+        for (int ch = 0; ch < 8; ++ch)
+        {
+            z1[ch] = z2[ch] = 0.0f;
+        }
+    }
+
+    /** 
+     * Set filter parameters with range clamping
+     * @param cutoffHzIn Cutoff frequency in Hz [20..20000]
+     * @param qIn Resonance as Q factor [0.1..10]
+     */
+    void setParams (float cutoffHzIn, float qIn) noexcept
+    {
+        const float newCutoff = juce::jlimit (20.0f, 20000.0f, cutoffHzIn);
+        const float newQ      = juce::jlimit (0.1f,  10.0f,    qIn);
+        
+        // Guard against redundant parameter updates
+        if (std::abs(newCutoff - cutoffHz) < 0.01f && std::abs(newQ - Q) < 0.001f)
+            return;
+            
+        cutoffHz = newCutoff;
+        Q        = newQ;
+        cutoffSm.setTargetValue (cutoffHz);
+        qSm     .setTargetValue (Q);
+    }
+
+    /**
+     * In-place multi-channel processing; high-pass output (up to 8 channels)
+     * Includes denormal protection and coefficient optimization
+     */
+    void processBlock (juce::AudioBuffer<float>& buffer) noexcept
+    {
+        const int n   = buffer.getNumSamples();
+        const int chs = juce::jmin(buffer.getNumChannels(), 8);
+        if (chs == 0 || n == 0) return;
+
+        // Denormal protection for entire processing block
+        juce::ScopedNoDenormals noDenormals;
+
+        for (int i = 0; i < n; ++i)
+        {
+            // Smooth parameters per sample for zipper-free modulation
+            const float currentCutoff = cutoffSm.getNextValue();
+            const float currentQ = qSm.getNextValue();
+
+            // Update coefficients only when parameters change (avoid redundant computation)
+            updateCoefficients(currentCutoff, currentQ);
+
+            // Hoist coefficients to local variables to reduce aliasing risk
+            const float localB0 = b0;
+            const float localB1 = b1;
+            const float localB2 = b2;
+            const float localA1 = a1;
+            const float localA2 = a2;
+
+            // Process each channel with Direct-Form II Transposed structure
+            for (int ch = 0; ch < chs; ++ch)
+            {
+                float* const channelData = buffer.getWritePointer(ch);
+                const float x = channelData[i];
+                
+                // Direct-Form II Transposed biquad structure
+                const float y = localB0 * x + z1[ch];
+                z1[ch] = localB1 * x - localA1 * y + z2[ch];
+                z2[ch] = localB2 * x - localA2 * y;
+                
+                channelData[i] = y;
+            }
+        }
+    }
+
+    float getCutoffHz() const noexcept { return cutoffHz; }
+    float getQ()        const noexcept { return Q; }
+
+private:
+    /**
+     * Update biquad coefficients using RBJ Cookbook formulas
+     * Guards against redundant computation when parameters unchanged
+     */
+    void updateCoefficients(float fc, float q) noexcept
+    {
+        // Guard against redundant coefficient recomputation
+        if (std::abs(fc - lastCutoff) < 0.01f && std::abs(q - lastQ) < 0.001f)
+            return;
+        
+        lastCutoff = fc;
+        lastQ = q;
+        
+        // RBJ Cookbook high-pass filter coefficients
+        const float w = juce::MathConstants<float>::twoPi * fc / static_cast<float>(sr);
+        const float cosw = std::cos(w);
+        const float sinw = std::sin(w);
+        const float alpha = sinw / (2.0f * q);
+        
+        // Calculate unnormalized coefficients
+        const float a0 = 1.0f + alpha;
+        const float onePlus_cosw = 1.0f + cosw;
+        const float b0_unnorm = onePlus_cosw * 0.5f;
+        const float b1_unnorm = -(onePlus_cosw);
+        const float b2_unnorm = onePlus_cosw * 0.5f;
+        const float a1_unnorm = -2.0f * cosw;
+        const float a2_unnorm = 1.0f - alpha;
+        
+        // Normalize by a0
+        b0 = b0_unnorm / a0;
+        b1 = b1_unnorm / a0;
+        b2 = b2_unnorm / a0;
+        a1 = a1_unnorm / a0;
+        a2 = a2_unnorm / a0;
+    }
+
+    // Audio engine parameters
+    double sr = 48000.0;
+    int    bs = 0;
+
+    // RBJ biquad coefficients (Direct-Form II Transposed)
+    float b0 = 1.0f, b1 = 0.0f, b2 = 0.0f;  // Feedforward coefficients
+    float a1 = 0.0f, a2 = 0.0f;              // Feedback coefficients (a0 normalized to 1)
+
+    // Direct-Form II Transposed state variables (fixed-size, up to 8 channels)
+    float z1[8] = {0.0f};  // First delay element per channel
+    float z2[8] = {0.0f};  // Second delay element per channel
+
+    // Filter parameters
+    float cutoffHz = 1000.0f;  // Cutoff frequency in Hz
+    float Q        = 0.707f;   // Resonance (Q factor, ~Butterworth default)
+
+    // Parameter smoothing for zipper-noise prevention
+    juce::SmoothedValue<float> cutoffSm, qSm;
+    
+    // Redundant computation guards
+    float lastCutoff = -1.0f;  // Track last computed cutoff to avoid redundant coeff updates
+    float lastQ = -1.0f;       // Track last computed Q to avoid redundant coeff updates
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EMUFilter)
+};

@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "description": "SpectralCanvas Pro Asset Manifest - Layout specifications for EMU-style interface components",
+  
+  "frames": {
+    "bezel_9slice.png": { 
+      "nine": [16, 16, 16, 16],
+      "description": "Main panel bezel frame",
+      "target_size": [400, 300]
+    },
+    "button_frame.png": { 
+      "nine": [8, 6, 8, 6],
+      "description": "Button frame (horizontal padding: 8px, vertical: 6px)"
+    },
+    "capsule_frame.png": { 
+      "nine": [12, 12, 12, 12],
+      "description": "Capsule/pill button frame"
+    }
+  },
+  
+  "panels": {
+    "panel_powdercoat.png": { 
+      "tileable": true,
+      "target": [1024, 1024],
+      "description": "Main panel texture (EMU powder-coat teal)"
+    },
+    "lcd_strip.png": { 
+      "nine": [8, 4, 8, 4],
+      "description": "LCD display background strip"
+    }
+  },
+  
+  "sprites": {
+    "knob_cap.png": { 
+      "box": [64, 64],
+      "description": "Rotary knob cap - do not stretch, scale uniformly only",
+      "scale_constraints": { "uniform_only": true, "max_scale": 2.0 }
+    },
+    "button_up.png": { 
+      "box": [32, 32],
+      "description": "Button up state sprite"
+    },
+    "button_down.png": { 
+      "box": [32, 32],
+      "description": "Button down state sprite"
+    },
+    "led_on.png": { 
+      "box": [16, 16],
+      "description": "LED on state",
+      "scale_constraints": { "uniform_only": true, "max_scale": 1.5 }
+    },
+    "led_off.png": { 
+      "box": [16, 16],
+      "description": "LED off state",
+      "scale_constraints": { "uniform_only": true, "max_scale": 1.5 }
+    },
+    "meter_on.png": { 
+      "box": [4, 32],
+      "description": "VU meter segment (on)"
+    },
+    "meter_off.png": { 
+      "box": [4, 32],
+      "description": "VU meter segment (off)"
+    }
+  },
+  
+  "layout_constants": {
+    "comment": "These constants should match Layout namespace in LayoutSpec.h",
+    "grid_unit": 8,
+    "base_width": 900,
+    "base_height": 600,
+    "top_bar_height": 56,
+    "left_nav_width": 220,
+    "inspector_width": 340,
+    "corner_radius": 10,
+    "small_radius": 6,
+    "stroke_width": 2
+  },
+  
+  "color_palette": {
+    "comment": "EMU Audity 2000 inspired colors - should match Theme.h",
+    "background": "#1c2328",
+    "panel_teal": "#345e78", 
+    "bezel": "#3d4349",
+    "text_hi": "#e6eef3",
+    "text_lo": "#8ea3b0",
+    "lcd_lime": "#8dff6a",
+    "accent_blue": "#6ad1ff",
+    "led_red": "#ff4545",
+    "led_green": "#00ff41"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../plugin.schema.json",
+  "name": "example-hello",
+  "version": "0.1.0",
+  "description": "Demonstrates a minimal Field Engine plugin.",
+  "author": "Demo",
+  "license": "UNLICENSED",
+  "keywords": ["example"],
+  "entry": "src/index",
+  "engines": { "fieldEngine": ">=1.0.0 <2.0.0" },
+  "capabilities": ["log"],
+  "dependencies": {}
+}

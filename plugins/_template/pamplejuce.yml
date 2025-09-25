@@ -1,0 +1,32 @@
+# Pamplejuce project configuration (starter template)
+
+project_name: your-plugin-name
+company_name: Your Company
+version: 0.1.0
+
+# Target formats: adjust to your needs
+plugin_formats:
+  - VST3
+  # - AU
+  # - AAX
+
+plugin:
+  name: Your Plugin Name
+  manufacturer: Your Company
+  manufacturer_code: YCmp
+  plugin_code: Yplg
+  is_synth: false
+  needs_midi_input: false
+  produces_midi_output: false
+  is_midi_effect: false
+  editor_requires_keyboard_focus: false
+
+cpp:
+  cxx_standard: 20
+  warnings_as_errors: false
+
+# Extra CMake fragment included by the generated build
+# Use it to link against libs/pitchengine_dsp without changing legacy folders
+extra_cmake_files:
+  - cmake/LinkPitchEngineDSP.cmake
+

@@ -1,0 +1,34 @@
+{
+  "sampleRateRef": 48000,
+  "description": "Z-plane LUT for pitchEngine",
+  "pairs": [
+    {
+      "id": "vowel_morph",
+      "name": "Vowel Morph",
+      "steps": [
+        {
+          "t": 0.0,
+          "poles": [
+            {"r": 0.985, "theta_ref": 0.628},
+            {"r": 0.978, "theta_ref": 1.047},
+            {"r": 0.982, "theta_ref": 0.419},
+            {"r": 0.975, "theta_ref": 0.838},
+            {"r": 0.988, "theta_ref": 0.209},
+            {"r": 0.972, "theta_ref": 1.257}
+          ]
+        },
+        {
+          "t": 1.0,
+          "poles": [
+            {"r": 0.980, "theta_ref": 0.524},
+            {"r": 0.976, "theta_ref": 0.942},
+            {"r": 0.984, "theta_ref": 0.314},
+            {"r": 0.978, "theta_ref": 0.733},
+            {"r": 0.986, "theta_ref": 0.157},
+            {"r": 0.974, "theta_ref": 1.152}
+          ]
+        }
+      ]
+    }
+  ]
+}

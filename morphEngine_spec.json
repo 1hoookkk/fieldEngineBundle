@@ -1,0 +1,233 @@
+{
+  "id": "morphEngine",
+  "name": "morphEngine - EMU Z-Plane Filter",
+  "description": "Terminal-style EMU Z-plane filter morphing plugin with authentic hardware modeling",
+  "sampleRates": [44100, 48000, 96000, 192000],
+  "parameters": [
+    {
+      "id": "zplane.morph",
+      "name": "Z-Plane Morph",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.5,
+      "step": 0.001,
+      "unit": "%",
+      "description": "X-axis morph between EMU filter models (Vowel/Bell/Low)"
+    },
+    {
+      "id": "zplane.resonance",
+      "name": "Z-Plane Resonance",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.3,
+      "step": 0.001,
+      "unit": "%",
+      "description": "Y-axis resonance control for filter character"
+    },
+    {
+      "id": "style.mix",
+      "name": "Mix",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.8,
+      "step": 0.001,
+      "unit": "%",
+      "description": "Wet/dry mix control"
+    },
+    {
+      "id": "drive.db",
+      "name": "Drive",
+      "type": "float",
+      "range": [0.0, 12.0],
+      "default": 0.0,
+      "step": 0.1,
+      "unit": "db",
+      "description": "Input drive for harmonic saturation"
+    },
+    {
+      "id": "hardness",
+      "name": "Hardness",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.5,
+      "step": 0.001,
+      "unit": "%",
+      "description": "Filter hardness character"
+    },
+    {
+      "id": "tilt.brightness",
+      "name": "Brightness",
+      "type": "float",
+      "range": [0.0, 1.0],
+      "default": 0.5,
+      "step": 0.001,
+      "unit": "%",
+      "description": "High frequency tilt control"
+    },
+    {
+      "id": "style.variant",
+      "name": "Style",
+      "type": "choice",
+      "values": ["Air", "Focus", "Velvet"],
+      "default": "Focus",
+      "range": [0, 2],
+      "description": "EMU authentic style curves"
+    }
+  ],
+  "dsp": {
+    "graph": [
+      {
+        "id": "input",
+        "type": "Audio Input",
+        "position": {"x": 50, "y": 150},
+        "description": "Stereo audio input with numerics protection"
+      },
+      {
+        "id": "drive_stage",
+        "type": "Drive/Saturation",
+        "position": {"x": 200, "y": 150},
+        "properties": {"drive_param": "drive.db"},
+        "description": "Harmonic saturation stage"
+      },
+      {
+        "id": "zplane_core",
+        "type": "EMU Z-Plane Filter",
+        "position": {"x": 400, "y": 150},
+        "properties": {
+          "morph_param": "zplane.morph",
+          "resonance_param": "zplane.resonance",
+          "hardness_param": "hardness"
+        },
+        "description": "Core EMU Z-plane filtering with authentic pole data"
+      },
+      {
+        "id": "style_processor",
+        "type": "Style Curves",
+        "position": {"x": 600, "y": 150},
+        "properties": {
+          "style_param": "style.variant",
+          "brightness_param": "tilt.brightness"
+        },
+        "description": "Air/Focus/Velvet style processing"
+      },
+      {
+        "id": "mix_stage",
+        "type": "Equal Power Mix",
+        "position": {"x": 800, "y": 150},
+        "properties": {"mix_param": "style.mix"},
+        "description": "Equal power crossfade between dry and wet"
+      },
+      {
+        "id": "output",
+        "type": "Audio Output",
+        "position": {"x": 950, "y": 150},
+        "description": "Stereo output with level matching"
+      }
+    ],
+    "edges": [
+      {"id": "in_to_drive", "source": "input", "target": "drive_stage"},
+      {"id": "drive_to_zplane", "source": "drive_stage", "target": "zplane_core"},
+      {"id": "zplane_to_style", "source": "zplane_core", "target": "style_processor"},
+      {"id": "style_to_mix", "source": "style_processor", "target": "mix_stage"},
+      {"id": "input_to_mix_dry", "source": "input", "target": "mix_stage"},
+      {"id": "mix_to_output", "source": "mix_stage", "target": "output"}
+    ]
+  },
+  "ui": {
+    "theme": "terminal",
+    "dimensions": {"width": 480, "height": 320},
+    "components": [
+      {
+        "type": "Header",
+        "text": "morphEngine - EMU Z-PLANE [ACTIVE]",
+        "style": "terminal_blue_bg"
+      },
+      {
+        "type": "ASCII_Spectrum",
+        "width": 440,
+        "height": 80,
+        "style": "green_blocks"
+      },
+      {
+        "type": "XY_MorphPad",
+        "width": 240,
+        "height": 160,
+        "x_param": "zplane.morph",
+        "y_param": "zplane.resonance",
+        "labels": {"tl": "VOWEL", "tr": "METAL", "bl": "LOW", "br": "CRUSH"}
+      },
+      {
+        "type": "PresetButtons",
+        "buttons": ["[VOCAL]", "[SYNTH]", "[BASS]", "[CLEAN]", "[OFF]"],
+        "style": "terminal_brackets"
+      },
+      {
+        "type": "TerminalSlider",
+        "param": "style.mix",
+        "label": "MIX",
+        "style": "ascii_bars"
+      },
+      {
+        "type": "ConsoleDisplay",
+        "format": ">> EMU Z-PLANE | morph x{morph} y{resonance} | mix {mix} | ready"
+      }
+    ]
+  },
+  "presets": [
+    {
+      "name": "vocal",
+      "parameters": {
+        "zplane.morph": 0.3,
+        "zplane.resonance": 0.6,
+        "drive.db": 1.0,
+        "hardness": 0.2,
+        "tilt.brightness": 0.4,
+        "style.mix": 0.8,
+        "style.variant": 1
+      }
+    },
+    {
+      "name": "synth",
+      "parameters": {
+        "zplane.morph": 0.7,
+        "zplane.resonance": 0.8,
+        "drive.db": 2.0,
+        "hardness": 0.6,
+        "tilt.brightness": 0.7,
+        "style.mix": 0.9,
+        "style.variant": 0
+      }
+    },
+    {
+      "name": "bass",
+      "parameters": {
+        "zplane.morph": 0.1,
+        "zplane.resonance": 0.4,
+        "drive.db": 0.5,
+        "hardness": 0.8,
+        "tilt.brightness": 0.1,
+        "style.mix": 0.7,
+        "style.variant": 2
+      }
+    },
+    {
+      "name": "clean",
+      "parameters": {
+        "zplane.morph": 0.5,
+        "zplane.resonance": 0.3,
+        "drive.db": 0.0,
+        "hardness": 0.1,
+        "tilt.brightness": 0.5,
+        "style.mix": 0.5,
+        "style.variant": 1
+      }
+    }
+  ],
+  "performance": {
+    "target_cpu_percent": 2.0,
+    "max_latency_samples": 0,
+    "real_time_safe": true,
+    "lock_free": true,
+    "zero_allocation": true
+  }
+}

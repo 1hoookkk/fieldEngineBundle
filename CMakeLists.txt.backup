@@ -1,0 +1,294 @@
+cmake_minimum_required(VERSION 3.25)
+
+# This tells cmake we have goodies in the /cmake folder
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include (PamplejuceVersion)
+
+# Modern concise way to add dependencies to your project
+include (CPM)
+
+# Configures universal binaries and decides which version of macOS to support
+include(PamplejuceMacOS)
+
+# Couple tweaks that IMO should be JUCE defaults
+include(JUCEDefaults)
+
+# Change me!
+# This is the internal name of the project and the name of JUCE's shared code target
+# Note: This cannot have spaces (it may be 2024, but you can't have it all!)
+# Worry not, JUCE's PRODUCT_NAME can have spaces (and is what DAWs display)
+set(PROJECT_NAME "FieldEngine")
+
+# Worry not, JUCE's PRODUCT_NAME can have spaces (and is what DAWs will display)
+# You can also just have it be the same thing as PROJECT_NAME
+# You may want to append the major version on the end of this (and PROJECT_NAME) ala:
+#   set(PROJECT_NAME "MyPlugin_v${MAJOR_VERSION}")
+# Doing so enables major versions to show up in IDEs and DAWs as separate plugins
+# allowing you to change parameters and behavior without breaking existing user projects
+set(PRODUCT_NAME "FieldEngine")
+
+# Change me! Used for the MacOS bundle name and Installers
+set(COMPANY_NAME "FieldEngine Company")
+
+# Change me! Used for the MacOS bundle identifier (and signing)
+set(BUNDLE_ID "com.fieldengine.fieldengine")
+
+# Change me! Set the plugin formats you want built
+# Valid choices: AAX Unity VST VST3 AU AUv3 Standalone
+set(FORMATS Standalone VST3)
+
+# Force JUCE to work with sccache
+# instruct MSVC to embed debug info (/Z7) instead of emitting a .pdb
+set(CMAKE_POLICY_DEFAULT_CMP0141        NEW      CACHE STRING "" FORCE)
+set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded CACHE STRING "" FORCE)
+
+# For simplicity, the name of the CMake project is also the name of the target
+project(${PROJECT_NAME} VERSION ${CURRENT_VERSION})
+
+# JUCE is setup as a submodule in the /JUCE folder
+# Locally, you must run `git submodule update --init --recursive` once
+# and later `git submodule update --remote --merge` to keep it up to date
+# On Github Actions, this is done as a part of actions/checkout
+add_subdirectory(JUCE)
+
+# Add CLAP format
+add_subdirectory(modules/clap-juce-extensions EXCLUDE_FROM_ALL)
+
+# Add any other modules you want modules here, before the juce_add_plugin call
+# juce_add_module(modules/my_module)
+
+# This adds the melatonin inspector module
+add_subdirectory (modules/melatonin_inspector)
+
+# EMU Extraction Tools
+add_subdirectory(tools/x3)
+
+# FieldEngine configuration options
+option(FIELDENGINE_ENABLE_SAMPLES "Enable loading of Resources/Samples at runtime" OFF)
+set(FIELDENGINE_CLEAN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/fieldEngineClean" CACHE STRING "Path to reverse engineering data (not used at runtime)")
+
+# Build switches: build the two FieldEngine plugins by default
+option(BUILD_FIELDENGINE_SYNTH "Build FieldEngineSynth plugin" ON)
+option(BUILD_FIELDENGINE_FX    "Build FieldEngineFX plugin"    ON)
+option(BUILD_MRM               "Build MorphicRhythmMatrix plugin" OFF)
+
+# UI Framework options
+option(USE_FOLEYS_UI           "Use Foleys GUI Magic for UI" OFF)
+option(USE_FAUST_ZPLANE        "Use Faust for Z-plane processing" ON)
+
+# See `docs/CMake API.md` in the JUCE repo for all config options
+if (BUILD_FIELDENGINE_SYNTH)
+    # FieldEngineSynth (instrument)
+    juce_add_plugin(FieldEngineSynth
+        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
+        COMPANY_NAME "${COMPANY_NAME}"
+        BUNDLE_ID "com.pamplejuce.fieldenginesynth"
+        COPY_PLUGIN_AFTER_BUILD TRUE
+        PLUGIN_MANUFACTURER_CODE Pamp
+        PLUGIN_CODE FES1
+        FORMATS ${FORMATS}
+        PRODUCT_NAME "FieldEngineSynth"
+        IS_SYNTH TRUE
+        NEEDS_MIDI_INPUT TRUE
+        NEEDS_MIDI_OUTPUT FALSE
+        IS_MIDI_EFFECT FALSE
+        EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    )
+endif()
+
+if (BUILD_FIELDENGINE_FX)
+    # FieldEngineFX (effect)
+    juce_add_plugin(FieldEngineFX
+        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
+        COMPANY_NAME "${COMPANY_NAME}"
+        BUNDLE_ID "com.pamplejuce.fieldenginefx"
+        COPY_PLUGIN_AFTER_BUILD TRUE
+        PLUGIN_MANUFACTURER_CODE Pamp
+        PLUGIN_CODE FEFX
+        FORMATS ${FORMATS}
+        PRODUCT_NAME "FieldEngineFX"
+        IS_SYNTH FALSE
+        NEEDS_MIDI_INPUT FALSE
+        NEEDS_MIDI_OUTPUT FALSE
+        IS_MIDI_EFFECT FALSE
+        EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    )
+endif()
+
+# This lets us use our code in both the JUCE targets and our Test target
+# Without running into ODR violations
+add_library(SharedCode INTERFACE)
+
+# CLAP target intentionally not configured for multi-target setup
+
+# Enable fast math, C++20 and a few other target defaults
+include(SharedCodeDefaults)
+
+# Shared sources (UI + DSP used by both plugins)
+file(GLOB_RECURSE SharedSources CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/shared/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/shared/*.h")
+
+target_sources(SharedCode INTERFACE ${SharedSources})
+
+# MorphicRhythmMatrix (third effect plugin)
+if (BUILD_MRM)
+    juce_add_plugin(MorphicRhythmMatrix
+        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
+        COMPANY_NAME "${COMPANY_NAME}"
+        BUNDLE_ID "com.pamplejuce.mrm"
+        COPY_PLUGIN_AFTER_BUILD TRUE
+        PLUGIN_MANUFACTURER_CODE Pamp
+        PLUGIN_CODE MRM1
+        FORMATS ${FORMATS}
+        PRODUCT_NAME "MorphicRhythmMatrix"
+        IS_SYNTH FALSE
+        NEEDS_MIDI_INPUT FALSE
+        NEEDS_MIDI_OUTPUT FALSE
+        IS_MIDI_EFFECT FALSE
+        EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    )
+endif()
+
+# Plugin-specific sources
+if (BUILD_FIELDENGINE_SYNTH)
+    # Synth
+    set(FieldEngineSynth_Sources
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/synth/FieldEngineSynthProcessor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/synth/FieldEngineSynthProcessor.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/synth/FieldEngineSynthEditor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/synth/FieldEngineSynthEditor.h
+    )
+    target_sources(FieldEngineSynth PRIVATE ${FieldEngineSynth_Sources})
+endif()
+
+if (BUILD_FIELDENGINE_FX)
+    # FX
+    set(FieldEngineFX_Sources
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/fx/FieldEngineFXProcessor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/fx/FieldEngineFXEditor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/ViralEditor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/FELookAndFeel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/CartographyView.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/dsp/MorphEngine.cpp
+    )
+    target_sources(FieldEngineFX PRIVATE ${FieldEngineFX_Sources})
+    if (USE_FAUST_ZPLANE)
+        list(APPEND FieldEngineFX_Sources
+            ${CMAKE_CURRENT_SOURCE_DIR}/source/faust/FaustZPlaneProcessor.cpp
+        )
+        target_include_directories(FieldEngineFX PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/source/faust
+            ${CMAKE_CURRENT_SOURCE_DIR}/source/faust/gen
+        )
+    endif()
+
+    if (USE_FOLEYS_UI)
+        if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/modules/foleys_gui_magic/CMakeLists.txt)
+            juce_add_module(${CMAKE_CURRENT_SOURCE_DIR}/modules/foleys_gui_magic/modules/foleys_gui_magic)
+            target_link_libraries(FieldEngineFX PRIVATE foleys_gui_magic)
+        endif()
+        list(APPEND FieldEngineFX_Sources
+            ${CMAKE_CURRENT_SOURCE_DIR}/source/foleys/FoleysFieldEngineProcessor.cpp
+        )
+    endif()
+endif()
+
+if (BUILD_MRM)
+    # MRM
+    set(MorphicRhythmMatrix_Sources
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/mrm/MorphicRhythmMatrixProcessor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/mrm/MorphicRhythmMatrixProcessor.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/UiStateProvider.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TemplePalette.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TempleLookAndFeel.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TempleLookAndFeel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TempleWidgets.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TempleEditor.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/TempleEditor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/ui/SimpleEditor.cpp
+    )
+    target_sources(MorphicRhythmMatrix PRIVATE ${MorphicRhythmMatrix_Sources})
+endif()
+
+# Adds a BinaryData target for embedding assets into the binary
+include(Assets)
+
+# MacOS only: Cleans up folder and target organization on Xcode.
+include(XcodePrettify)
+
+# This is where you can set preprocessor definitions for JUCE and your plugin
+target_compile_definitions(SharedCode
+    INTERFACE
+
+    # JUCE_WEB_BROWSER and JUCE_USE_CURL off by default
+    JUCE_WEB_BROWSER=0  # If you set this to 1, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
+    JUCE_USE_CURL=0     # If you set this to 1, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
+    JUCE_VST3_CAN_REPLACE_VST2=0
+
+    # Uncomment if you are paying for a an Indie/Pro license or releasing under GPLv3
+    # JUCE_DISPLAY_SPLASH_SCREEN=0
+
+    # lets the app known if we're Debug or Release
+    CMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
+    VERSION="${CURRENT_VERSION}"
+
+    # JucePlugin_Name is for some reason doesn't use the nicer PRODUCT_NAME
+    PRODUCT_NAME_WITHOUT_VERSION="FieldEngine"
+    FIELDENGINE_ENABLE_SAMPLES=$<IF:$<BOOL:${FIELDENGINE_ENABLE_SAMPLES}>,1,0>
+    FIELDENGINE_CLEAN_DIR_PATH="${FIELDENGINE_CLEAN_DIR}"
+)
+
+# Link to any other modules you added (with juce_add_module) here!
+# Usually JUCE modules must have PRIVATE visibility
+# See https://github.com/juce-framework/JUCE/blob/master/docs/CMake%20API.md#juce_add_module
+# However, with Pamplejuce, you'll link modules to SharedCode with INTERFACE visibility
+# This allows the JUCE plugin targets and the Tests target to link against it
+target_link_libraries(SharedCode
+    INTERFACE
+    Assets
+    melatonin_inspector
+    juce_audio_utils
+    juce_audio_devices
+    juce_audio_formats
+    juce_audio_processors
+    juce_dsp
+    juce_gui_basics
+    juce_gui_extra
+    juce_opengl
+    juce::juce_recommended_config_flags
+    juce::juce_recommended_lto_flags
+    juce::juce_recommended_warning_flags)
+
+# Link the JUCE plugin targets to our SharedCode target
+if (BUILD_FIELDENGINE_SYNTH)
+    target_link_libraries(FieldEngineSynth PRIVATE SharedCode)
+endif()
+if (BUILD_FIELDENGINE_FX)
+    target_link_libraries(FieldEngineFX PRIVATE SharedCode)
+endif()
+if (BUILD_MRM)
+    target_link_libraries(MorphicRhythmMatrix PRIVATE SharedCode)
+endif()
+
+if (BUILD_FIELDENGINE_SYNTH)
+    juce_generate_juce_header(FieldEngineSynth)
+endif()
+if (BUILD_FIELDENGINE_FX)
+    juce_generate_juce_header(FieldEngineFX)
+endif()
+if (BUILD_MRM)
+    juce_generate_juce_header(MorphicRhythmMatrix)
+endif()
+
+# IPP support, comment out to disable
+include(PamplejuceIPP)
+
+# Everything related to the tests target
+include(Tests)
+
+# A separate target for Benchmarks (keeps the Tests target fast)
+include(Benchmarks)
+
+# Output some config for CI (like our PRODUCT_NAME)
+include(GitHubENV)

@@ -1,0 +1,374 @@
+cmake_minimum_required(VERSION 3.22)
+
+project(SPECTRAL_CANVAS_PRO VERSION 1.0.0)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    
+# ──────────────────────────────────────────────────────────────────────────────
+# JUCE setup
+# ──────────────────────────────────────────────────────────────────────────────
+include(FetchContent)
+FetchContent_Declare(
+  juce
+  GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+  GIT_TAG        origin/master
+)
+FetchContent_MakeAvailable(juce)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Plugin target: ARTEFACT
+# ──────────────────────────────────────────────────────────────────────────────
+juce_add_plugin(ARTEFACT
+  COMPANY_NAME                "YourCompany"
+  PRODUCT_NAME                "SpectralCanvas"
+  PLUGIN_MANUFACTURER_CODE   MANU
+  PLUGIN_CODE                SPEC
+  FORMATS                    VST3 Standalone
+  IS_SYNTH                   TRUE
+  NEEDS_MIDI_INPUT           TRUE
+  NEEDS_MIDI_OUTPUT          FALSE
+  IS_MIDI_EFFECT             FALSE
+  EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+  COPY_PLUGIN_AFTER_BUILD    TRUE
+)
+
+target_compile_definitions(ARTEFACT PRIVATE
+  JUCE_VST3_CAN_REPLACE_VST2=0
+  JUCE_WEB_BROWSER=0
+  JUCE_USE_CURL=0
+  BUILDING_ARTEFACT_PLUGIN
+)
+
+target_sources(ARTEFACT PRIVATE
+  # Core Processing Engines - THE REVOLUTIONARY MAGIC! 🚀
+  Source/Core/RetroCanvasProcessor.h
+  Source/Core/SampleMaskingEngine.cpp
+  Source/Core/SampleMaskingEngine.h
+  Source/Core/SecretSauceEngine.cpp
+  Source/Core/SecretSauceEngine.h
+  Source/Core/LinearTrackerEngine.cpp
+  Source/Core/LinearTrackerEngine.h
+  Source/Core/VisualFeedbackEngine.cpp
+  Source/Core/VisualFeedbackEngine.h
+  Source/Core/HardwareControllerManager.cpp
+  Source/Core/HardwareControllerManager.h
+  Source/Core/AICreativeAssistant.h
+  Source/Core/GPUAccelerationEngine.h
+  Source/Core/CollaborativeManager.h
+  Source/Core/AdvancedPsychoacousticEngine.h
+  
+  # Command System
+  Source/Core/CommandQueue.h
+  Source/Core/Commands.h
+  
+  # Legacy Core Components (keeping for compatibility)
+  Source/Core/PluginProcessor.cpp
+  Source/Core/PluginProcessor.h
+  Source/Core/ForgeProcessor.cpp
+  Source/Core/ForgeProcessor.h
+  Source/Core/ForgeVoice.cpp
+  Source/Core/ForgeVoice.h
+  Source/Core/PaintEngine.cpp
+  Source/Core/PaintEngine.h
+  Source/Core/ParameterBridge.h
+  Source/Core/ModMatrix.cpp
+  Source/Core/ModMatrix.h
+  Source/Core/GrainPool.cpp
+  Source/Core/GrainPool.h
+  Source/Core/AudioRecorder.cpp
+  Source/Core/AudioRecorder.h
+  Source/Core/SpectralMask.cpp
+  Source/Core/SpectralMask.h
+  
+  # Lock-Free Atomic Oscillator System - GEMINI FIX! 🚀
+  Source/Core/AtomicOscillator.cpp
+  Source/Core/AtomicOscillator.h
+  
+  # Performance & Optimization Systems - NEW! 🚀
+  Source/Core/SpatialSampleGrid.cpp
+  Source/Core/SpatialSampleGrid.h
+  Source/Core/PerformanceProfiler.cpp
+  Source/Core/PerformanceProfiler.h
+  
+  # GUI Components
+  Source/GUI/PluginEditor.cpp
+  Source/GUI/PluginEditor.h
+  Source/GUI/ArtefactLookAndFeel.cpp
+  Source/GUI/ArtefactLookAndFeel.h
+  Source/GUI/HeaderBarComponent.cpp
+  Source/GUI/HeaderBarComponent.h
+  Source/GUI/ForgePanel.cpp
+  Source/GUI/ForgePanel.h
+  Source/GUI/CanvasPanel.cpp
+  Source/GUI/CanvasPanel.h
+  Source/GUI/RetroCanvasComponent.cpp
+  Source/GUI/RetroCanvasComponent.h
+  Source/GUI/PaintControlPanel.cpp
+  Source/GUI/PaintControlPanel.h
+  Source/GUI/SampleSlotComponent.cpp
+  Source/GUI/SampleSlotComponent.h
+  Source/GUI/ExportDialog.cpp
+  Source/GUI/ExportDialog.h
+)
+
+# Add diagnostic message to verify JUCE location
+message(STATUS "JUCE_SOURCE_DIR: ${juce_SOURCE_DIR}")
+
+# OPTION A: Generate JuceHeader.h (quick fix - enabled)
+juce_generate_juce_header(ARTEFACT)
+
+target_include_directories(ARTEFACT PUBLIC
+  Source
+  Source/Core
+  Source/GUI
+  ${juce_SOURCE_DIR}/modules
+)
+
+target_link_libraries(ARTEFACT PRIVATE
+  juce::juce_audio_basics
+  juce::juce_audio_devices
+  juce::juce_audio_formats
+  juce::juce_audio_plugin_client
+  juce::juce_audio_processors
+  juce::juce_audio_utils
+  juce::juce_core
+  juce::juce_data_structures
+  juce::juce_dsp
+  juce::juce_events
+  juce::juce_graphics
+  juce::juce_gui_basics
+  juce::juce_gui_extra
+  juce::juce_opengl
+  juce::juce_recommended_config_flags
+  juce::juce_recommended_lto_flags
+  juce::juce_recommended_warning_flags
+)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Standalone Application - Professional Demo
+# ──────────────────────────────────────────────────────────────────────────────
+juce_add_gui_app(SpectralCanvasApp
+  PRODUCT_NAME                "SPECTRAL CANVAS PRO"
+  COMPANY_NAME                "SpectralAudio"
+  BUNDLE_ID                   "com.spectralaudio.spectralcanvasapp"
+  VERSION                     ${PROJECT_VERSION}
+)
+
+target_sources(SpectralCanvasApp PRIVATE
+  # Lock-Free Atomic Oscillator System - GEMINI FIX!
+  Source/Core/AtomicOscillator.cpp
+  Source/Core/AtomicOscillator.h
+  
+  # Core Audio Processing Engines
+  Source/Core/SampleMaskingEngine.cpp
+  Source/Core/SampleMaskingEngine.h
+  Source/Core/SecretSauceEngine.cpp
+  Source/Core/SecretSauceEngine.h
+  Source/Core/SpectralSynthEngine.cpp
+  Source/Core/SpectralSynthEngine.h
+  
+  # CDP-style Spectral Processing System (Week 3 Implementation)
+  Source/Core/CDPSpectralEngine.cpp
+  Source/Core/CDPSpectralEngine.h
+  Source/Core/ColorToSpectralMapper.cpp
+  Source/Core/ColorToSpectralMapper.h
+  Source/Core/SpectralBrushPresets.cpp
+  Source/Core/SpectralBrushPresets.h
+  
+  Source/Core/EMURomplerEngine.cpp
+  Source/Core/EMURomplerEngine.h
+  Source/Core/CEM3389Filter.cpp
+  Source/Core/CEM3389Filter.h
+  
+  # 🛡️ CRITICAL QUALITY GUARDIAN SYSTEM - Phase 1: Static Analysis Fortress
+  Source/Core/QualityGuardian.cpp
+  Source/Core/QualityGuardian.h
+  
+  # Application Core - Canvas-First Design
+  Source/Main.cpp
+  Source/MainComponent.cpp
+  Source/MainComponent.h
+  Source/CanvasComponent.cpp
+  Source/CanvasComponent.h
+)
+
+juce_generate_juce_header(SpectralCanvasApp)
+
+target_include_directories(SpectralCanvasApp PUBLIC
+  Source
+  Source/Core
+  Source/GUI
+  ${juce_SOURCE_DIR}/modules
+)
+
+target_compile_definitions(SpectralCanvasApp PRIVATE
+  JUCE_WEB_BROWSER=0
+  JUCE_USE_CURL=0
+  SPECTRAL_CANVAS_PRO_STANDALONE=1
+)
+
+target_link_libraries(SpectralCanvasApp PRIVATE
+  juce::juce_gui_basics
+  juce::juce_audio_utils
+  juce::juce_audio_devices
+  juce::juce_audio_formats
+  juce::juce_audio_processors
+  juce::juce_dsp
+  juce::juce_core
+  juce::juce_graphics
+  juce::juce_events
+  juce::juce_opengl
+  juce::juce_recommended_config_flags
+  juce::juce_recommended_warning_flags
+)
+
+# Also keep SpectralCanvasPro for compatibility
+juce_add_gui_app(SpectralCanvasPro
+  PRODUCT_NAME                "SPECTRAL CANVAS PRO"
+  COMPANY_NAME                "SpectralAudio"
+  BUNDLE_ID                   "com.spectralaudio.spectralcanvaspro"
+  VERSION                     ${PROJECT_VERSION}
+)
+
+target_sources(SpectralCanvasPro PRIVATE
+  # Lock-Free Atomic Oscillator System - GEMINI FIX!
+  Source/Core/AtomicOscillator.cpp
+  Source/Core/AtomicOscillator.h
+  
+  # Revolutionary Core Engines - PAINT-TO-AUDIO MAGIC! 🎨🎵
+  Source/Core/SampleMaskingEngine.cpp
+  Source/Core/SampleMaskingEngine.h
+  Source/Core/SecretSauceEngine.cpp
+  Source/Core/SecretSauceEngine.h
+  Source/Core/SpectralSynthEngine.cpp
+  Source/Core/SpectralSynthEngine.h
+  
+  # CDP-style Spectral Processing System (Week 3 Implementation)
+  Source/Core/CDPSpectralEngine.cpp
+  Source/Core/CDPSpectralEngine.h
+  Source/Core/ColorToSpectralMapper.cpp
+  Source/Core/ColorToSpectralMapper.h
+  Source/Core/SpectralBrushPresets.cpp
+  Source/Core/SpectralBrushPresets.h
+  
+  Source/Core/EMURomplerEngine.cpp
+  Source/Core/EMURomplerEngine.h
+  Source/Core/LinearTrackerEngine.cpp
+  Source/Core/LinearTrackerEngine.h
+  Source/Core/CEM3389Filter.cpp
+  Source/Core/CEM3389Filter.h
+  
+  # 🛡️ CRITICAL QUALITY GUARDIAN SYSTEM - Phase 1: Static Analysis Fortress
+  Source/Core/QualityGuardian.cpp
+  Source/Core/QualityGuardian.h
+  
+  # Performance & Optimization Systems - Required for CDP integration
+  Source/Core/SpatialSampleGrid.cpp
+  Source/Core/SpatialSampleGrid.h
+  Source/Core/PerformanceProfiler.cpp
+  Source/Core/PerformanceProfiler.h
+  
+  # Command System
+  Source/Core/CommandQueue.h
+  Source/Core/Commands.h
+  
+  # Sample Processing (needed by SpectralSynthEngine)
+  Source/Core/ForgeProcessor.cpp
+  Source/Core/ForgeProcessor.h
+  Source/Core/ForgeVoice.cpp
+  Source/Core/ForgeVoice.h
+  Source/Core/SpectralMask.cpp
+  Source/Core/SpectralMask.h
+  
+  # Application Core - Canvas-First Design
+  Source/Main.cpp
+  Source/SpectralCanvasApp.h
+  Source/MainComponent.cpp
+  Source/MainComponent.h
+  Source/CanvasComponent.cpp
+  Source/CanvasComponent.h
+  
+  # 🎵 NEW: GUI Components for Pro-Beatmaker Workflow
+  Source/GUI/StandaloneSampleSlot.cpp
+  Source/GUI/StandaloneSampleSlot.h
+  
+  # UI Theme System
+  Source/UI/AlchemistLabTheme.cpp
+  Source/UI/AlchemistLabTheme.h
+  
+  # Legacy Core (for compatibility)
+  Source/Core/PaintEngine.cpp
+  Source/Core/PaintEngine.h
+  Source/Core/GrainPool.cpp
+  Source/Core/GrainPool.h
+)
+
+# OPTION A: Generate JuceHeader.h for standalone app (quick fix - enabled)
+juce_generate_juce_header(SpectralCanvasPro)
+
+target_include_directories(SpectralCanvasPro PUBLIC
+  Source
+  Source/Core
+  Source/GUI
+  Source/UI
+  ${juce_SOURCE_DIR}/modules
+)
+
+target_compile_definitions(SpectralCanvasPro PRIVATE
+  JUCE_WEB_BROWSER=0
+  JUCE_USE_CURL=0
+  SPECTRAL_CANVAS_PRO_STANDALONE=1
+)
+
+target_link_libraries(SpectralCanvasPro PRIVATE
+  juce::juce_gui_basics
+  juce::juce_audio_utils
+  juce::juce_audio_devices
+  juce::juce_audio_formats
+  juce::juce_audio_processors
+  juce::juce_dsp
+  juce::juce_core
+  juce::juce_graphics
+  juce::juce_events
+  juce::juce_opengl
+  juce::juce_recommended_config_flags
+  juce::juce_recommended_warning_flags
+)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Compiler warnings and flags
+# ──────────────────────────────────────────────────────────────────────────────
+if(MSVC)
+  target_compile_options(ARTEFACT           PRIVATE /W4 /permissive-)
+  target_compile_options(SpectralCanvasApp  PRIVATE /W4 /permissive-)
+  target_compile_options(SpectralCanvasPro PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(ARTEFACT           PRIVATE -Wall -Wextra -Wpedantic)
+  target_compile_options(SpectralCanvasApp  PRIVATE -Wall -Wextra -Wpedantic)
+  target_compile_options(SpectralCanvasPro PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Optional debugger dir for standalone builds
+# ──────────────────────────────────────────────────────────────────────────────
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set_target_properties(ARTEFACT_Standalone PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  )
+  set_target_properties(SpectralCanvasPro PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  )
+endif()
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Done
+# ──────────────────────────────────────────────────────────────────────────────
+message(STATUS "")
+message(STATUS "🎨🚀 SPECTRAL CANVAS PRO BUILD CONFIGURATION")
+message(STATUS "============================================")
+message(STATUS "✅ Plugin Target: ARTEFACT (VST3 + Standalone)")
+message(STATUS "🎯 Main Target: SpectralCanvasPro (DEMO APP)")
+message(STATUS "🎛️ Revolutionary Engines: SampleMasking + SecretSauce + LinearTracker")
+message(STATUS "🎵 Ready to build the future of music creation!")
+message(STATUS "")

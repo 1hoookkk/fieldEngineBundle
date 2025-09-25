@@ -1,0 +1,11 @@
+name: MorphEngine
+company: YourCompany
+manufacturer_code: YCMP
+plugin_code: MoEn
+formats: [VST3, AU]
+is_synth: false
+needs_midi_input: false
+needs_midi_output: false
+is_midi_effect: false
+copy_plugin_after_build: true
+cpp_standard: 20

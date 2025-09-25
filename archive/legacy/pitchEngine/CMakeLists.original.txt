@@ -1,0 +1,99 @@
+cmake_minimum_required(VERSION 3.21)
+project(pitchEngine VERSION 0.9.0 LANGUAGES CXX)
+
+# Optimization for faster linking
+if(MSVC)
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /GL")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF /OPT:ICF")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF /OPT:ICF")
+    set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "${CMAKE_MODULE_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF /OPT:ICF")
+    # Increase linker timeout
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /time")
+endif()
+
+# Use local JUCE installation
+add_subdirectory(../JUCE ${CMAKE_CURRENT_BINARY_DIR}/JUCE)
+
+# Add EMU library
+add_subdirectory(../libs/emu ${CMAKE_CURRENT_BINARY_DIR}/libs/emu)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_compile_definitions(
+    JUCE_DISPLAY_SPLASH_SCREEN=0
+    JUCE_REPORT_APP_USAGE=0
+    JUCE_VST3_CAN_REPLACE_VST2=0
+)
+
+# Resources: embed LUT JSON and icons
+juce_add_binary_data(pitchEngine_Resources SOURCES
+    resources/zlut/pitchEngine_zLUT_ref48k.json
+    resources/icons/appIcon.png
+)
+
+juce_add_plugin(pitchEnginePro
+    COMPANY_NAME        "Your Company"
+    BUNDLE_ID           com.yourcompany.pitchengine
+    IS_SYNTH            FALSE
+    NEEDS_MIDI_INPUT    FALSE
+    NEEDS_MIDI_OUTPUT   FALSE
+    IS_MIDI_EFFECT      FALSE
+    EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    PLUGIN_MANUFACTURER_CODE YCmp
+    PLUGIN_CODE         pEng
+    FORMATS             AU VST3 AAX
+    PRODUCT_NAME        "pitchEngine Pro"
+)
+
+# Sources
+target_sources(pitchEnginePro PRIVATE
+    source/PluginProcessor.cpp
+    source/PluginEditor.cpp
+    source/dsp/PitchTracker.cpp
+    source/dsp/Snapper.cpp
+    source/dsp/Shifter.cpp
+    source/dsp/Analyzer.cpp
+    # UI pack (headers-only but list for IDE visibility)
+    source/ui/Theme.h
+    source/ui/LookAndFeelPE.h
+    source/ui/MeterMini.h
+    source/ui/HeaderBar.h
+    # utils (headers)
+    source/util/OnePole.h
+    source/util/AutoGain.h
+    source/util/SibilantGuard.h
+)
+
+# Headers
+target_include_directories(pitchEnginePro PRIVATE
+    source
+    ..
+)
+
+# Link JUCE modules and EMU library
+target_link_libraries(pitchEnginePro PRIVATE
+    pitchEngine_Resources
+    emu_core
+    juce::juce_gui_extra
+    juce::juce_audio_utils
+    juce::juce_dsp
+    juce::juce_core
+    juce::juce_data_structures
+    juce::juce_graphics
+    juce::juce_audio_basics
+    juce::juce_audio_processors
+    juce::juce_audio_devices
+)
+
+# Warnings / LTO (tune per toolchain)
+if(MSVC)
+  target_compile_options(pitchEnginePro PRIVATE /W3 /permissive- /bigobj)
+else()
+  target_compile_options(pitchEnginePro PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+# Set output directory for VST3
+set_target_properties(pitchEnginePro PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_BINARY_DIR}/Release"
+    LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_BINARY_DIR}/Release"
+)

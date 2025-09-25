@@ -1,0 +1,14 @@
+{
+  "avg_fraction": 0.00684374999999997861328125,
+  "buffer_time_us": 10666.666666666666,
+  "max_fraction": 0.00834374999999997392578125,
+  "cpu_usage_percent": 4.0,
+  "max_us": 89.0,
+  "sample_rate": 48000,
+  "test_duration_sec": 30,
+  "buffer_size": 512,
+  "passed": true,
+  "underruns": 0,
+  "avg_us": 73.0,
+  "timestamp": "2025-09-24 16:45:55"
+}

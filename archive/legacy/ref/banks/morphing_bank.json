@@ -1,0 +1,129 @@
+{
+  "name": "Morphing_32s",
+  "format": "morphing-filter",
+  "version": "1.0",
+  "description": "Extracted samples ready for morphing filter experimentation",
+  "presets": [],
+  "samples": [
+    "sample_1400.wav",
+    "sample_1401.wav",
+    "sample_1402.wav",
+    "sample_1403.wav",
+    "sample_1404.wav",
+    "sample_1405.wav",
+    "sample_1406.wav",
+    "sample_1407.wav",
+    "sample_1408.wav",
+    "sample_1409.wav",
+    "sample_1410.wav",
+    "sample_1411.wav",
+    "sample_1412.wav",
+    "sample_1413.wav",
+    "sample_1414.wav",
+    "sample_1415.wav",
+    "sample_1416.wav",
+    "sample_1417.wav",
+    "sample_1418.wav",
+    "sample_1419.wav",
+    "sample_1420.wav",
+    "sample_1421.wav",
+    "sample_1422.wav",
+    "sample_1423.wav",
+    "sample_1424.wav",
+    "sample_1425.wav",
+    "sample_1426.wav",
+    "sample_1427.wav",
+    "sample_1428.wav",
+    "sample_1429.wav",
+    "sample_1430.wav",
+    "sample_1431.wav"
+  ],
+  "shapes": {
+    "Vowel_Ae": {
+      "type": "vowel",
+      "character": "bright",
+      "q_scale": 3.0
+    },
+    "Vowel_Eh": {
+      "type": "vowel",
+      "character": "mid",
+      "q_scale": 2.5
+    },
+    "Vowel_Ih": {
+      "type": "vowel",
+      "character": "nasal",
+      "q_scale": 4.0
+    },
+    "Vowel_Oh": {
+      "type": "vowel",
+      "character": "warm",
+      "q_scale": 2.0
+    },
+    "Vowel_Oo": {
+      "type": "vowel",
+      "character": "dark",
+      "q_scale": 1.5
+    },
+    "Bell_Metallic": {
+      "type": "bell",
+      "character": "bright",
+      "q_scale": 6.0
+    },
+    "Bell_Glass": {
+      "type": "bell",
+      "character": "crystalline",
+      "q_scale": 8.0
+    },
+    "Bell_Warm": {
+      "type": "bell",
+      "character": "warm",
+      "q_scale": 4.0
+    },
+    "Lead_Bright": {
+      "type": "lead",
+      "character": "cutting",
+      "q_scale": 5.0
+    },
+    "Lead_Warm": {
+      "type": "lead",
+      "character": "smooth",
+      "q_scale": 3.0
+    },
+    "Lead_Aggressive": {
+      "type": "lead",
+      "character": "harsh",
+      "q_scale": 7.0
+    },
+    "Formant_Male": {
+      "type": "formant",
+      "character": "deep",
+      "q_scale": 2.8
+    },
+    "Formant_Female": {
+      "type": "formant",
+      "character": "high",
+      "q_scale": 3.5
+    }
+  },
+  "suggested_names": [
+    "Pole Drift",
+    "Pole Scatter",
+    "Pole Sweep",
+    "Pole Bend",
+    "Pole Warp",
+    "Pole Twist",
+    "Pole Crawl",
+    "Pole Blur",
+    "Pole Walker",
+    "Pole Flow",
+    "Pole Prowl",
+    "Pole Climb"
+  ],
+  "metadata": {
+    "generator": "MorphingPresetGenerator",
+    "total_samples": 32,
+    "shape_count": 13,
+    "generated_from": "EXB extraction",
+    "notes": "No presets included - manual parameter exploration encouraged"
+  }
+}

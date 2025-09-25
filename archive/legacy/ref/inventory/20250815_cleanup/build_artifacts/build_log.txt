@@ -1,0 +1,2 @@
+-- Building for: Visual Studio 17 2022
+-- Configuring incomplete, errors occurred!

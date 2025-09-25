@@ -1,0 +1,26 @@
+{
+  "name": "Low Pad Motion",
+  "description": "Deep, evolving texture for pads and bass",
+  "category": "Texture",
+  "parameters": {
+    "zplane.model": 2,
+    "zplane.morph": 0.3,
+    "zplane.cutoff": 0.35,
+    "zplane.resonance": 0.25,
+    "style.variant": 2,
+    "style.mix": 1.0
+  },
+  "automations": [
+    {
+      "parameter": "zplane.morph",
+      "description": "Slow LFO for evolving texture",
+      "range": [0.2, 0.7]
+    },
+    {
+      "parameter": "zplane.cutoff",
+      "description": "Optional filter sweep",
+      "range": [0.25, 0.55]
+    }
+  ],
+  "notes": "Warm, wide pad sound. Velvet style keeps it smooth and musical."
+}

@@ -1,3 +1,4 @@
+# CMake build artifacts
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -10,9 +11,27 @@ CTestTestfile.cmake
 _deps
 **/.DS_Store
 
-# It's nice to have the Builds folder exist, to remind us where it is
+# Build directories
+build/
+out/
 Builds/*
 !Builds/.gitkeep
+
+# Visual Studio artifacts
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.sln.docstates
+x64/
+Release/
+Debug/
+.vs/
+
+# JUCE artifacts
+JuceLibraryCode/
+*_artefacts/
+*.dir/
 
 # This should never exist
 Install/*
@@ -22,9 +41,35 @@ Testing
 
 # IDE config
 .idea
+.cursor/
+.claude/
+
+# OS artifacts
+**/.DS_Store
+.vscode/
+*.tmp
+*.temp
+nul
+
+# Archive files
+*.zip
+*.tar.gz
 
 # clion cmake builds
 cmake-build-debug
 cmake-build-release
 cmake-build-relwithdebinfo
 packaging/Output/*
+
+# Local test outputs
+*.wav
+*.aiff
+
+# Debian packages
+*.deb
+
+# Session data
+sessions/
+
+# Generated shortcuts
+*.lnk

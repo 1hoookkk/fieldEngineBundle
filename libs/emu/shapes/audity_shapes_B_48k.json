@@ -1,0 +1,46 @@
+{
+  "sampleRateRef": 48000,
+  "shapes": [
+    {
+      "id": "vowel_pair",
+      "name": "Vowel_Oo (B)",
+      "desc": "Round vowel /u/ (morph target for Vowel_Ae)",
+      "poles": [
+        { "r": 0.96,  "theta": 0.00785398163647446 },
+        { "r": 0.98,  "theta": 0.03141592614589800 },
+        { "r": 0.985, "theta": 0.04450589600000000 },
+        { "r": 0.992, "theta": 0.13089969394124100 },
+        { "r": 0.99,  "theta": 0.28797932667073020 },
+        { "r": 0.985, "theta": 0.39269908182372300 }
+      ]
+    },
+
+    {
+      "id": "bell_pair",
+      "name": "Metallic_Cluster (B)",
+      "desc": "High-density metallic cluster (morph target for Bell_Metallic)",
+      "poles": [
+        { "r": 0.997, "theta": 0.52359877559829880 },
+        { "r": 0.996, "theta": 0.62831853071795860 },
+        { "r": 0.995, "theta": 0.70685834705770340 },
+        { "r": 0.993, "theta": 0.94247779607693790 },
+        { "r": 0.991, "theta": 1.09955742875642760 },
+        { "r": 0.989, "theta": 1.25663706143591720 }
+      ]
+    },
+
+    {
+      "id": "low_pair",
+      "name": "Formant_Pad (B)",
+      "desc": "Larger/wider formant pad (morph target for Low_LP_Punch)",
+      "poles": [
+        { "r": 0.97,  "theta": 0.02617993878824820 },
+        { "r": 0.985, "theta": 0.06544984697062124 },
+        { "r": 0.99,  "theta": 0.15707963265358900 },
+        { "r": 0.992, "theta": 0.23561944901923485 },
+        { "r": 0.99,  "theta": 0.36651914291880921 },
+        { "r": 0.988, "theta": 0.47123889803846897 }
+      ]
+    }
+  ]
+}

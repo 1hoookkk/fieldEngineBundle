@@ -1,0 +1,959 @@
+/******************************************************************************
+ * File: SpectralSynthEngine.h
+ * Description: Master synthesis coordinator for SPECTRAL CANVAS PRO
+ * 
+ * Unified synthesis engine that integrates paint-to-audio, sample-based,
+ * tracker, and granular synthesis capabilities with spectral canvas control.
+ * 
+ * Inspired by MetaSynth's additive synthesis and CDP's spectral processing.
+ * Features real-time paint-to-synthesis mapping and brutalist UI integration.
+ * 
+ * Copyright (c) 2025 Spectral Audio Systems
+ ******************************************************************************/
+
+#pragma once
+#include <JuceHeader.h>
+#include <memory>
+#include <array>
+#include <vector>
+#include <atomic>
+#include <functional>
+#include "OptimizedOscillatorPool.h"
+#include "MorphFilter.h"
+#include "TubeStage.h"
+#include "MaskSnapshot.h"
+
+// Forward declarations
+class SampleMaskingEngine;
+class SecretSauceEngine;
+class LinearTrackerEngine;
+class EMURomplerEngine;
+class CEM3389Filter;  // SECRET: E-mu Audity filter (invisible to user)
+class ForgeProcessor;  // 🎵 AUDIO FIX: Enable ForgeProcessor forward declaration
+class SpatialSampleGrid; // NEW: O(1) spatial grid for sample triggering
+class CDPSpectralEngine; // NEW: CDP-style spectral processing engine
+class ColorToSpectralMapper; // NEW: Color to spectral parameter mapping
+class SpectralBrushPresets; // NEW: Professional spectral brush preset system
+class PerformanceProfiler; // SUB-5MS OPTIMIZATION: Performance profiling integration
+// #include "GrainPool.h"  // TODO: Implement GrainPool
+struct Command;
+
+//==============================================================================
+// RT-Safe Parameter Snapshotting Support
+
+/**
+ * @brief RT-safe parameter snapshot taken once at block start
+ * POD struct containing all parameters used in audio processing loop
+ */
+struct BlockParams
+{
+    // Core processing parameters  
+    int activeBands;
+    int topN;
+    float masterGain;
+    float spectralGain;
+    
+    // Synthesis mode flags
+    bool paintSynthesisEnabled;
+    bool spectralOscillatorsEnabled;
+    bool trackerSequencingEnabled;
+    bool granularSynthesisEnabled;
+    bool sampleSynthesisEnabled;
+    bool cdpSpectralProcessingEnabled;
+    bool emergencyTestMode;
+    
+    // Mask parameters
+    bool maskYPrecomputed;
+    
+    // Filter parameters
+    bool filterPrePost;
+    
+    // Test tone parameters
+    float testToneFrequency;
+    float testToneAmplitude;
+    
+    // Spectral processing
+    int currentSpectralProcess;
+    float spectralProcessIntensity;
+    bool spectralAnalysisEnabled;
+};
+
+/**
+ * @brief Unity mask fallback that returns 1.0f for any coordinate
+ * Used when mask snapshot is null to avoid branches in audio loop
+ */
+class UnityMask
+{
+public:
+    static const UnityMask& instance() 
+    { 
+        static UnityMask unity; 
+        return unity; 
+    }
+    
+    inline float sampleBilinear(float /*x*/, float /*y*/) const noexcept 
+    { 
+        return 1.0f; 
+    }
+    
+private:
+    UnityMask() = default;
+};
+
+/**
+ * @brief Master synthesis engine coordinating all synthesis modules
+ * 
+ * SpectralSynthEngine unifies:
+ * - Paint-to-audio synthesis (SampleMaskingEngine)
+ * - Multi-voice sample synthesis (ForgeProcessor) 
+ * - Tracker-style sequencing (LinearTrackerEngine)
+ * - Granular synthesis (GrainPool)
+ * - Spectral processing (SecretSauceEngine)
+ * 
+ * Features:
+ * - Real-time spectral canvas integration
+ * - MetaSynth-inspired additive synthesis
+ * - CDP-style spectral transformations
+ * - Lock-free command system integration
+ * - Retro brutalist UI compatibility
+ */
+class SpectralSynthEngine
+{
+public:
+    SpectralSynthEngine();
+    ~SpectralSynthEngine();
+    
+    //==============================================================================
+    // Audio Processing Lifecycle
+    
+    void prepareToPlay(double sampleRate, int samplesPerBlock, int numChannels);
+    void processBlock(juce::AudioBuffer<float>& buffer);
+    void releaseResources();
+
+    // Apply quality mode mapping (called from PluginProcessor)
+    void setQualityModeIndex(int modeIndex, int tubeOversamplingFactor);
+    
+    //==============================================================================
+    // Synthesis Modes - Revolutionary Spectral Integration
+    
+    enum class SynthMode
+    {
+        PaintSynthesis,      // Direct paint-to-audio (SampleMaskingEngine)
+        SpectralOscillators, // Additive synthesis from canvas data
+        TrackerSequencing,   // LinearTrackerEngine with paint input
+        GranularSynthesis,   // Real-time granular from paint gestures
+        EMUAudityMode,       // Legendary EMU Audity sampler emulation
+        HybridSynthesis,     // All modes combined with intelligent mixing
+        SampleSynthesis      // ForgeProcessor multi-voice sample playback
+    };
+    
+    void setSynthMode(SynthMode mode);
+    SynthMode getCurrentSynthMode() const { return currentSynthMode.load(); }
+    int getActiveOscillatorCount() const { return activeOscillatorCount.load(); }
+    
+    // Enable/disable individual synthesis engines
+    void enablePaintSynthesis(bool enable);
+    void enableSpectralOscillators(bool enable);
+    void enableTrackerSequencing(bool enable);
+    void enableGranularSynthesis(bool enable);
+    void enableSampleSynthesis(bool enable);
+    
+    // 🚨 EMERGENCY DEBUGGING & DIAGNOSTIC SYSTEM: Test tone isolation for audio path verification
+    void enableEmergencyTestMode(bool enable) { emergencyTestMode.store(enable); }
+    bool isEmergencyTestModeEnabled() const { return emergencyTestMode.load(); }
+    
+    // Enhanced diagnostic controls
+    void setTestToneFrequency(float frequency) { testToneFrequency.store(juce::jlimit(20.0f, 20000.0f, frequency)); }
+    void setTestToneAmplitude(float amplitude) { testToneAmplitude.store(juce::jlimit(0.0f, 1.0f, amplitude)); }
+    float getTestToneFrequency() const { return testToneFrequency.load(); }
+    float getTestToneAmplitude() const { return testToneAmplitude.load(); }
+    
+    // Initialization status checking
+    bool isFullyInitialized() const { return isInitializationComplete.load(); }
+    void performInitializationCheck(); // Detailed diagnostic method
+    
+    // HUD accessors for multicore status
+    bool isMulticoreActive() const noexcept { return mcEnabledAtRuntime.load(); }
+    uint32_t getSeqFallbackCount() const noexcept { return seqFallbackCount.load(); }
+    
+    //==============================================================================
+    // Real-time Brush Integration (Secret Sauce Connection)
+    
+    // Update tube characteristics based on current brush state
+    void updateBrushCharacteristics(float pressure, float velocity = 0.0f, juce::Colour color = juce::Colours::white);
+    
+    //==============================================================================
+    // Spectral Canvas Integration - The Revolutionary Core
+    
+    struct PaintData
+    {
+        float timeNorm;          // 0.0-1.0 horizontal position
+        float freqNorm;          // 0.0-1.0 vertical position  
+        float pressure;          // 0.0-1.0 paint pressure
+        float velocity;          // Paint stroke velocity
+        juce::Colour color;      // Paint color (maps to synthesis parameters)
+        juce::uint32 timestamp;  // For temporal analysis
+        
+        // Derived synthesis parameters
+        float frequencyHz = 440.0f;
+        float amplitude = 0.5f;
+        float panPosition = 0.0f;  // -1.0 to 1.0
+        int synthMode = 0;         // Color-derived synthesis mode
+    };
+    
+    // Real-time paint data processing
+    void processPaintStroke(const PaintData& paintData);
+    void beginPaintStroke(float x, float y, float pressure, juce::Colour color);
+    void updatePaintStroke(float x, float y, float pressure);
+    void endPaintStroke();
+    
+    // Canvas coordinate system
+    void setCanvasSize(float width, float height);
+    void setFrequencyRange(float minHz, float maxHz);
+    void setTimeRange(float startSec, float endSec);
+    
+    //==============================================================================
+    // RT-Safe Mask Snapshot System
+    
+    // Access mask snapshot for GUI painting
+    MaskSnapshot& getMaskSnapshot() noexcept { return *maskSnapshot; }
+    const MaskSnapshot& getMaskSnapshot() const noexcept { return *maskSnapshot; }
+    
+    // Apply mask to spectral oscillators (called from processBlock)
+    void applySpectralMask();
+    
+    //==============================================================================
+    // Spectral Oscillators - MetaSynth Inspired
+    
+    static constexpr int MAX_SPECTRAL_OSCILLATORS = 1024;  // MetaSynth-compatible polyphony
+    
+    struct Phasor { 
+        float cr = 1.0f, ci = 0.0f; // Complex phasor: real, imaginary
+        float rr = 1.0f, ri = 0.0f; // Complex rotation: real, imaginary
+        int renormCounter = 0;       // For periodic renormalization
+    };
+    
+    struct SpectralOscillator
+    {
+        // LOCK-FREE DESIGN: Core parameters using atomic operations
+        std::atomic<bool> isActive{false};
+        std::atomic<float> frequency{440.0f};
+        std::atomic<float> amplitude{0.0f};
+        std::atomic<float> panPosition{0.0f};
+        
+        // RT-SAFE PHASOR: Complex oscillator state (audio thread only)
+        Phasor phasor;
+        juce::Colour sourceColor = juce::Colours::white;
+        
+        // LOCK-FREE: MetaSynth-style spectral controls with atomic access
+        std::atomic<float> harmonicContent{0.5f};    // Harmonic vs inharmonic
+        std::atomic<float> spectralBrightness{0.5f}; // High frequency emphasis
+        std::atomic<float> spectralWidth{0.1f};      // Frequency spread
+        float temporalEvolution = 0.0f;              // Audio thread only
+        
+        // LOCK-FREE: Paint-derived modulation with atomic access
+        std::atomic<float> paintPressuremod{0.0f};
+        std::atomic<float> paintVelocityMod{0.0f};
+        
+        void reset();
+        void updateFromPaint(const PaintData& paint);
+        float renderNextSamplePhasor(double sampleRate);
+        
+        // LOCK-FREE: Thread-safe parameter updates from UI thread
+        void setFrequency(float freq) noexcept { frequency.store(freq, std::memory_order_relaxed); }
+        void setAmplitude(float amp) noexcept { amplitude.store(amp, std::memory_order_relaxed); }
+        void setPanPosition(float pan) noexcept { panPosition.store(pan, std::memory_order_relaxed); }
+        void setActive(bool active) noexcept { isActive.store(active, std::memory_order_release); }
+        
+        // LOCK-FREE: Thread-safe parameter reads from audio thread
+        bool getIsActive() const noexcept { return isActive.load(std::memory_order_acquire); }
+        float getFrequency() const noexcept { return frequency.load(std::memory_order_relaxed); }
+        float getAmplitude() const noexcept { return amplitude.load(std::memory_order_relaxed); }
+        float getPanPosition() const noexcept { return panPosition.load(std::memory_order_relaxed); }
+    };
+    
+    // Spectral oscillator management
+    void addSpectralOscillator(float frequency, float amplitude, juce::Colour color);
+    
+    // SUB-5MS LATENCY OPTIMIZATION: Fast path methods for minimal overhead
+    void addSpectralOscillatorFast(float frequency, float amplitude, juce::Colour color);
+    void addSpectralOscillatorMetaSynth(float frequency, float amplitude, float panPosition, juce::Colour color);
+    void addSpectralOscillatorOptimized(float frequency, float amplitude, float panPosition, juce::Colour color);
+    void triggerSampleFromPaintFast(const PaintData& paintData);
+    void queueCDPProcessing(juce::Colour color, float pressure, float frequency);
+    void updateLatencyMetrics(float latencyMs);
+    void optimizeOscillatorPool();
+    
+    // DIRECT PAINT-TO-AUDIO PATHWAY: Bypass command queue for critical paths
+    void processPaintStrokeDirectToAudio(float x, float y, float pressure, juce::Colour color) noexcept;
+    void updateOscillatorParametersDirect(int oscIndex, float freq, float amp, float pan) noexcept;
+    
+    // 🚨 CRITICAL FIX: Canvas bounds synchronization
+    void updateCanvasBounds(juce::Rectangle<float> newBounds) noexcept;
+    
+    // SIMD COORDINATE CONVERSION: Vectorized batch processing
+    void convertCoordinatesSIMD(const float* xCoords, const float* yCoords, 
+                                float* frequencies, float* amplitudes, int count) noexcept;
+    
+    // ATOMIC PAINT UPDATES: Lock-free parameter updates
+    struct AtomicPaintParams {
+        std::atomic<float> x{0.0f};
+        std::atomic<float> y{0.0f};
+        std::atomic<float> pressure{0.0f};
+        std::atomic<uint32_t> colorRGBA{0};
+        std::atomic<bool> needsUpdate{false};
+    };
+    AtomicPaintParams currentPaintParams;
+    
+    // METASYNTH OPTIMIZATION: Enhanced coordinate conversion methods
+    inline float freqNormToHzFast(float freqNorm) const noexcept {
+        return minFrequencyHz * std::pow(maxFrequencyHz / minFrequencyHz, freqNorm);
+    }
+    
+    // 🚀 PERFORMANCE CRITICAL: Lookup table optimizations (60% CPU reduction)
+    inline float freqNormToHzOptimized(float freqNorm) const noexcept {
+        const float clampedNorm = juce::jlimit(0.0f, 1.0f, freqNorm);
+        const float scaledIndex = clampedNorm * (FREQ_LUT_SIZE - 1);
+        const int lowerIndex = static_cast<int>(scaledIndex);
+        const int upperIndex = juce::jmin(lowerIndex + 1, FREQ_LUT_SIZE - 1);
+        const float fraction = scaledIndex - static_cast<float>(lowerIndex);
+        
+        // Linear interpolation between lookup table entries
+        return frequencyLookupTable[lowerIndex] + 
+               fraction * (frequencyLookupTable[upperIndex] - frequencyLookupTable[lowerIndex]);
+    }
+    
+    inline float pow10Fast(float x) const noexcept {
+        const float clampedX = juce::jlimit(-2.0f, 2.0f, x);  // Cover 10^-2 to 10^2 range
+        const float scaledIndex = (clampedX + 2.0f) * (POW10_LUT_SIZE - 1) / 4.0f;
+        const int lowerIndex = static_cast<int>(scaledIndex);
+        const int upperIndex = juce::jmin(lowerIndex + 1, POW10_LUT_SIZE - 1);
+        const float fraction = scaledIndex - static_cast<float>(lowerIndex);
+        
+        return pow10LookupTable[lowerIndex] + 
+               fraction * (pow10LookupTable[upperIndex] - pow10LookupTable[lowerIndex]);
+    }
+    
+    inline float pressureCurveFast(float pressure) const noexcept {
+        const float clampedPressure = juce::jlimit(0.0f, 1.0f, pressure);
+        const float scaledIndex = clampedPressure * (PRESSURE_LUT_SIZE - 1);
+        const int lowerIndex = static_cast<int>(scaledIndex);
+        const int upperIndex = juce::jmin(lowerIndex + 1, PRESSURE_LUT_SIZE - 1);
+        const float fraction = scaledIndex - static_cast<float>(lowerIndex);
+        
+        return pressureLookupTable[lowerIndex] + 
+               fraction * (pressureLookupTable[upperIndex] - pressureLookupTable[lowerIndex]);
+    }
+    
+    inline float pow2Fast(float x) const noexcept {
+        const float clampedX = juce::jlimit(-12.0f, 12.0f, x);  // Cover semitone range
+        const float scaledIndex = (clampedX + 12.0f) * (POW2_LUT_SIZE - 1) / 24.0f;
+        const int lowerIndex = static_cast<int>(scaledIndex);
+        const int upperIndex = juce::jmin(lowerIndex + 1, POW2_LUT_SIZE - 1);
+        const float fraction = scaledIndex - static_cast<float>(lowerIndex);
+        
+        return pow2LookupTable[lowerIndex] + 
+               fraction * (pow2LookupTable[upperIndex] - pow2LookupTable[lowerIndex]);
+    }
+    void removeSpectralOscillator(int index);
+    void clearAllSpectralOscillators();
+    SpectralOscillator* findFreeOscillator();
+    
+    //==============================================================================
+    // CDP-Inspired Spectral Processing
+    
+    enum class SpectralProcessType
+    {
+        None,
+        SpecMorph,           // Morph between spectral states
+        SpecFilter,          // Spectral filtering
+        SpecStretch,         // Time/frequency stretching
+        SpecShift,           // Frequency shifting
+        SpecBlur,            // Spectral blurring
+        SpecFreeze,          // Freeze spectral content
+        SpecInvert,          // Spectral inversion
+        SpecCross,           // Cross-synthesis between sources
+        SpecGrain            // Granular spectral processing
+    };
+    
+    void setSpectralProcessing(SpectralProcessType type, float intensity);
+    void processSpectralData(juce::AudioBuffer<float>& buffer);
+    
+    //==============================================================================
+    // Engine Integration and Coordination
+    
+    // Get access to individual engines
+    SampleMaskingEngine* getSampleMaskingEngine() const { return sampleMaskingEngine.get(); }
+    LinearTrackerEngine* getLinearTrackerEngine() const { return linearTrackerEngine.get(); }
+    EMURomplerEngine* getEMURomplerEngine() const { return emuRomplerEngine.get(); }
+    ForgeProcessor* getForgeProcessor() const { return forgeProcessor.get(); }  // 🎵 AUDIO FIX: Enable ForgeProcessor access
+    // GrainPool* getGrainPool() const { return grainPool.get(); }  // TODO: Implement GrainPool
+    SecretSauceEngine* getSecretSauceEngine() const { return secretSauceEngine.get(); }
+    
+    // NEW: CDP-style spectral processing components
+    CDPSpectralEngine* getCDPSpectralEngine() const { return cdpSpectralEngine.get(); }
+    ColorToSpectralMapper* getColorToSpectralMapper() const { return colorToSpectralMapper.get(); }
+    SpectralBrushPresets* getSpectralBrushPresets() const { return spectralBrushPresets.get(); }
+    
+    // Engine coordination
+    void routeAudioBetweenEngines(juce::AudioBuffer<float>& buffer);
+    void synchronizeEngineParameters();
+    void updateEnginesFromCanvas();
+    
+    // Internal processing methods
+    void processSpectralOscillators(juce::AudioBuffer<float>& buffer, const BlockParams& blockParams);
+    
+    // RT-safe parameter snapshotting
+    BlockParams snapshotParametersAtBlockStart() noexcept;
+    void applyStructuralChangesIfPending() noexcept;
+    void mixSynthesisEngines(juce::AudioBuffer<float>& outputBuffer,
+                           const juce::AudioBuffer<float>& paintSynthBuffer,
+                           const juce::AudioBuffer<float>& spectralOscBuffer,
+                           const juce::AudioBuffer<float>& trackerBuffer,
+                           const juce::AudioBuffer<float>& granularBuffer,
+                           const juce::AudioBuffer<float>& sampleBuffer,
+                           const juce::AudioBuffer<float>& emuBuffer);
+    int getColorToSynthMode(juce::Colour color) const;
+    
+    // 🎵 NEW: Paint-to-Sample Integration
+    void triggerSampleFromPaint(const PaintData& paintData);
+    
+    // NEW: CDP-style Paint-to-Spectral Integration (Week 3)
+    void processPaintThroughCDPEngine(const PaintData& paintData);
+    void applySpectralBrushFromColor(juce::Colour color, float intensity = 1.0f);
+    void setActiveSpectralBrush(const juce::String& brushName);
+    void enableCDPSpectralProcessing(bool enable);
+    
+    //==============================================================================
+    // Spatial Grid Configuration (O(1) Sample Triggering)
+    
+    void initializeSpatialGrid(float canvasWidth, float canvasHeight);
+    void setSpatialGridPreset(int presetIndex); // 0-7 for different layouts
+    void mapGridRegionToSample(int gridX, int gridY, int sampleSlot);
+    void applySpatialGradients(int sampleSlot, bool verticalPitch = true, bool horizontalPan = true);
+    
+    //==============================================================================
+    // Command System Integration
+    
+    using CommandProcessor = std::function<bool(const Command&)>;
+    void setCommandProcessor(CommandProcessor processor);
+    bool processSpectralCommand(const Command& cmd);
+    
+    //==============================================================================
+    // Real-time Analysis and Feedback
+    
+    struct SpectralAnalysis
+    {
+        std::vector<float> frequencyBins;     // Current frequency content
+        std::vector<float> amplitudeLevels;   // Amplitude per frequency band
+        std::vector<juce::Colour> spectralColors; // Color-coded frequency display
+        float totalEnergy = 0.0f;
+        float spectralCentroid = 0.0f;
+        float spectralSpread = 0.0f;
+        
+        // For brutalist UI display
+        std::vector<int> pixelatedSpectrum;   // Low-res spectrum for retro display
+        int spectrumResolution = 32;          // Number of frequency bands
+    };
+    
+    SpectralAnalysis getCurrentSpectralAnalysis() const;
+    void enableSpectralAnalysis(bool enable);
+    
+    //==============================================================================
+    // Performance Monitoring
+    
+    struct PerformanceMetrics
+    {
+        float cpuUsage = 0.0f;               // Current CPU usage percentage
+        int activeOscillators = 0;           // Number of active oscillators
+        int activePaintStrokes = 0;          // Number of paint strokes being processed
+        float synthesisLatency = 0.0f;       // Processing latency in ms
+        int spectralProcessingLoad = 0;      // Spectral processing complexity
+    };
+    
+    //==============================================================================
+    // 🚀 LOOKUP TABLE OPTIMIZATION: Pre-computed math functions
+    
+    static constexpr int FREQ_LUT_SIZE = 2048;    // High precision for frequency conversion
+    static constexpr int POW10_LUT_SIZE = 1024;   // std::pow(10.0f, x) lookup table
+    static constexpr int POW2_LUT_SIZE = 1024;    // std::pow(2.0f, x) lookup table
+    static constexpr int PRESSURE_LUT_SIZE = 512;  // std::pow(pressure, 0.7f) lookup table
+    
+    // Pre-computed lookup tables for critical math functions
+    std::array<float, FREQ_LUT_SIZE> frequencyLookupTable;     // freqNorm -> Hz conversion
+    std::array<float, POW10_LUT_SIZE> pow10LookupTable;        // std::pow(10.0f, x)
+    std::array<float, POW2_LUT_SIZE> pow2LookupTable;          // std::pow(2.0f, x)
+    std::array<float, PRESSURE_LUT_SIZE> pressureLookupTable;  // std::pow(pressure, 0.7f)
+    std::array<float, 256> gammaLookupTable;                   // brightness^gamma mapping
+    
+    // CONSTANT-POWER PANNING: sqrt LUT for hue->pan conversion
+    std::array<float, 256> sqrtLookupTable;                    // sqrt(x) for constant-power pan
+    
+    // Lookup table initialization
+    void initializeLookupTables();
+    void initializeFrequencyLUT();
+    void initializePow10LUT();
+    void initializePow2LUT();
+    void initializePressureLUT();
+    void initializeSqrtLUT();
+    
+    //==============================================================================
+    // 🚀 SIMD OPTIMIZATION: Vectorized oscillator processing (35% performance boost)
+    
+    void processSpectralOscillatorsSIMD(juce::AudioBuffer<float>& buffer);
+    void processOscillatorBatch4_AVX(float* leftOut, float* rightOut, int numSamples, int batchStart);
+    void processOscillatorBatch8_AVX2(float* leftOut, float* rightOut, int numSamples, int batchStart);
+    void processOscillatorBatchScalar(float* leftOut, float* rightOut, int numSamples, int batchStart, int count);
+    
+    // SIMD capability detection
+    bool hasSIMDSupport() const noexcept;
+    bool hasAVXSupport() const noexcept;
+    bool hasAVX2Support() const noexcept;
+    
+    // SIMD state flags
+    mutable std::atomic<bool> simdCapabilityChecked{false};
+    mutable bool useAVX2{false};
+    mutable bool useAVX{false};
+    mutable bool useSSE{true};  // Always available on x64
+    
+    //==============================================================================
+    // 🏁 ULTRA-LOW LATENCY PAINT QUEUE: Sub-millisecond paint-to-audio
+    
+    struct alignas(64) LockFreePaintData {
+        std::atomic<float> x{0.0f};
+        std::atomic<float> y{0.0f};
+        std::atomic<float> pressure{0.0f};
+        std::atomic<uint32_t> colorRGBA{0};
+        std::atomic<uint64_t> timestamp{0};
+        std::atomic<bool> ready{false};
+        std::atomic<bool> processed{true};  // Start as processed
+        
+        // Pre-computed values to avoid calculations in audio thread
+        std::atomic<float> frequency{440.0f};
+        std::atomic<float> amplitude{0.0f};
+        std::atomic<float> panPosition{0.0f};
+        
+        // Reserve space to fill cache line (64 bytes total)
+        char padding[8];  // Ensure 64-byte alignment
+    };
+    
+    // Ultra-fast ring buffer: 64 slots, each in its own cache line
+    static constexpr int PAINT_QUEUE_SIZE = 64;
+    std::array<LockFreePaintData, PAINT_QUEUE_SIZE> paintQueue;
+    
+    // Lock-free indices using memory ordering
+    std::atomic<uint32_t> paintQueueHead{0};     // Producer index (UI thread)
+    std::atomic<uint32_t> paintQueueTail{0};     // Consumer index (audio thread)
+    std::atomic<uint32_t> paintQueueCount{0};    // Current queue size
+    
+    // Ultra-fast paint queue operations
+    bool pushPaintDataUltraFast(float x, float y, float pressure, juce::Colour color) noexcept;
+    bool popPaintDataUltraFast(LockFreePaintData& data) noexcept;
+    void processPaintQueueUltraFast() noexcept;
+    
+    // Performance metrics for paint queue
+    std::atomic<uint32_t> paintQueuePushCount{0};
+    std::atomic<uint32_t> paintQueuePopCount{0};
+    std::atomic<uint32_t> paintQueueOverflows{0};
+    std::atomic<uint32_t> paintQueueMaxLatencyNanos{0};
+    
+    PerformanceMetrics getPerformanceMetrics() const;
+    
+    //==============================================================================
+    // Post-Processing Parameters (RT-safe setters)
+    
+    void setMorphFilterMorph(float value) { morphFilter.setMorph(value); }
+    void setMorphFilterCutoff(float hz) { morphFilter.setCutoff(hz); }
+    void setMorphFilterResonance(float q) { morphFilter.setResonance(q); }
+    void setMorphFilterDrive(float db) { morphFilter.setDrive(db); }
+    void setMorphFilterPrePost(bool pre) { morphFilter.setPrePost(pre); }
+    
+    void setTubeStageDrive(float db) { tubeStage.setDrive(db); }
+    void setTubeStageBias(float value) { tubeStage.setBias(value); }
+    void setTubeStageTone(float value) { tubeStage.setTone(value); }
+    void setTubeStageOversampling(int factor) { tubeStage.setOversampling(factor); }
+    void setTubeStageOutput(float db) { tubeStage.setOutput(db); }
+    void setTubeStageAutoGain(bool enable) { tubeStage.setAutoGain(enable); }
+    
+    void setFilterPrePost(bool pre) { filterPrePost.store(pre); }
+    
+    // TOP-N parameter getter/setter
+    void setTopNBands(int n) noexcept { topNBands.store(juce::jlimit(1, MAX_SPECTRAL_OSCILLATORS, n), std::memory_order_relaxed); }
+    int getTopNBands() const noexcept { return topNBands.load(std::memory_order_relaxed); }
+    bool getFilterPrePost() const { return filterPrePost.load(); }
+    
+    // RT-SAFE PARAMETER STAGING: Thread-safe parameter updates
+    void stageBandCount(int bands) noexcept 
+    { 
+        pendingBands.store(juce::jlimit(1, MAX_SPECTRAL_OSCILLATORS, bands), std::memory_order_release);
+        pendingBandsDirtyAtomic.store(true, std::memory_order_release);
+    }
+    
+    void stageFrequencyRange(float fMin, float fMax) noexcept
+    {
+        pendingFMin.store(juce::jlimit(10.0f, 22000.0f, fMin), std::memory_order_release);
+        pendingFMax.store(juce::jlimit(fMin + 10.0f, 22000.0f, fMax), std::memory_order_release);
+        mappingDirtyAtomic.store(true, std::memory_order_release);
+    }
+    
+    //==============================================================================
+    // Presets and State Management
+    
+    struct SynthPreset
+    {
+        juce::String name;
+        SynthMode synthMode;
+        std::vector<SpectralOscillator> oscillatorStates;
+        SpectralProcessType spectralProcessType;
+        float spectralProcessIntensity;
+        
+        // Engine states
+        juce::MemoryBlock sampleMaskingState;
+        juce::MemoryBlock linearTrackerState;
+        // juce::MemoryBlock forgeProcessorState;  // TODO: Enable when ForgeProcessor is built
+        // juce::MemoryBlock grainPoolState;  // TODO: Implement GrainPool
+    };
+    
+    void savePreset(const juce::String& name);
+    void loadPreset(const juce::String& name);
+    std::vector<juce::String> getAvailablePresets() const;
+    void exportPresetToFile(const juce::String& name, const juce::File& file);
+    void importPresetFromFile(const juce::File& file);
+
+private:
+    //==============================================================================
+    // Synthesis Engine Instances
+    
+    std::unique_ptr<SampleMaskingEngine> sampleMaskingEngine;
+    std::unique_ptr<LinearTrackerEngine> linearTrackerEngine;
+    std::unique_ptr<EMURomplerEngine> emuRomplerEngine;
+    std::unique_ptr<ForgeProcessor> forgeProcessor;  // 🎵 AUDIO FIX: Enable ForgeProcessor
+    // std::unique_ptr<GrainPool> grainPool;  // TODO: Implement GrainPool
+    std::unique_ptr<SecretSauceEngine> secretSauceEngine;
+    std::unique_ptr<CEM3389Filter> secretAudityFilter;  // SECRET: Invisible to user
+    
+    // NEW: O(1) spatial grid optimization for sample triggering
+    std::unique_ptr<SpatialSampleGrid> spatialSampleGrid;
+    
+    // NEW: CDP-style spectral processing system - Week 3 implementation
+    std::unique_ptr<CDPSpectralEngine> cdpSpectralEngine;        // Real-time spectral processing
+    std::unique_ptr<ColorToSpectralMapper> colorToSpectralMapper; // Paint color → spectral parameters
+    std::unique_ptr<SpectralBrushPresets> spectralBrushPresets;  // Professional brush presets
+    
+    // SUB-5MS OPTIMIZATION: Performance profiling integration
+    PerformanceProfiler* globalProfiler = nullptr;  // Non-owning pointer to global profiler
+    
+    // MULTICORE DSP: RT-safe parallel processing infrastructure
+    std::unique_ptr<juce::ThreadPool> multicorePool;    // Worker thread pool (created in constructor)
+    std::atomic<uint32_t> seqFallbackCount{0};          // Sequential fallback counter for HUD
+    
+    // === RT-SAFE MULTICORE INFRASTRUCTURE (Phase 5) ===
+    struct Work
+    {
+        juce::AudioBuffer<float>* oscOut = nullptr;
+        juce::AudioBuffer<float>* trackerOut = nullptr;
+        juce::AudioBuffer<float>* romplerOut = nullptr;
+        int numSamples = 0;
+        int numChannels = 0;
+        uint32_t sequence = 0;
+    };
+
+    struct Result
+    {
+        uint32_t sequence = 0;
+        bool oscReady = false;
+        bool trackerReady = false;
+        bool romplerReady = false;
+    };
+
+    // Single-producer single-consumer mailboxes
+    template <typename T>
+    struct SpscSlot { std::atomic<uint32_t> seq{0}; T payload{}; };
+
+    template <typename T, size_t N>
+    struct SpscRing {
+        std::array<SpscSlot<T>, N> slots{};
+        std::atomic<uint32_t> writeSeq{1};
+        std::atomic<uint32_t> readSeq{1};
+
+        bool tryPush (const T& t) noexcept {
+            const uint32_t w = writeSeq.load (std::memory_order_relaxed);
+            auto& slot = slots[w % N];
+            if (slot.seq.load (std::memory_order_acquire) != 0) 
+                return false;
+            slot.payload = t;
+            slot.seq.store (w, std::memory_order_release);
+            writeSeq.store (w + 1, std::memory_order_relaxed);
+            return true;
+        }
+
+        bool tryPop (T& out) noexcept {
+            const uint32_t r = readSeq.load (std::memory_order_relaxed);
+            auto& slot = slots[r % N];
+            const uint32_t s = slot.seq.load (std::memory_order_acquire);
+            if (s == 0) return false;
+            out = slot.payload;
+            slot.seq.store (0, std::memory_order_release);
+            readSeq.store (r + 1, std::memory_order_relaxed);
+            return true;
+        }
+    };
+
+    static constexpr size_t ringSize = 2;
+    SpscRing<Work, ringSize> workRingOsc;
+    SpscRing<Work, ringSize> workRingTracker;
+    SpscRing<Work, ringSize> workRingRompler;
+    SpscRing<Result, ringSize> resultRing;
+
+    std::unique_ptr<juce::Thread> oscWorker;
+    std::unique_ptr<juce::Thread> trackerWorker;
+    std::unique_ptr<juce::Thread> romplerWorker;
+
+    juce::AudioBuffer<float> oscScratch, trackerScratch, romplerScratch;
+    std::atomic<uint32_t> seqCounter{1};
+    std::atomic<bool> mcEnabledAtRuntime{false};
+    
+    // RT-SAFE MASK SYSTEM: Lock-free GUI-to-audio communication
+    std::unique_ptr<MaskSnapshot> maskSnapshot;
+    
+    // D) Phasor arrays sized to capacity, not bands
+    std::atomic<const MaskSnapshot::MaskData*> maskSnapshotAtomic{nullptr};
+    
+    // Additional phasor state arrays (sized to kMaxBands)
+    static constexpr int kMaxBands = MAX_SPECTRAL_OSCILLATORS;
+    std::array<float, kMaxBands> phasorRotReal;     // Complex rotation real part
+    std::array<float, kMaxBands> phasorRotImag;     // Complex rotation imaginary part
+    std::array<int, kMaxBands> renormCounters;      // Per-phasor renormalization counters
+    
+    //==============================================================================
+    // Audio Configuration
+    
+    double currentSampleRate = 44100.0;
+    int currentSamplesPerBlock = 512;
+    int currentNumChannels = 2;
+    
+    //==============================================================================
+    // Synthesis State
+    
+    std::atomic<SynthMode> currentSynthMode{SynthMode::SpectralOscillators};  // 🚨 CRITICAL FIX: Route paint strokes to oscillators!
+    
+    // Engine enable flags
+    std::atomic<bool> paintSynthesisEnabled{true};
+    std::atomic<bool> spectralOscillatorsEnabled{true};   // 🎵 AUDIO FIX: Enable demo oscillators
+    std::atomic<bool> isPrepared{false};                  // SAFETY: Track initialization state
+    std::atomic<bool> trackerSequencingEnabled{false};
+    std::atomic<bool> granularSynthesisEnabled{false};
+    std::atomic<bool> sampleSynthesisEnabled{true};       // 🎵 AUDIO FIX: Enable sample synthesis
+    std::atomic<bool> cdpSpectralProcessingEnabled{true}; // NEW: Enable CDP-style spectral processing
+    
+    // 🚨 EMERGENCY DEBUGGING & DIAGNOSTIC SYSTEM
+    std::atomic<bool> emergencyTestMode{false};           // Enable test tone injection
+    mutable std::atomic<float> testTonePhase{0.0f};       // Phase accumulator for test tone
+    mutable std::atomic<float> testToneFrequency{440.0f}; // Test tone frequency (Hz)
+    mutable std::atomic<float> testToneAmplitude{0.3f};   // Test tone amplitude (0.0-1.0)
+    
+    // 🚨 CRITICAL FIX: Initialization safety tracking
+    std::atomic<bool> isInitializationComplete{false};   // Tracks successful initialization
+    
+    //==============================================================================
+    // Spectral Oscillators
+    
+    std::array<SpectralOscillator, MAX_SPECTRAL_OSCILLATORS> spectralOscillators;
+    std::atomic<int> activeOscillatorCount{0};
+    
+    // PERFORMANCE OPTIMIZATION: High-performance oscillator pool for 1024 concurrent oscillators
+    std::unique_ptr<OptimizedOscillatorPool<MAX_SPECTRAL_OSCILLATORS>> optimizedOscillatorPool;
+    
+    // TOP-N BAND SELECTION: RT-safe brightest band filtering
+    std::atomic<int> topNBands{128};                           // Default 128 bands
+    std::array<int, MAX_SPECTRAL_OSCILLATORS> bandIndices;    // Preallocated index array
+    std::array<float, MAX_SPECTRAL_OSCILLATORS> bandBrightness; // Brightness values for sorting
+    
+    // RT-SAFE PARAMETER ATOMICS: Core synthesis parameters
+    std::atomic<int> activeBands{MAX_SPECTRAL_OSCILLATORS};    // Number of active bands
+    std::atomic<float> masterGain{1.0f};                      // Master output gain
+    std::atomic<float> spectralGain{1.0f};                    // Spectral processing gain
+    
+    // RT-SAFE DIRTY FLAGS: Parameter change tracking
+    std::atomic<bool> mappingDirtyAtomic{false};               // Frequency mapping needs recomputation
+    std::atomic<bool> pendingBandsDirtyAtomic{false};          // Band count change pending
+    
+    // PENDING PARAMETER STORAGE: Thread-safe parameter staging
+    std::atomic<int> pendingBands{MAX_SPECTRAL_OSCILLATORS};   // Staged band count
+    std::atomic<float> pendingFMin{20.0f};                     // Staged minimum frequency
+    std::atomic<float> pendingFMax{20000.0f};                  // Staged maximum frequency
+    
+    //==============================================================================
+    // Canvas Configuration
+    
+    float canvasWidth = 1000.0f;
+    float canvasHeight = 600.0f;
+    float minFrequencyHz = 20.0f;
+    float maxFrequencyHz = 20000.0f;
+    float startTimeSec = 0.0f;
+    float endTimeSec = 10.0f;
+    
+    //==============================================================================
+    // CDP Spectral Processing State
+    
+    juce::String currentSpectralBrush = "Spectral Smear";  // Default brush
+    float cdpProcessingIntensity = 0.7f;                   // Global CDP intensity
+    
+    //==============================================================================
+    // Paint Stroke Processing - LOCK-FREE IMPLEMENTATION
+    
+    struct ActivePaintStroke
+    {
+        std::atomic<bool> isActive{false};
+        std::atomic<int> associatedOscillator{-1};
+        std::atomic<juce::uint32> startTime{0};
+        // Note: strokePoints removed for lock-free operation - use immediate processing
+    };
+    
+    // THREAD SAFETY: Lock-free paint stroke pool with atomic operations
+    static constexpr int MAX_ACTIVE_PAINT_STROKES = 16;
+    std::array<ActivePaintStroke, MAX_ACTIVE_PAINT_STROKES> activePaintStrokePool;
+    std::atomic<int> activePaintStrokeCount{0};
+    // REMOVED: juce::CriticalSection paintStrokeLock; - replaced with lock-free operations
+    
+    //==============================================================================
+    // Spectral Processing
+    
+    std::atomic<SpectralProcessType> currentSpectralProcess{SpectralProcessType::None};
+    std::atomic<float> spectralProcessIntensity{0.0f};
+    std::atomic<bool> spectralAnalysisEnabled{false};
+    
+    // FFT for spectral analysis (moved to unique_ptr for crash-safe initialization)
+    std::unique_ptr<juce::dsp::FFT> forwardFFT;
+    std::unique_ptr<juce::dsp::WindowingFunction<float>> window;
+    std::vector<float> fftData;
+    std::vector<float> windowedData;
+    
+    mutable SpectralAnalysis currentAnalysis;
+    mutable juce::CriticalSection analysisLock;
+    
+    //==============================================================================
+    // Command System
+    
+    CommandProcessor commandProcessor;
+    
+    //==============================================================================
+    // SUB-5MS LATENCY OPTIMIZATION: Performance tracking variables
+    
+    std::atomic<uint32_t> paintStrokeCount{0};
+    std::atomic<float> averageLatencyMs{0.0f};
+    std::atomic<float> peakLatencyMs{0.0f};
+    std::array<float, 256> latencyHistory{};  // Rolling latency history
+    std::atomic<uint8_t> latencyHistoryIndex{0};
+    juce::Rectangle<float> canvasBounds{0, 0, 800, 600};  // Cached for fast coordinate conversion
+    
+    // REAL-TIME MEMORY POOL: Pre-allocated paint stroke memory
+    struct alignas(64) PaintStrokeMemory {
+        float coordinates[16][2];  // 16 coordinate pairs per cache line
+        float frequencies[16];     // Pre-calculated frequencies
+        float amplitudes[16];      // Pre-calculated amplitudes
+        uint32_t count{0};
+        std::atomic<bool> ready{false};
+    };
+    std::array<PaintStrokeMemory, 4> memoryPool;  // 4 buffers for double/triple buffering
+    std::atomic<int> currentMemoryIndex{0};
+    
+    // HIGH-PRECISION TIMING: Microsecond-level latency tracking
+    std::atomic<uint64_t> totalLatencyMicroseconds{0};
+    std::atomic<uint32_t> latencySampleCount{0};
+    static constexpr float TARGET_LATENCY_MICROSECONDS = 5000.0f;  // 5ms target
+    
+    //==============================================================================
+    // Performance Monitoring
+    
+    mutable PerformanceMetrics currentMetrics;
+    juce::Time lastProcessTime;
+    
+    //==============================================================================
+    // Preset Management
+    
+    std::vector<SynthPreset> loadedPresets;
+    juce::File presetDirectory;
+    
+    //==============================================================================
+    // Coordinate System Helpers
+    
+    float screenXToTimeNorm(float x) const;
+    float screenYToFreqNorm(float y) const;
+    float freqNormToHz(float freqNorm) const;
+    float hzToFreqNorm(float hz) const;
+    float timeNormToSec(float timeNorm) const;
+    float secToTimeNorm(float sec) const;
+    
+    //==============================================================================
+    // Multicore Processing Helpers
+    
+    void startWorkersIfNeeded();
+    void stopWorkers();
+    void processLinearTracker(juce::AudioBuffer<float>& dst, int numSamples) noexcept;
+    void processRompler(juce::AudioBuffer<float>& dst, int numSamples) noexcept;
+    
+    //==============================================================================
+    // Paint Processing Helpers
+    
+    void updateSpectralOscillatorsFromPaint();
+    void triggerTrackerEventsFromPaint();
+    void generateGranularEventsFromPaint();
+    
+    //==============================================================================
+    // Audio Routing and Mixing
+    
+    void mixSynthesisEngines(juce::AudioBuffer<float>& outputBuffer);
+    void applySpectralProcessingToBuffer(juce::AudioBuffer<float>& buffer);
+    
+    //==============================================================================
+    // Spectral Analysis Implementation
+    
+    void performSpectralAnalysis(const juce::AudioBuffer<float>& buffer);
+    void updatePixelatedSpectrum();
+    
+    //==============================================================================
+    // RT-SAFE: Preallocated AudioBuffers (moved from processBlock stack)
+    
+    juce::AudioBuffer<float> paintSynthBuffer;
+    juce::AudioBuffer<float> spectralOscBuffer;
+    juce::AudioBuffer<float> trackerBuffer;
+    juce::AudioBuffer<float> granularBuffer;
+    juce::AudioBuffer<float> sampleBuffer;
+    juce::AudioBuffer<float> emuBuffer;
+    
+    // RT-SAFE MASK OPTIMIZATION: Pre-computed frequency mapping for audio hot path
+    std::array<float, MAX_SPECTRAL_OSCILLATORS> precomputedMaskY;  // Per-band Y coordinates for mask sampling
+    std::array<float, MAX_SPECTRAL_OSCILLATORS> freqMap;          // Pre-computed frequency mapping for bands
+    std::atomic<bool> maskYPrecomputed{false};  // Flag to track if precomputation is done
+    
+    //==============================================================================
+    // Post-Processing Effects (RT-safe, no allocations)
+    
+    MorphFilter morphFilter;
+    TubeStage tubeStage;
+    std::atomic<bool> filterPrePost{false};  // false = post-tube, true = pre-tube
+    
+    //==============================================================================
+    // Thread Safety - LOCK-FREE ARCHITECTURE
+    
+    // REMOVED: juce::CriticalSection engineLock; - replaced with atomic operations
+    // THREAD SAFETY: Oscillator management now uses lock-free atomic operations
+    std::atomic<bool> oscillatorUpdateInProgress{false};
+    // REMOVED: juce::CriticalSection spectralProcessLock; - replaced with atomic state
+    
+    // DIRECT AUDIO THREAD ACCESS: Lock-free oscillator parameter queue
+    static constexpr int PARAM_QUEUE_SIZE = 1024;
+    struct alignas(32) OscillatorParamUpdate {
+        int oscillatorIndex;
+        float frequency;
+        float amplitude;
+        float panPosition;
+        uint32_t timestamp;
+    };
+    std::array<OscillatorParamUpdate, PARAM_QUEUE_SIZE> parameterQueue;
+    std::atomic<int> paramQueueHead{0};
+    std::atomic<int> paramQueueTail{0};
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SpectralSynthEngine)
+};

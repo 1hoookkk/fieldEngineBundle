@@ -1,0 +1,291 @@
+#pragma once
+
+#include <cmath>
+
+#include <juce_audio_processors/juce_audio_processors.h>
+
+#include <juce_audio_utils/juce_audio_utils.h>
+
+#include <zplane_engine/DspBridge.h>
+
+
+
+//==============================================================================
+
+class MorphEngineAudioProcessor : public juce::AudioProcessor,
+
+                                  private juce::AudioProcessorValueTreeState::Listener
+
+{
+
+public:
+
+    //==============================================================================
+
+    MorphEngineAudioProcessor();
+
+    ~MorphEngineAudioProcessor() override;
+
+
+
+    //==============================================================================
+
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+
+    void releaseResources() override;
+
+
+
+   #ifndef JucePlugin_PreferredChannelConfigurations
+
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+
+   #endif
+
+
+
+    void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+
+
+
+    //==============================================================================
+
+    juce::AudioProcessorEditor* createEditor() override;
+
+    bool hasEditor() const override;
+
+
+
+    //==============================================================================
+
+    const juce::String getName() const override;
+
+
+
+    bool acceptsMidi() const override;
+
+    bool producesMidi() const override;
+
+    bool isMidiEffect() const override;
+
+    double getTailLengthSeconds() const override;
+
+
+
+    //==============================================================================
+
+    int getNumPrograms() override;
+
+    int getCurrentProgram() override;
+
+    void setCurrentProgram (int index) override;
+
+    const juce::String getProgramName (int index) override;
+
+    void changeProgramName (int index, const juce::String& newName) override;
+
+
+
+    //==============================================================================
+
+    void getStateInformation (juce::MemoryBlock& destData) override;
+
+    void setStateInformation (const void* data, int sizeInBytes) override;
+
+
+
+    //==============================================================================
+
+    using APVTS = juce::AudioProcessorValueTreeState;
+
+    APVTS apvts { *this, nullptr, "PARAMS", createParameterLayout() };
+
+
+
+private:
+
+    //==============================================================================
+
+    static APVTS::ParameterLayout createParameterLayout();
+
+
+
+    // APVTS listener for Style macros
+
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
+
+
+
+    // Macro application guard
+
+    std::atomic<bool> applyingStyle { false };
+
+
+
+    // Auto morph modulation helpers
+
+    struct AutoMorphLFO
+
+    {
+
+        void prepare(double srIn) { sr = srIn; phase = 0.0f; }
+
+        void setRateHz(float hz)  { rate = juce::jlimit(0.01f, 10.0f, hz); }
+
+        void resetPhase()         { phase = 0.0f; }
+
+        float evalAndAdvance(int numSamples)
+
+        {
+
+            if (numSamples <= 0)
+
+                return std::sin(phase);
+
+            const float inc = juce::MathConstants<float>::twoPi * (rate / (float) sr);
+
+            const float midPhase = phase + inc * (numSamples * 0.5f);
+
+            const float y = std::sin(midPhase);
+
+            phase = std::fmod(phase + inc * numSamples, juce::MathConstants<float>::twoPi);
+
+            return y;
+
+        }
+
+        double sr = 48000.0;
+
+        float  phase = 0.0f;
+
+        float  rate  = 0.30f;
+
+    };
+
+
+
+    struct RmsFollower
+
+    {
+
+        void prepare(double srIn) { sr = srIn; setTimes(0.02, 0.15); reset(); }
+
+        void setTimes(double atk, double rel)
+
+        {
+
+            attackCoeff  = std::exp(-1.0 / juce::jmax(1.0, atk * sr));
+
+            releaseCoeff = std::exp(-1.0 / juce::jmax(1.0, rel * sr));
+
+        }
+
+        void reset() { envelope = 0.0f; }
+
+        float processBlock(const juce::AudioBuffer<float>& buffer)
+
+        {
+
+            const int samples = buffer.getNumSamples();
+
+            if (samples <= 0)
+
+                return envelope;
+
+            const float* data = buffer.getReadPointer(juce::jmin(0, buffer.getNumChannels() - 1));
+
+            double mean = 0.0;
+
+            for (int i = 0; i < samples; ++i)
+
+                mean += std::abs(data[i]);
+
+            const float x = (float) (mean / samples);
+
+            const float coeff = (x > envelope ? (float) attackCoeff : (float) releaseCoeff);
+
+            envelope = coeff * envelope + (1.0f - coeff) * x;
+
+            return envelope;
+
+        }
+
+        double sr = 48000.0;
+
+        double attackCoeff = 0.0;
+
+        double releaseCoeff = 0.0;
+
+        float envelope = 0.0f;
+
+    };
+
+
+
+    AutoMorphLFO morphLFO;
+
+    RmsFollower  morphEnv;
+
+    juce::LinearSmoothedValue<float> smAutoDepth;
+
+    bool  lastIsPlaying = false;
+
+    float envAssistMix  = 0.0f;
+
+
+
+    // Smoothers (per-sample)
+
+    juce::SmoothedValue<float, juce::ValueSmoothingTypes::Linear> smMorph, smCutoff, smReso, smMix;
+
+
+
+    // DSP Bridge
+
+    pe::DspBridge zbridge_;
+
+
+
+    // Helpers
+
+    void setSmootherTimes(double sampleRate);
+
+
+    void updateAutoMorphRateFromHostTempo();
+
+    static double beatsPerCycleFromSyncIndex(int syncIndex, int timeSigNumerator, int timeSigDenominator);
+
+
+
+    // Parameter mapping helpers
+
+    static inline float hzFromNorm(float x, float minHz=25.0f, float maxHz=16000.0f)
+
+    {
+
+        const float r = maxHz / minHz;
+
+        return minHz * std::pow(r, juce::jlimit(0.0f, 1.0f, x));
+
+    }
+
+
+
+    static inline float normFromHz(float hz, float minHz=25.0f, float maxHz=16000.0f)
+
+    {
+
+        const float r = maxHz / minHz;
+
+        return juce::jlimit(0.0f, 1.0f, std::log(hz / minHz) / std::log(r));
+
+    }
+
+
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MorphEngineAudioProcessor)
+
+};
+
+
+

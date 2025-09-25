@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "bank": "ExtremeTest",
+    "source": "manual_test",
+    "format": "E5P1",
+    "count": 3
+  },
+  "presets": [
+    {
+      "name": "Razor Lead",
+      "category": "Lead",
+      "filter": {
+        "model": "ZP:HyperQ-12",
+        "cutoff": 0.8,
+        "resonance": 0.9,
+        "t1": 0.2,
+        "t2": 0.8
+      }
+    },
+    {
+      "name": "Deep Bass",
+      "category": "Bass",
+      "filter": {
+        "model": "ZP:HyperQ-6",
+        "cutoff": 0.3,
+        "resonance": 0.6,
+        "t1": 0.7,
+        "t2": 0.3
+      }
+    },
+    {
+      "name": "Vocal Sweep",
+      "category": "FX",
+      "filter": {
+        "model": "ZP:HyperQ-12",
+        "cutoff": 0.6,
+        "resonance": 0.4,
+        "t1": 0.1,
+        "t2": 0.9
+      }
+    }
+  ]
+}

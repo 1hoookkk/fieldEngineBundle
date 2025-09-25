@@ -1,0 +1,59 @@
+zip,path,juce_refs,found
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/core/AuthenticEMUZPlane.cpp,0,filter; FIR; biquad; z-plane; JUCE; sampleRate
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.cpp,0,zplane
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneCoefficientBank.h,0,"filter:ZPlaneCoefficientBank, ZPlaneCoefficientBank; emu:ZPlaneCoefficientBank, ZPlaneCoefficientBank"
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneFilter.h,3,"filter:BiquadSection, ZPlaneFilter, BiquadSection, ZPlaneFilter; emu:ZPlaneFilter, ZPlaneFilter"
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/core/ZPlaneUtils.h,0,zplane
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.cpp,0,zplane; spectral
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/spectral/ZPlaneSpectralMask.h,0,filter:ZPlaneSpectralMask; emu:ZPlaneSpectralMask
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneLogFreqLUT.h,0,STFT; zplane; sampleRate
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables.h,1,filter:ZPlaneTables; emu:ZPlaneTables
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T1.h,0,z-plane
+EMU_ZPlane_Vault - 1.zip,EMU_ZPlane_Vault/AUTHENTIC/tables/ZPlaneTables_T2.h,0,z-plane
+Source - 2.zip,Source/Core/CEM3389Filter.h,2,"filter:CEM3389Filter, CEM3389Filter"
+Source - 2.zip,Source/Core/CanvasProcessor.h,2,"processor:CanvasProcessor, CanvasProcessor"
+Source - 2.zip,Source/Core/CrashToggles.h,0,z-plane
+Source - 2.zip,Source/Core/DegradedModeManager.h,2,"processor:FallbackAudioProcessor, FallbackAudioProcessor"
+Source - 2.zip,Source/Core/ForgeProcessor.h,2,"processor:ForgeProcessor, ForgeProcessor"
+Source - 2.zip,Source/Core/ForgeVoice.h,7,pitch:setPitch
+Source - 2.zip,Source/Core/GestureSnapshot.h,0,filter:hueToFilterBlend
+Source - 2.zip,Source/Core/HarmonicQuantizer.h,0,pitch:nearestMidiForPitchClass
+Source - 2.zip,Source/Core/IntegrationTest.cpp,2,processor:testPluginProcessorCreation
+Source - 2.zip,Source/Core/MorphFilter.h,2,"filter:MorphFilter, MorphFilter"
+Source - 2.zip,Source/Core/ParameterSnapshot.h,1,filter; z-plane; pitch; JUCE; sampleRate
+Source - 2.zip,Source/Core/Params.h,1,"filter:zPlaneMorphRange, filterTypeRange; fft:fftSizeRange; emu:zPlaneMorphRange"
+Source - 2.zip,Source/Core/PluginProcessor.h,10,"processor:ARTEFACTAudioProcessor, ARTEFACTAudioProcessor"
+Source - 2.zip,Source/Core/ProfessionalMeteringSuite.h,10,filter:KWeightingFilter
+Source - 2.zip,Source/Core/ReconfigManager.h,11,"fft:FFTCache, getFFTSizeInt"
+Source - 2.zip,Source/Core/SampleMaskingEngine.cpp,8,tempo:calculateQuantizedBeatTime
+Source - 2.zip,Source/Core/SampleMaskingEngine.h,8,"tempo:setHostTempo, getHostTempo"
+Source - 2.zip,Source/Core/SecretSauceEngine.cpp,12,emu:applyEMUCharacteristics
+Source - 2.zip,Source/Core/SecretSauceEngine.h,14,filter:setEMUFilterIntensity; emu:setEMUFilterIntensity
+Source - 2.zip,Source/Core/SpatialSampleGrid.h,1,processor:ForgeProcessor
+Source - 2.zip,Source/Core/SpectralCanvasProProcessor.cpp,4,processor:SpectralCanvasProProcessor; filter:createPluginFilter
+Source - 2.zip,Source/Core/SpectralCanvasProProcessor.h,4,"processor:SpectralCanvasProProcessor, SpectralCanvasProProcessor"
+Source - 2.zip,Source/Core/SpectralCoreEngine.h,2,fft:performSTFT
+Source - 2.zip,Source/Core/SpectralMask.cpp,11,filter:applySpectralFilter
+Source - 2.zip,Source/Core/SpectralProcessor.h,5,"processor:SpectralProcessor, SpectralProcessor"
+Source - 2.zip,Source/Core/SystemIntegrityTest.h,3,filter:setStopOnFirstFailure
+Source - 2.zip,Source/Core/TubeStage.h,9,filter:calculateFilterCoefficients
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneCoefficientBank.cpp,0,zplane
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneCoefficientBank.h,0,"filter:ZPlaneCoefficientBank, ZPlaneCoefficientBank; emu:ZPlaneCoefficientBank, ZPlaneCoefficientBank"
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneLogFreqLUT.h,0,STFT; zplane; sampleRate
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneSpectralMask.cpp,0,zplane; spectral
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneSpectralMask.h,0,filter:ZPlaneSpectralMask; emu:ZPlaneSpectralMask
+Source - 2.zip,Source/DSP/ZPlane/ZPlaneUtils.h,0,zplane
+Source - 2.zip,Source/MainEMU.cpp,1,"emu:EMURomplerWindow, SpectralCanvasEMUApp, EMURomplerWindow, SpectralCanvasEMUApp"
+Source - 2.zip,Source/PaintControlPanel.h,1,processor:ARTEFACTAudioProcessor
+Source - 2.zip,Source/PluginMinimal/PluginProcessor.cpp,4,z-plane; JUCE; AudioBuffer
+Source - 2.zip,Source/PluginMinimal/PluginProcessor.h,4,"processor:SpectralCanvasProMinimalProcessor, SpectralCanvasProMinimalProcessor"
+Source - 2.zip,Source/Spectral/STFTEngine.h,2,"fft:STFTEngine, STFTEngine"
+Source - 2.zip,Source/SpectralCanvasProAudioProcessor.cpp,16,FFT; STFT; overlap-add; z-plane; spectral; JUCE
+Source - 2.zip,Source/SpectralCanvasProAudioProcessor.h,20,processor:SpectralCanvasProAudioProcessor
+Source - 2.zip,Source/SpectralPaintProcessor.h,7,"processor:SpectralPaintProcessor; fft:getFFTOrder, getFFTSize"
+SpectralResearchVault.zip,SpectralResearchVault/Analog/CEM3389Filter/CEM3389Filter.h,2,"filter:CEM3389Filter, CEM3389Filter"
+SpectralResearchVault.zip,SpectralResearchVault/Analog/MorphFilter/MorphFilter.h,2,"filter:MorphFilter, MorphFilter"
+SpectralResearchVault.zip,SpectralResearchVault/PluginConcepts/VintageCanvas/VintageCanvasProcessor.h,5,"processor:VintageCanvasProcessor, VintageCanvasProcessor"
+emu_extracted - 1.zip,emu_extracted/EMUFilter.h,0,filter:AuthenticEMUZPlane; emu:AuthenticEMUZPlane
+emu_extracted - 1.zip,emu_extracted/FieldEngineFXProcessor.cpp,6,processor:FieldEngineFXProcessor; filter:createPluginFilter
+emu_extracted - 1.zip,emu_extracted/emu_zplane_api.h,0,"emu:emu_create, emu_destroy, emu_set_shapeA, emu_set_shapeB"

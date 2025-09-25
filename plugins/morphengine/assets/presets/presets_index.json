@@ -1,0 +1,81 @@
+{
+  "name": "MorphEngine Factory Presets",
+  "version": "1.0.0",
+  "description": "Instant musical results showcasing EMU Z-plane morphing character",
+  "presets": [
+    {
+      "id": "formant_glide",
+      "file": "01_Formant_Glide.json",
+      "name": "Formant Glide",
+      "category": "Vocal",
+      "tags": ["vocal", "formant", "sweep", "lead", "pad"],
+      "description": "Classic vowel morphing for vocal textures and leads"
+    },
+    {
+      "id": "bell_bite",
+      "file": "02_Bell_Bite.json",
+      "name": "Bell Bite",
+      "category": "Metallic",
+      "tags": ["bell", "metallic", "bright", "pluck", "lead"],
+      "description": "Bright metallic character for plucks and leads"
+    },
+    {
+      "id": "low_pad_motion",
+      "file": "03_Low_Pad_Motion.json",
+      "name": "Low Pad Motion",
+      "category": "Texture",
+      "tags": ["pad", "bass", "warm", "evolving", "texture"],
+      "description": "Deep, evolving texture for pads and bass"
+    },
+    {
+      "id": "focus_detail",
+      "file": "04_Focus_Detail.json",
+      "name": "Focus Detail",
+      "category": "Percussive",
+      "tags": ["percussive", "tight", "detailed", "drums"],
+      "description": "Tight, detailed character for percussive elements"
+    },
+    {
+      "id": "air_shimmer",
+      "file": "05_Air_Shimmer.json",
+      "name": "Air Shimmer",
+      "category": "Ambient",
+      "tags": ["ambient", "bright", "airy", "ethereal", "shimmer"],
+      "description": "Bright, airy character for ambient textures"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Vocal",
+      "description": "Formant-based vocal character and vowel morphing"
+    },
+    {
+      "name": "Metallic",
+      "description": "Bell-like and metallic timbres"
+    },
+    {
+      "name": "Texture",
+      "description": "Evolving pads and textural sounds"
+    },
+    {
+      "name": "Percussive",
+      "description": "Tight, detailed character for rhythmic elements"
+    },
+    {
+      "name": "Ambient",
+      "description": "Ethereal and atmospheric textures"
+    }
+  ],
+  "style_guide": {
+    "neutral": "Balanced, natural character",
+    "air": "Bright, open, airy with enhanced highs",
+    "velvet": "Warm, smooth, musical with tamed resonance",
+    "focus": "Tight, detailed, precise with controlled mix"
+  },
+  "automation_tips": [
+    "Morph parameter is perfect for real-time expression",
+    "Cutoff responds well to filter envelope followers",
+    "Style changes create instant character shifts",
+    "Mix parameter allows for parallel processing effects"
+  ]
+}

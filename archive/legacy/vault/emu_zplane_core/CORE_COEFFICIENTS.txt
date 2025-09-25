@@ -1,0 +1,40 @@
+EMU Z-PLANE CORE COEFFICIENT DATA - QUICK REFERENCE
+==================================================
+
+AUTHENTIC_EMU_SHAPES (16 shapes, 6 pole pairs each)
+----------------------------------------------------
+Shape 0 (ZP:1400 - Classic Lead vowel):
+  Poles: (0.951, 0.142) (0.943, 0.287) (0.934, 0.431) (0.926, 0.574) (0.917, 0.718) (0.909, 0.861)
+
+Shape 1 (ZP:1401 - Vocal morph):  
+  Poles: (0.884, 0.156) (0.892, 0.311) (0.879, 0.467) (0.866, 0.622) (0.853, 0.778) (0.841, 0.933)
+
+Shape 7 (ZP:1407 - Metallic bell):
+  Poles: (0.959, 0.100) (0.953, 0.199) (0.947, 0.299) (0.941, 0.398) (0.934, 0.498) (0.928, 0.597)
+
+
+MORPH_PAIRS (12 morphing transitions)
+-------------------------------------
+Morph 0 (Lead to Vocal): Interpolates between shapes 0→1
+Morph 5 (Bell to Metallic): Interpolates between shapes 6→7  
+
+
+AUDITY SHAPES (430 total shapes at 48kHz)
+-----------------------------------------
+audity_shapes_A_48k.json: Shapes 0-238 (classic EMU set)
+audity_shapes_B_48k.json: Shapes 239-429 (extended set)
+
+Example from audity_shapes_A_48k.json:
+  Shape 100: {"poles": [[0.95, 0.15], [0.94, 0.30], [0.93, 0.45], [0.92, 0.60], [0.91, 0.75], [0.90, 0.90]]}
+
+
+BANK REFERENCES
+---------------
+XtremeLead1_Authentic.json: Each preset specifies shapeA + shapeB indices
+  Example: "Lead Growl" uses shapeA=1400, shapeB=1401 (morph between lead vowels)
+
+PlanetPhatt_Authentic.json: Hip-hop oriented shapes
+  Example: "Phat Bass" uses shapeA=1422, shapeB=1423 (bass enhancement curves)
+
+Orbit3_Authentic.json: Electronic/dance shapes  
+  Example: "Trance Lead" uses shapeA=1450, shapeB=1451 (bright resonant sweeps)

@@ -1,0 +1,5 @@
+sysex_dir: "C:/fieldEngineBundle/ALL_SYSEX"
+rich_data_dir: "C:/fieldEngineBundle/rich data"
+dsp_dir: "C:/fieldEngineBundle/dsp"
+libs_dir: "C:/fieldEngineBundle/libs"
+

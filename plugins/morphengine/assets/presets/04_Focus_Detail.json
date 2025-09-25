@@ -1,0 +1,14 @@
+{
+  "name": "Focus Detail",
+  "description": "Tight, detailed character for percussive elements",
+  "category": "Percussive",
+  "parameters": {
+    "zplane.model": 1,
+    "zplane.morph": 0.2,
+    "zplane.cutoff": 0.45,
+    "zplane.resonance": 0.55,
+    "style.variant": 3,
+    "style.mix": 0.85
+  },
+  "notes": "Focus style creates tight, detailed character. Great for drums, percussion, and detailed textures."
+}

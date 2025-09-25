@@ -1,0 +1,805 @@
+{
+  "count": 20,
+  "items": [
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 9,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        12
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 10,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        127,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          127,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 11,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        127,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        127
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 127,
+        "reserved": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          127
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 12,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          16,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 13,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 2,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 14,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        121,
+        127,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 3,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          121,
+          127,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 15,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        118,
+        127,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          118,
+          127,
+          3,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 16,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 1,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          100,
+          0,
+          0,
+          0,
+          100,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 17,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
+        127,
+        0,
+        100,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 100,
+        "reserved": [
+          0,
+          127,
+          0,
+          100,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 18,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        1,
+        0,
+        0,
+        42,
+        0,
+        100,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 1,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 42,
+        "tilt": 0,
+        "reserved": [
+          100,
+          0,
+          0,
+          0,
+          100,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 19,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
+        127,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 100,
+        "tilt": 0,
+        "reserved": [
+          127,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 20,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        99,
+        0,
+        20,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 1,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          0,
+          0,
+          99,
+          0,
+          20,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 21,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 100,
+        "morphIndex": 0,
+        "morphDepth": 0,
+        "tilt": 0,
+        "reserved": [
+          100,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 22,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        0,
+        0,
+        12,
+        0,
+        64,
+        0,
+        24,
+        0,
+        12,
+        0,
+        56,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 0,
+        "morphIndex": 0,
+        "morphDepth": 12,
+        "tilt": 0,
+        "reserved": [
+          64,
+          0,
+          24,
+          0,
+          12,
+          0,
+          56,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 23,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        8,
+        0,
+        56,
+        0,
+        0,
+        0,
+        96,
+        0,
+        48,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 8,
+        "morphIndex": 0,
+        "morphDepth": 56,
+        "tilt": 0,
+        "reserved": [
+          0,
+          0,
+          96,
+          0,
+          48,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 24,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        17,
+        0,
+        41,
+        1,
+        100,
+        0,
+        22,
+        0,
+        8,
+        0,
+        100,
+        0,
+        20,
+        0
+      ],
+      "decode": {
+        "filterType": 17,
+        "cutoff": 0,
+        "q": 41,
+        "morphIndex": 1,
+        "morphDepth": 100,
+        "tilt": 0,
+        "reserved": [
+          22,
+          0,
+          8,
+          0,
+          100,
+          0,
+          20,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 25,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        56,
+        0,
+        100,
+        0,
+        21,
+        0,
+        57,
+        0,
+        80,
+        0,
+        80,
+        0,
+        56,
+        0
+      ],
+      "decode": {
+        "filterType": 56,
+        "cutoff": 0,
+        "q": 100,
+        "morphIndex": 0,
+        "morphDepth": 21,
+        "tilt": 0,
+        "reserved": [
+          57,
+          0,
+          80,
+          0,
+          80,
+          0,
+          56,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 26,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        0,
+        0,
+        32,
+        0,
+        48,
+        1,
+        100,
+        0,
+        104,
+        0,
+        56,
+        0,
+        0,
+        0
+      ],
+      "decode": {
+        "filterType": 0,
+        "cutoff": 0,
+        "q": 32,
+        "morphIndex": 0,
+        "morphDepth": 48,
+        "tilt": 1,
+        "reserved": [
+          100,
+          0,
+          104,
+          0,
+          56,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 27,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        33,
+        0,
+        50,
+        1,
+        100,
+        0,
+        34,
+        0,
+        81,
+        0,
+        28,
+        127,
+        35,
+        0
+      ],
+      "decode": {
+        "filterType": 33,
+        "cutoff": 0,
+        "q": 50,
+        "morphIndex": 1,
+        "morphDepth": 100,
+        "tilt": 0,
+        "reserved": [
+          34,
+          0,
+          81,
+          0,
+          28,
+          127,
+          35,
+          0
+        ]
+      }
+    },
+    {
+      "pack": "plugins/_packs/a2k_user_seg/00_0000_HOUSE.bin",
+      "id": 28,
+      "type": 16,
+      "sub": 34,
+      "bytes": [
+        82,
+        0,
+        28,
+        127,
+        36,
+        0,
+        73,
+        0,
+        65,
+        127,
+        37,
+        0,
+        75,
+        0
+      ],
+      "decode": {
+        "filterType": 82,
+        "cutoff": 0,
+        "q": 28,
+        "morphIndex": 127,
+        "morphDepth": 36,
+        "tilt": 0,
+        "reserved": [
+          73,
+          0,
+          65,
+          127,
+          37,
+          0,
+          75,
+          0
+        ]
+      }
+    }
+  ]
+}
